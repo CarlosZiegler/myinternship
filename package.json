@@ -6,7 +6,8 @@
     "start": "node ./bin/www",
     "dev": "DEBUG=myinternship:* nodemon ./bin/www",
     "dev-windows": "nodemon ./bin/www",
-    "test": "jest"
+    "test": "jest",
+    "e2e": "cypress open"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
@@ -20,7 +21,8 @@
     "serve-favicon": "^2.5.0"
   },
   "devDependencies": {
-    "nodemon": "^1.12.1",
-    "jest": "^26.1.0"
+    "cypress": "^4.9.0",
+    "jest": "^26.1.0",
+    "nodemon": "^1.12.1"
   }
 }
