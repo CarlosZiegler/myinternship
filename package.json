@@ -6,7 +6,7 @@
     "start": "node ./bin/www",
     "dev": "DEBUG=myinternship:* nodemon ./bin/www",
     "dev-windows": "nodemon ./bin/www",
-    "test": "jest",
+    "test": "jest --detectOpenHandles",
     "e2e": "cypress open"
   },
   "dependencies": {
