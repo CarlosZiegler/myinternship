@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const DbConnection = async () => {
   try {
     const connection = await mongoose
-      .connect(process.env.MONGO_URI || 'mongodb+srv://myinternship:ironhack2020@cluster0-voe4r.mongodb.net/interniship?retryWrites=true&w=majority', {
+      .connect(process.env.MONGO_URI, {
         useCreateIndex: true,
         useNewUrlParser: true,
         useUnifiedTopology: true
@@ -16,7 +16,6 @@ const DbConnection = async () => {
   }
 
 }
-
 
 module.exports = DbConnection
 
