@@ -16,7 +16,7 @@ const router = express.Router();
 
 
 router.get('/', (req, res, next) => {
-  res.send({ value: 200 });
+  res.render('index');
 });
 
 /**
