@@ -15,6 +15,10 @@ services:
 cache:
   paths:
     - node_modules/
+variables:
+  PORT: 3000
+  ENV: "development"
+  MONGO_URI: "mongodb+srv://myinternship:ironhack2020@cluster0-voe4r.mongodb.net/interniship?retryWrites=true&w=majority"
 tests:
   script:
     - npm install
