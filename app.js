@@ -9,15 +9,45 @@ const mongoose = require('mongoose');
 const logger = require('morgan');
 const path = require('path');
 
+const swaggerJsDoc = require('swagger-jsdoc');
+const swaggerUI = require('swagger-ui-express');
 
-// mongoose
-//   .connect('mongodb://localhost/myinternship', {useNewUrlParser: true})
-//   .then(x => {
-//     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
-//   })
-//   .catch(err => {
-//     console.error('Error connecting to mongo', err)
-//   });
+const swaggerOptions = {
+  swaggerDefinition: {
+    info: {
+      title: 'Internship API',
+      description: 'Custom Internship API',
+      contact: {
+        name: 'Ironhacker: Carlos, Leo and Vitor'
+      },
+      servers: ['http://localhost:3000']
+    }
+  },
+  apis: ["./routes/*.js"]
+}
+
+const swaggerDocs = swaggerJsDoc(swaggerOptions)
+
+const DisableTryItOutPlugin = function () {
+  return {
+    statePlugins: {
+      spec: {
+        wrapSelectors: {
+          allowTryItOutFor: () => () => false
+        }
+      }
+    }
+  }
+}
+
+const options = {
+  swaggerOptions: {
+    plugins: [
+      DisableTryItOutPlugin
+    ]
+  }
+};
+
 
 // require database configuration
 require('./configs/db.config');
@@ -26,6 +56,8 @@ const app_name = require('./package.json').name;
 const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.')[0]}`);
 
 const app = express();
+
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs, options))
 
 // Middleware Setup
 app.use(logger('dev'));
