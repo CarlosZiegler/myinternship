@@ -1,13 +1,22 @@
 const mongoose = require('mongoose');
 
-const DbConnection = mongoose
-  .connect('mongodb+srv://myinternship:ironhack2020@cluster0-voe4r.mongodb.net/interniship?retryWrites=true&w=majority', {
-    useCreateIndex: true,
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  })
-  .then(x => console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`))
-  .catch(err => console.error('Error connecting to mongo', err));
+const DbConnection = async () => {
+  try {
+    const connection = await mongoose
+      .connect(process.env.MONGO_URI || 'mongodb+srv://myinternship:ironhack2020@cluster0-voe4r.mongodb.net/interniship?retryWrites=true&w=majority', {
+        useCreateIndex: true,
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+      })
+    console.log(`Connected to Mongo! Database name: "${connection.connections[0].name}"`)
+    return true
+  } catch (error) {
+    console.error('Error connecting to mongo', error)
+    return false
+  }
+
+}
+
 
 module.exports = DbConnection
 
