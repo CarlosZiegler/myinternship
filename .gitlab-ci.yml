@@ -18,4 +18,4 @@ cache:
 tests:
   script:
     - npm install
-    - node run test
+    - npm run test
