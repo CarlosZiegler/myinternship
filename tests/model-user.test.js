@@ -2,15 +2,16 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 const DbConnection = require('../configs/db.config');
 const User = require('../models/User')
-const Vacancy = require('../models/Vacancy')
+
 
 let userMockID;
 
-describe('Testing DB', () => {
-  test('Connecting to Db and returning connection true', async () => {
-    const connection = await DbConnection()
-    expect(connection).toBe(true);
-  });
+
+beforeAll(async () => {
+  await DbConnection()
+});
+
+describe('Testing Model User', () => {
 
   test('Creating user will return new User', async () => {
 
@@ -22,7 +23,8 @@ describe('Testing DB', () => {
       githubId: "1233ewwe11212",
       googleId: "fgfgfgffgssd",
       role: "personal",
-      avatarUrl: "https://localhost/images/"
+      avatarUrl: "https://localhost/images/",
+      vacancies: [new mongoose.Types.ObjectId(), new mongoose.Types.ObjectId()]
     }
 
     const user = await User.create(userMock)
@@ -53,7 +55,6 @@ describe('Testing DB', () => {
 
 
     const result = await User.updateOne({ _id: userMockID }, userUpdateMock)
-    console.log(result)
     expect(result.nModified).toBe(1);
   });
 
@@ -65,6 +66,5 @@ describe('Testing DB', () => {
 });
 
 afterAll(async () => {
-  // await User.deleteOne({ username: "Carlos Ziegler" })
   await mongoose.connection.close();
 });
