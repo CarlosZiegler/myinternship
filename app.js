@@ -9,6 +9,9 @@ const mongoose = require('mongoose');
 const logger = require('morgan');
 const path = require('path');
 
+const bcrypt = require('bcrypt');
+const flash = require('connect-flash');
+
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUI = require('swagger-ui-express');
 
@@ -65,6 +68,83 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+// Passport Setup
+const User = require('./models/User');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+
+// we serialize only the `_id` field of the user to keep the information stored minimum
+passport.serializeUser((user, done) => {
+  done(null, user._id);
+});
+
+// when we need the information for the user, the deserializeUser function is called with the id that we previously serialized to fetch the user from the database
+passport.deserializeUser((id, done) => {
+  User.findById(id)
+    .then(dbUser => {
+      done(null, dbUser);
+    })
+    .catch(err => {
+      done(err);
+    });
+});
+
+app.use(flash());
+
+passport.use(
+  new LocalStrategy((username, password, done) => {
+    User.findOne({ username: username })
+      .then(found => {
+        if (found === null) {
+          done(null, false, { message: 'Wrong credentials' });
+        } else if (!bcrypt.compareSync(password, found.password)) {
+          done(null, false, { message: 'Wrong credentials' });
+        } else {
+          done(null, found);
+        }
+      })
+      .catch(err => {
+        done(err, false);
+      });
+  })
+);
+
+// Passport github strategy setup
+
+const GithubStrategy = require('passport-github').Strategy;
+
+passport.use(
+  new GithubStrategy(
+    {
+      clientID: process.env.GITHUB_ID,
+      clientSecret: process.env.GITHUB_SECRET,
+      callbackURL: 'http://127.0.0.1:3000/auth/github/callback'
+    },
+    (accessToken, refreshToken, profile, done) => {
+      // find a user with profile.id as githubId or create one
+      User.findOne({ githubId: profile.id })
+        .then(found => {
+          if (found !== null) {
+            // user with that githubId already exists
+            done(null, found);
+          } else {
+            // no user with that githubId
+            return User.create({ githubId: profile.id }).then(dbUser => {
+              done(null, dbUser);
+            });
+          }
+        })
+        .catch(err => {
+          done(err);
+        });
+    }
+  )
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+// End of Passport Setup
+
 // Express View engine setup
 
 app.use(require('node-sass-middleware')({
@@ -85,9 +165,11 @@ app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 app.locals.title = 'Express - Generated with IronGenerator';
 
 
-
 const index = require('./routes/index');
 app.use('/', index);
+
+const authRoutes = require('./routes/auth');
+app.use('/auth', authRoutes);
 
 
 module.exports = app;
