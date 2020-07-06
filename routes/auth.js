@@ -94,10 +94,6 @@ router.post('/auth/signup', (req, res, next) => {
     });
     return;
   }
-  if (username === '') {
-    res.render('auth/signup', { message: 'Your username cannot be empty' });
-    return;
-  }
 
   User.findOne({ username: username }).then(found => {
     if (found !== null) {
