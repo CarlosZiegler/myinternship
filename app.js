@@ -70,6 +70,24 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+const db = mongoose.connection;
+
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    cookie: { maxAge: 24 * 60 * 60 * 1000 },
+    saveUninitialized: false,
+    resave: false,
+    store: new MongoStore({
+      mongooseConnection: db,
+      ttl: 24 * 60 * 60 * 1000
+    })
+  })
+);
+
+
 // Passport Setup
 const User = require('./models/User');
 const passport = require('passport');
@@ -94,8 +112,7 @@ passport.deserializeUser((id, done) => {
 app.use(flash());
 
 passport.use(
-  new LocalStrategy(async (username, password, done) => {
-    await dbConnection();
+  new LocalStrategy( (username, password, done) => {
     User.findOne({ username: username })
       .then(found => {
         if (found === null) {
@@ -172,7 +189,7 @@ const index = require('./routes/index');
 app.use('/', index);
 
 const authRoutes = require('./routes/auth');
-app.use('/auth', authRoutes);
+app.use('/', authRoutes);
 
 
 module.exports = app;
