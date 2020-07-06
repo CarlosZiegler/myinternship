@@ -52,11 +52,10 @@ const options = {
 };
 
 // require database configuration
+
 const dbConnection = require('./configs/db.config');
 const connectToMongo = async () => await dbConnection()
 connectToMongo();
-
-// require database configuration
 
 const app_name = require('./package.json').name;
 const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.')[0]}`);
