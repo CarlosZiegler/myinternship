@@ -22,6 +22,11 @@ const vacancySchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User'
   }]
+}, {
+  timestamps: {
+    createdAt: "created_at",
+    updatedAt: "updated_at"
+  }
 });
 
 const Vacancy = mongoose.model("Vacancy", vacancySchema);

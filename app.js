@@ -57,6 +57,7 @@ const dbConnection = require('./configs/db.config');
 const connectToMongo = async () => await dbConnection()
 connectToMongo();
 
+
 const app_name = require('./package.json').name;
 const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.')[0]}`);
 
@@ -187,6 +188,8 @@ app.locals.title = 'Express - Generated with IronGenerator';
 
 const index = require('./routes/index');
 app.use('/', index);
+const vacancy = require('./routes/vacancy');
+app.use('/', vacancy);
 
 const authRoutes = require('./routes/auth');
 app.use('/', authRoutes);

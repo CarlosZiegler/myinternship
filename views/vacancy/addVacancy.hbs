@@ -1,0 +1,30 @@
+<h1>Add Vacancy</h1>
+<form class="form-add-vacancy" id="form" action="/vacancy/create" method="POST">
+
+  <label for="title">Title</label>
+  <input type="text" name="title" required />
+
+  <label for="description">Description</label>
+  <input type="text" name="description" required />
+
+  <label for="category">Category</label>
+  <input type="text" name="category" required />
+
+  <label for="tags">Tags</label>
+  <input type="text" name="tags" required />
+
+  <label for="location">Location</label>
+  <input type="text" name="location" required />
+
+  <label for="contract">Contract</label>
+  <input type="text" name="contract" required />
+
+  {{#if errorMessage}}
+  <div class="error-message">{{errorMessage}}</div>
+  {{/if}}
+
+  <button type="submit">Add Vacancy</button>
+</form>
+
+<a href="/">Home</a>
+<a href="/vacancy/list">Back to list</a>
