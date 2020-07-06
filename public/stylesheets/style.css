@@ -1,8 +1,16 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
 
 a {
   color: #00B7FF; }
 
-/*# sourceMappingURL=style.css.map */
+form{
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  margin: 0 auto;
+  
+}s
+form :nth-child(n){
+  margin-top: 5px;
+}

@@ -19,6 +19,11 @@ const userSchema = new Schema({
     enum: ['personal', 'company'],
   },
   avatarUrl: String
+}, {
+  timestamps: {
+    createdAt: "created_at",
+    updatedAt: "updated_at"
+  }
 });
 
 const User = mongoose.model("User", userSchema);
