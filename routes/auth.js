@@ -19,7 +19,7 @@ const passport = require('passport');
  */
 
 
-router.get('/signup', (req, res) => {
+router.get('/auth/signup', (req, res) => {
   res.render('auth/signup');
 });
 
@@ -36,7 +36,7 @@ router.get('/signup', (req, res) => {
 
 
 router.post(
-  '/login',
+  '/auth/login',
   passport.authenticate('local', {
     successRedirect: '/',
     failureRedirect: '/auth/login',
@@ -46,10 +46,10 @@ router.post(
 )
 
 // github authentication routing
-router.get('/github', passport.authenticate('github'));
+router.get('/auth/github', passport.authenticate('github'));
 
 router.get(
-  '/github/callback',
+  '/auth/github/callback',
   passport.authenticate('github', {
     successRedirect: '/',
     failureRedirect: '/auth/login',
@@ -57,7 +57,7 @@ router.get(
 );
 
 
-router.post('/signup', (req, res, next) => {
+router.post('/auth/signup', (req, res, next) => {
   const { username, password } = req.body;
 
   if (password.length < 8) {
@@ -98,11 +98,11 @@ router.post('/signup', (req, res, next) => {
 });
 
 
-router.get('/login', (req, res) => {
+router.get('/auth/login', (req, res) => {
   res.render('auth/login');
 });
 
-router.get('/logout', (req, res, next) => {
+router.get('/auth/logout', (req, res, next) => {
   // passport
   req.logout();
   res.redirect('/');
