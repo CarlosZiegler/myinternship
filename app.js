@@ -51,9 +51,12 @@ const options = {
   }
 };
 
+// require database configuration
+const dbConnection = require('./configs/db.config');
+const connectToMongo = async () => await dbConnection()
+connectToMongo();
 
 // require database configuration
-require('./configs/db.config');
 
 const app_name = require('./package.json').name;
 const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.')[0]}`);
@@ -92,7 +95,8 @@ passport.deserializeUser((id, done) => {
 app.use(flash());
 
 passport.use(
-  new LocalStrategy((username, password, done) => {
+  new LocalStrategy(async (username, password, done) => {
+    await dbConnection();
     User.findOne({ username: username })
       .then(found => {
         if (found === null) {
