@@ -82,9 +82,9 @@ router.get('/vacancy/details/:id', async (req, res, next) => {
 
 /**
  * @swagger
- * /vacancy/:id:
+ * /vacancies:
  *  get:
- *    description: render details page of Vacancy id
+ *    description: render list of Vacancies
  *    responses:
  *       '200': 
  *       description: Successfully   
@@ -116,6 +116,35 @@ router.post('/vacancy/delete/:id', async (req, res, next) => {
   console.log(id)
   try {
     const result = await Vacancy.findByIdAndDelete(id)
+    res.redirect("/vacancies");
+  } catch (error) {
+    console.log(error)
+  }
+});
+
+/**
+ * @swagger
+ * /vacancy/edit/:id:
+ *  path:
+ *    description: delete vacancy by ID
+ *    responses:
+ *       '200': 
+ *       description: Successfully   
+ *       
+ */
+router.patch('/vacancy/edit/:id', async (req, res, next) => {
+  const { id } = req.params
+  const {
+    title,
+    description,
+    category,
+    tags,
+    location,
+    contract,
+  } = req.body
+
+  try {
+    const result = await Vacancy.findByIdAndUpdate(id)
     res.redirect("/vacancies");
   } catch (error) {
     console.log(error)

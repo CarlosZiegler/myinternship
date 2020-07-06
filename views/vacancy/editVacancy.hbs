@@ -1,29 +1,29 @@
 <h1>Edit Vacancy</h1>
-<form class="form-add-vacancy" id="form" action="/vacancy/create" method="POST">
+<form class="form-add-vacancy" id="form" action="/vacancy/edit/{{_id}}" method="POST">
 
   <label for="title">Title</label>
-  <input type="text" name="title" />
+  <input type="text" name="title" value="{{title}}" />
 
   <label for="description">Description</label>
-  <input type="text" name="description" />
+  <input type="text" name="description" value="{{description}}" />
 
   <label for="category">Category</label>
-  <input type="text" name="category" />
+  <input type="text" name="category" value="{{category}}" />
 
   <label for="tags">Tags</label>
-  <input type="text" name="tags" />
+  <input type="text" name="tags" value="{{tags}}" />
 
   <label for="location">Location</label>
-  <input type="text" name="location" />
+  <input type="text" name="location" value="{{location}}" />
 
   <label for="contract">Contract</label>
-  <input type="text" name="contract" />
+  <input type="text" name="contract" value="{{contract}}" />
 
   {{#if errorMessage}}
   <div class="error-message">{{errorMessage}}</div>
   {{/if}}
 
-  <button type="submit">Add Vacancy</button>
+  <button type="submit">Edit Vacancy</button>
 </form>
 
 <a href="/">Home</a>
