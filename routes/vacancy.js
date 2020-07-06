@@ -95,7 +95,6 @@ router.get('/vacancies', async (req, res, next) => {
 
   try {
     const vacancies = await Vacancy.find()
-    console.log(vacancies)
     res.render("vacancy/listVacancies", { vacancies });
   } catch (error) {
     console.log(error)
@@ -112,11 +111,12 @@ router.get('/vacancies', async (req, res, next) => {
  *       description: Successfully   
  *       
  */
-router.delete('/vacancy/delete/:id', async (req, res, next) => {
+router.post('/vacancy/delete/:id', async (req, res, next) => {
   const { id } = req.params
+  console.log(id)
   try {
     const result = await Vacancy.findByIdAndDelete(id)
-    res.send(result);
+    res.redirect("/vacancies");
   } catch (error) {
     console.log(error)
   }
