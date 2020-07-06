@@ -88,7 +88,7 @@ router.post('/signup', (req, res, next) => {
           });
 
           // redirect to login
-          res.redirect('login');
+          res.redirect('/');
         })
         .catch(err => {
           next(err);
