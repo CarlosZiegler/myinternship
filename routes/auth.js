@@ -11,7 +11,7 @@ const passport = require('passport');
  * @swagger
  * /:
  *  get:
- *    description: use to request authentication page
+ *    description: use to request authentication signup page
  *    responses:
  *       '200': 
  *       description: Successfully   
@@ -27,7 +27,7 @@ router.get('/auth/signup', (req, res) => {
  * @swagger
  * /:
  *  post:
- *    description: use to post authentication page
+ *    description: use to post authentication login page
  *    responses:
  *       '200': 
  *       description: Successfully   
@@ -35,9 +35,7 @@ router.get('/auth/signup', (req, res) => {
  */
 
 
-router.post(
-  '/auth/login',
-  passport.authenticate('local', {
+router.post('/auth/login', passport.authenticate('local', {
     successRedirect: '/',
     failureRedirect: '/auth/login',
     failureFlash: true,
@@ -45,17 +43,47 @@ router.post(
   })
 )
 
+/**
+ * @swagger
+ * /:
+ *  get:
+ *    description: use to request github authentication page
+ *    responses:
+ *       '200': 
+ *       description: Successfully   
+ *       
+ */
+
 // github authentication routing
 router.get('/auth/github', passport.authenticate('github'));
 
-router.get(
-  '/auth/github/callback',
-  passport.authenticate('github', {
+/**
+ * @swagger
+ * /:
+ *  get:
+ *    description: use to callback github authentication page
+ *    responses:
+ *       '200': 
+ *       description: Successfully   
+ *       
+ */
+
+router.get('/auth/github/callback', passport.authenticate('github', {
     successRedirect: '/',
     failureRedirect: '/auth/login',
   })
 );
 
+/**
+ * @swagger
+ * /:
+ *  post:
+ *    description: use to signup page
+ *    responses:
+ *       '200': 
+ *       description: Successfully   
+ *       
+ */
 
 router.post('/auth/signup', (req, res, next) => {
   const { username, password } = req.body;
@@ -97,13 +125,33 @@ router.post('/auth/signup', (req, res, next) => {
   });
 });
 
+/**
+ * @swagger
+ * /:
+ *  get:
+ *    description: use to login page
+ *    responses:
+ *       '200': 
+ *       description: Successfully   
+ *       
+ */
 
 router.get('/auth/login', (req, res) => {
   res.render('auth/login');
 });
 
+/**
+ * @swagger
+ * /:
+ *  get:
+ *    description: use to logout page
+ *    responses:
+ *       '200': 
+ *       description: Successfully   
+ *       
+ */
+
 router.get('/auth/logout', (req, res, next) => {
-  // passport
   req.logout();
   res.redirect('/');
 });
