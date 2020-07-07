@@ -52,7 +52,6 @@ const options = {
 };
 
 // require database configuration
-
 const dbConnection = require('./configs/db.config');
 const connectToMongo = async () => await dbConnection()
 connectToMongo();
@@ -113,7 +112,7 @@ passport.deserializeUser((id, done) => {
 app.use(flash());
 
 passport.use(
-  new LocalStrategy( (username, password, done) => {
+  new LocalStrategy((username, password, done) => {
     User.findOne({ username: username })
       .then(found => {
         if (found === null) {
@@ -137,8 +136,8 @@ const GithubStrategy = require('passport-github').Strategy;
 passport.use(
   new GithubStrategy(
     {
-      clientID: process.env.GITHUB_ID,
-      clientSecret: process.env.GITHUB_SECRET,
+      clientID: process.env.ID_GIT,
+      clientSecret: process.env.SECRET_GIT,
       callbackURL: 'http://127.0.0.1:3000/auth/github/callback'
     },
     (accessToken, refreshToken, profile, done) => {
@@ -161,6 +160,26 @@ passport.use(
     }
   )
 );
+
+//Passport Google strategy setup
+
+const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+
+// Use the GoogleStrategy within Passport.
+//   Strategies in Passport require a `verify` function, which accept
+//   credentials (in this case, an accessToken, refreshToken, and Google
+//   profile), and invoke a callback with a user object.
+passport.use(new GoogleStrategy({
+  clientID: process.env.GOOGLE_CLIENT_ID,
+  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  callbackURL: "http://localhost:3000/auth/google/callback"
+},
+  function (accessToken, refreshToken, profile, done) {
+    User.findOrCreate({ googleId: profile.id }, function (err, user) {
+      return done(err, user);
+    });
+  }
+));
 
 app.use(passport.initialize());
 app.use(passport.session());

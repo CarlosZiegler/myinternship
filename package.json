@@ -6,7 +6,7 @@
     "start": "node ./bin/www",
     "dev": "DEBUG=myinternship:* nodemon ./bin/www",
     "dev-windows": "nodemon ./bin/www",
-    "test": "jest --detectOpenHandles --coverage",
+    "test": "jest --forceExit --detectOpenHandles --coverage",
     "e2e": "cypress open"
   },
   "dependencies": {
@@ -24,6 +24,7 @@
     "node-sass-middleware": "^0.11.0",
     "passport": "^0.4.0",
     "passport-github": "^1.1.0",
+    "passport-google-oauth": "^2.0.0",
     "passport-local": "^1.0.0",
     "serve-favicon": "^2.5.0",
     "swagger-jsdoc": "^4.0.0",
@@ -32,6 +33,7 @@
   "devDependencies": {
     "cypress": "^4.9.0",
     "jest": "^26.1.0",
-    "nodemon": "^1.12.1"
+    "nodemon": "^1.12.1",
+    "supertest": "^4.0.2"
   }
 }

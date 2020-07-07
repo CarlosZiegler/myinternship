@@ -32,3 +32,8 @@ jobs:
         MONGO_URI: ${{ secrets.MongoUri }}
         ENV: ${{ secrets.ENV }}
         PORT: ${{ secrets.PORT }}
+        GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+        GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        ID_GIT: ${{ secrets.ID_GIT }}
+        SECRET_GIT: ${{ secrets.SECRET_GIT }}
+        SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
