@@ -52,10 +52,6 @@ const options = {
 };
 
 // require database configuration
-<<<<<<< HEAD
-=======
-
->>>>>>> development
 const dbConnection = require('./configs/db.config');
 const connectToMongo = async () => await dbConnection()
 connectToMongo();
@@ -116,11 +112,7 @@ passport.deserializeUser((id, done) => {
 app.use(flash());
 
 passport.use(
-<<<<<<< HEAD
   new LocalStrategy((username, password, done) => {
-=======
-  new LocalStrategy( (username, password, done) => {
->>>>>>> development
     User.findOne({ username: username })
       .then(found => {
         if (found === null) {
