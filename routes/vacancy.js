@@ -31,6 +31,11 @@ router.get('/vacancy/create', async (req, res, next) => {
  *       
  */
 router.post('/vacancy/create', async (req, res, next) => {
+
+  if (req.user.role !== 'company') {
+    res.redirect("/main");
+  }
+
   const {
     title,
     description,
@@ -71,7 +76,6 @@ router.post('/vacancy/create', async (req, res, next) => {
  */
 router.get('/vacancy/details/:id', async (req, res, next) => {
   const { id } = req.params
-
   try {
     const vacancy = await Vacancy.findById(id)
     res.render("vacancy/detailsVacancy", { vacancy });
@@ -112,8 +116,10 @@ router.get('/vacancies', async (req, res, next) => {
  *       
  */
 router.post('/vacancy/delete/:id', async (req, res, next) => {
+  if (req.user.role !== 'company') {
+    res.redirect("/main");
+  }
   const { id } = req.params
-  console.log(id)
   try {
     const result = await Vacancy.findByIdAndDelete(id)
     res.redirect("/vacancies");
@@ -133,6 +139,9 @@ router.post('/vacancy/delete/:id', async (req, res, next) => {
  *       
  */
 router.patch('/vacancy/edit/:id', async (req, res, next) => {
+  if (req.user.role !== 'company') {
+    res.redirect("/main");
+  }
   const { id } = req.params
   const {
     title,

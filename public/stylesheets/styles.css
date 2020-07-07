@@ -130,10 +130,10 @@ body {
   padding:10px;
 }
 @media (min-width:1060px){
-  .footer{
+  /* .footer{
     position: fixed;
     bottom: 0;
-  }
+  } */
 }
 .footer-logo{
   width:60px;

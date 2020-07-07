@@ -36,11 +36,11 @@ router.get('/auth/signup', (req, res) => {
 
 
 router.post('/auth/login', passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/auth/login',
-    failureFlash: true,
-    passReqToCallback: true
-  })
+  successRedirect: '/',
+  failureRedirect: '/auth/login',
+  failureFlash: true,
+  passReqToCallback: true
+})
 )
 
 /**
@@ -69,9 +69,9 @@ router.get('/auth/github', passport.authenticate('github'));
  */
 
 router.get('/auth/github/callback', passport.authenticate('github', {
-    successRedirect: '/',
-    failureRedirect: '/auth/login',
-  })
+  successRedirect: '/',
+  failureRedirect: '/auth/login',
+})
 );
 
 
@@ -110,8 +110,9 @@ router.get('/auth/google', passport.authenticate('google', { scope: ['https://ww
 //   login page.  Otherwise, the primary route function function will be called,
 //   which, in this example, will redirect the user to the home page.
 router.get('/auth/google/callback', passport.authenticate('google', {
-  failureRedirect: 'auth/login' }),
-  function(req, res) {
+  failureRedirect: 'auth/login'
+}),
+  function (req, res) {
     res.redirect('/');
   });
 
@@ -143,7 +144,7 @@ router.post('/auth/signup', (req, res, next) => {
         // we can create a user with the username and password pair
         const salt = bcrypt.genSaltSync();
         const hash = bcrypt.hashSync(password, salt);
-  
+
         User.create({ username: username, password: hash })
           .then(dbUser => {
             // passport - login the user
@@ -151,7 +152,7 @@ router.post('/auth/signup', (req, res, next) => {
               if (err) next(err);
               else res.redirect('/');
             });
-  
+
             // redirect to login
             res.redirect('/');
           })
@@ -161,7 +162,7 @@ router.post('/auth/signup', (req, res, next) => {
       }
     });
   } catch (error) {
-    console.error("Error router signup",error)
+    console.error("Error router signup", error)
   }
 });
 
