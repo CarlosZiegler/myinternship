@@ -18,7 +18,10 @@ const { loginCheck } = require('./middlewares')
  *       
  */
 router.get('/vacancy/create', loginCheck(), async (req, res, next) => {
-  res.render('vacancy/addVacancy');
+  if (req.user.role !== 'company') {
+    return res.redirect("/vacancies");
+  }
+  res.render('vacancy/addVacancy', { user: req.user });
 });
 
 /**
@@ -34,7 +37,7 @@ router.get('/vacancy/create', loginCheck(), async (req, res, next) => {
 router.post('/vacancy/create', loginCheck(), async (req, res, next) => {
 
   if (req.user.role !== 'company') {
-    res.redirect("/main");
+    return res.redirect("/vacancies");
   }
 
   const {
@@ -59,7 +62,7 @@ router.post('/vacancy/create', loginCheck(), async (req, res, next) => {
       contract,
       applications
     })
-    res.redirect("/vacancies");
+    return res.redirect("/vacancies");
   } catch (error) {
     console.log(error)
   }
@@ -79,7 +82,7 @@ router.get('/vacancy/details/:id', loginCheck(), async (req, res, next) => {
   const { id } = req.params
   try {
     const vacancy = await Vacancy.findById(id)
-    res.render("vacancy/detailsVacancy", { vacancy });
+    return res.render("vacancy/detailsVacancy", { vacancy, user: req.user });
   } catch (error) {
     console.log(error)
   }
@@ -96,11 +99,10 @@ router.get('/vacancy/details/:id', loginCheck(), async (req, res, next) => {
  *       
  */
 router.get('/vacancies', loginCheck(), async (req, res, next) => {
-
-
+  console.log(req.user)
   try {
     const vacancies = await Vacancy.find()
-    res.render("vacancy/listVacancies", { vacancies });
+    return res.render("vacancy/listVacancies", { vacancies: vacancies, user: req.user });
   } catch (error) {
     console.log(error)
   }
@@ -118,12 +120,12 @@ router.get('/vacancies', loginCheck(), async (req, res, next) => {
  */
 router.post('/vacancy/delete/:id', loginCheck(), async (req, res, next) => {
   if (req.user.role !== 'company') {
-    res.redirect("/main");
+    return res.redirect("/vacancies");
   }
   const { id } = req.params
   try {
     const result = await Vacancy.findByIdAndDelete(id)
-    res.redirect("/vacancies");
+    return res.redirect("/vacancies");
   } catch (error) {
     console.log(error)
   }
@@ -141,7 +143,7 @@ router.post('/vacancy/delete/:id', loginCheck(), async (req, res, next) => {
  */
 router.patch('/vacancy/edit/:id', loginCheck(), async (req, res, next) => {
   if (req.user.role !== 'company') {
-    res.redirect("/main");
+    return res.redirect("/vacancies");
   }
   const { id } = req.params
   const {
@@ -155,7 +157,30 @@ router.patch('/vacancy/edit/:id', loginCheck(), async (req, res, next) => {
 
   try {
     const result = await Vacancy.findByIdAndUpdate(id)
-    res.redirect("/vacancies");
+    return res.redirect("/vacancies");
+  } catch (error) {
+    console.log(error)
+  }
+});
+/**
+ * @swagger
+ * /vacancy/edit/:id:
+ *  get:
+ *    description: render edit page vacancy by ID
+ *    responses:
+ *       '200': 
+ *       description: Successfully   
+ *       
+ */
+router.get('/vacancy/edit/:id', loginCheck(), async (req, res, next) => {
+  if (req.user.role !== 'company') {
+    return res.redirect("/vacancies");
+  }
+  const { id } = req.params
+
+  try {
+    const result = await Vacancy.findByIdAndUpdate(id)
+    return res.render("vacancy/editVacancy", { vacancy: result });
   } catch (error) {
     console.log(error)
   }
