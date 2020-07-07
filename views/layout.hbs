@@ -8,14 +8,41 @@
   <title>{{title}}</title>
   <link rel="stylesheet" href="/stylesheets/style.css" />
   <link rel="stylesheet" href="/stylesheets/styles.css" />
+  <script src="https://kit.fontawesome.com/7511dd60dc.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
 {{!-- NAVBAR --}}
+<header id="header" class="header">
+  <img src="/images/LogoInternship1.png" class="logo" alt="The Biggest Internship Platform" id="header-img" />
+
+  <nav id="nav-bar" class="nav">
+    <ul class="nav-list">
+      <li class="nav-item">
+        <a class="nav-link" href="#features">LOGIN</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="signupButton" href="#how-it-works">SIGN UP</a>
+      </li>
+    </ul>
+  </nav>
+</header>
+
   {{{body}}}
 
 {{!-- FOOTER --}}
 
+  <footer class="footer">
+    <img src="/images/LogoInternship1.png" class="logo" alt="The Biggest Internship Platform" id="footer" />
+    <p>Connect with us</p>
+    <i class="fab fa-linkedin"></i>
+    <i class="fab fa-facebook-square"></i>
+    {{!-- <i class="fab fa-github-square"></i> --}}
+    <i class="fab fa-github"></i>
+    <i class="fab fa-instagram"></i>
+    {{!-- <i class="fab fa-instagram-square"></i> --}}
+    <p>2020 © All Rights Reserved. Made Berlin</p>
+  </footer>
 
   <script src="/javascripts/script.js"></script>
 </body>
