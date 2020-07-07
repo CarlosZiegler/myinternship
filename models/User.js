@@ -10,6 +10,8 @@ const userSchema = new Schema({
   email: String,
   githubId: String,
   googleId: String,
+  linkedinId: String,
+  // xingId: String,
   vacancies: [{
     type: Schema.Types.ObjectId,
     ref: 'Vacancy'

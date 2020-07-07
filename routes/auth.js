@@ -36,7 +36,7 @@ router.get('/auth/signup', (req, res) => {
 
 
 router.post('/auth/login', passport.authenticate('local', {
-    successRedirect: '/',
+    successRedirect: '/vacancies',
     failureRedirect: '/auth/login',
     failureFlash: true,
     passReqToCallback: true
@@ -69,7 +69,7 @@ router.get('/auth/github', passport.authenticate('github'));
  */
 
 router.get('/auth/github/callback', passport.authenticate('github', {
-    successRedirect: '/',
+    successRedirect: '/vacancies',
     failureRedirect: '/auth/login',
   })
 );
@@ -109,11 +109,44 @@ router.get('/auth/google', passport.authenticate('google', { scope: ['https://ww
 //   request.  If authentication fails, the user will be redirected back to the
 //   login page.  Otherwise, the primary route function function will be called,
 //   which, in this example, will redirect the user to the home page.
+
 router.get('/auth/google/callback', passport.authenticate('google', {
   failureRedirect: 'auth/login' }),
   function(req, res) {
-    res.redirect('/');
+    res.redirect('/vacancies');
   });
+
+/**
+ * @swagger
+ * /:
+ *  get:
+ *    description: use to signup to linkedIn's authentication page
+ *    responses:
+ *       '200': 
+ *       description: Successfully   
+ *       
+ */
+
+router.get('/auth/linkedin',
+passport.authenticate('linkedin'));
+
+/**
+ * @swagger
+ * /:
+ *  get:
+ *    description: used to sign in to linkedIn's authentication callback
+ *    responses:
+ *       '200': 
+ *       description: Successfully   
+ *       
+ */
+
+router.get('/auth/linkedin/callback', 
+passport.authenticate('linkedin', { failureRedirect: '/auth/login' }),
+function(req, res) {
+  // Successful authentication, redirect home.
+  res.redirect('/vacancies');
+});
 
 /**
  * @swagger
@@ -149,11 +182,11 @@ router.post('/auth/signup', (req, res, next) => {
             // passport - login the user
             req.login(dbUser, err => {
               if (err) next(err);
-              else res.redirect('/');
+              else res.redirect('/vacancies');
             });
   
             // redirect to login
-            res.redirect('/');
+            res.redirect('/auth/signin');
           })
           .catch(err => {
             next(err);

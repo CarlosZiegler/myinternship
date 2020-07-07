@@ -181,6 +181,22 @@ passport.use(new GoogleStrategy({
   }
 ));
 
+//Passport Linkedin strategy setup
+
+const LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
+
+passport.use(new LinkedInStrategy({
+  clientID: process.env.LINKEDIN_API_KEY,
+  clientSecret: process.env.LINKEDIN_SECRET_KEY,
+  callbackURL: "http://127.0.0.1:3000/auth/linkedin/callback"
+},
+function(token, tokenSecret, profile, done) {
+  User.findOrCreate({ linkedinId: profile.id }, function (err, user) {
+    return done(err, user);
+  });
+}
+));
+
 app.use(passport.initialize());
 app.use(passport.session());
 // End of Passport Setup
