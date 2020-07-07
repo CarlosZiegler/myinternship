@@ -134,14 +134,14 @@ router.post('/vacancy/delete/:id', loginCheck(), async (req, res, next) => {
 /**
  * @swagger
  * /vacancy/edit/:id:
- *  path:
+ *  put:
  *    description: delete vacancy by ID
  *    responses:
  *       '200': 
  *       description: Successfully   
  *       
  */
-router.patch('/vacancy/edit/:id', loginCheck(), async (req, res, next) => {
+router.post('/vacancy/edit/:id', loginCheck(), async (req, res, next) => {
   if (req.user.role !== 'company') {
     return res.redirect("/vacancies");
   }
@@ -155,8 +155,18 @@ router.patch('/vacancy/edit/:id', loginCheck(), async (req, res, next) => {
     contract,
   } = req.body
 
+  console.log()
+
   try {
-    const result = await Vacancy.findByIdAndUpdate(id)
+    const result = await Vacancy.findByIdAndUpdate(id, {
+      title,
+      description,
+      category,
+      tags,
+      location,
+      contract,
+    })
+    console.log(result)
     return res.redirect("/vacancies");
   } catch (error) {
     console.log(error)
