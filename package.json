@@ -6,7 +6,7 @@
     "start": "node ./bin/www",
     "dev": "DEBUG=myinternship:* nodemon ./bin/www",
     "dev-windows": "nodemon ./bin/www",
-    "test": "jest --detectOpenHandles --coverage",
+    "test": "jest --forceExit --detectOpenHandles --coverage",
     "e2e": "cypress open"
   },
   "dependencies": {
@@ -33,6 +33,7 @@
   "devDependencies": {
     "cypress": "^4.9.0",
     "jest": "^26.1.0",
-    "nodemon": "^1.12.1"
+    "nodemon": "^1.12.1",
+    "supertest": "^4.0.2"
   }
 }
