@@ -3,6 +3,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const DbConnection = require('../configs/db.config');
 const Vacancy = require('../models/Vacancy')
+const { loginCheck } = require('./middlewares')
 
 //Documentation for Swagger https://github.com/fliptoo/swagger-express 
 
@@ -16,7 +17,7 @@ const Vacancy = require('../models/Vacancy')
  *       description: Successfully   
  *       
  */
-router.get('/vacancy/create', async (req, res, next) => {
+router.get('/vacancy/create', loginCheck(), async (req, res, next) => {
   res.render('vacancy/addVacancy');
 });
 
@@ -30,7 +31,7 @@ router.get('/vacancy/create', async (req, res, next) => {
  *       description: Successfully   
  *       
  */
-router.post('/vacancy/create', async (req, res, next) => {
+router.post('/vacancy/create', loginCheck(), async (req, res, next) => {
 
   if (req.user.role !== 'company') {
     res.redirect("/main");
@@ -74,7 +75,7 @@ router.post('/vacancy/create', async (req, res, next) => {
  *       description: Successfully   
  *       
  */
-router.get('/vacancy/details/:id', async (req, res, next) => {
+router.get('/vacancy/details/:id', loginCheck(), async (req, res, next) => {
   const { id } = req.params
   try {
     const vacancy = await Vacancy.findById(id)
@@ -94,7 +95,7 @@ router.get('/vacancy/details/:id', async (req, res, next) => {
  *       description: Successfully   
  *       
  */
-router.get('/vacancies', async (req, res, next) => {
+router.get('/vacancies', loginCheck(), async (req, res, next) => {
 
 
   try {
@@ -115,7 +116,7 @@ router.get('/vacancies', async (req, res, next) => {
  *       description: Successfully   
  *       
  */
-router.post('/vacancy/delete/:id', async (req, res, next) => {
+router.post('/vacancy/delete/:id', loginCheck(), async (req, res, next) => {
   if (req.user.role !== 'company') {
     res.redirect("/main");
   }
@@ -138,7 +139,7 @@ router.post('/vacancy/delete/:id', async (req, res, next) => {
  *       description: Successfully   
  *       
  */
-router.patch('/vacancy/edit/:id', async (req, res, next) => {
+router.patch('/vacancy/edit/:id', loginCheck(), async (req, res, next) => {
   if (req.user.role !== 'company') {
     res.redirect("/main");
   }
