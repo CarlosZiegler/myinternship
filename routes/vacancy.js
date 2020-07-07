@@ -99,10 +99,17 @@ router.get('/vacancy/details/:id', loginCheck(), async (req, res, next) => {
  *       
  */
 router.get('/vacancies', loginCheck(), async (req, res, next) => {
-  console.log(req.user)
+
+
   try {
     const vacancies = await Vacancy.find()
-    return res.render("vacancy/listVacancies", { vacancies: vacancies, user: req.user });
+    if (req.user.role === "company") {
+      console.log("pass")
+      return res.render("vacancy/listVacancies", { vacancies: vacancies, user: req.user });
+    } else {
+      return res.render("vacancy/listVacanciesPersonal", { vacancies: vacancies, user: req.user });
+    }
+
   } catch (error) {
     console.log(error)
   }

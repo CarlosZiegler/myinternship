@@ -87,6 +87,19 @@ body {
 .btn-icon{
   height: 20px;
 }
+.body-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin:0 auto;
+}
+.form-add-vacancy{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
 .title{ 
   text-align: center;
@@ -98,7 +111,7 @@ body {
   align-items: center;
   align-content: center;
   padding: 30px;
-  border:1px solid rgb(65, 65, 65);
+  border:1px solid #6C63FF;
   border-radius: 10px;
   width:300px;
   margin: 10px;
@@ -111,12 +124,7 @@ body {
   align-self: center;
   align-content: center;
 }
-.form-add-vacancy{
-  display: flex;
-  justify-content: center;
-  align-self: flex-start;
-  flex-direction: column;
-}
+
 
 .footer{
   width:100%;
