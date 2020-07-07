@@ -6,13 +6,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>{{title}}</title>
-  <link rel="stylesheet" href="/stylesheets/style.css" />
+  {{!-- <link rel="stylesheet" href="/stylesheets/style.css" /> --}}
   <link rel="stylesheet" href="/stylesheets/styles.css" />
 </head>
 
 <body>
+  <nav class="navbar">
+    <div class="container">
+      <a href="/">
+        <img class="navbar-logo" src="/images/logo.png" />
+      </a>
+
+      <div class="menu">
+        <a class="btn" href="/auth/login">Login</a>
+        <a class="btn btn-secundary" href="/auth/signup">Sign Up</a>
+      </div>
+    </div>
+  </nav>
 
   {{{body}}}
+
+  <footer class="footer">
+    <img class="footer-logo" src="/images/logo.png" />
+    <p class="footer-social">Connect with us</p>
+    <div class="footer-social-logos">
+      <img class="social-logo" src="/images/foundation_social-github.png" />
+      <img class="social-logo" src="/images/typcn_social-instagram.png" />
+      <img class="social-logo" src="/images/foundation_social-facebook.png" />
+      <img class="social-logo" src="/images/foundation_social-linkedin.png" />
+    </div>
+    <p class="footer-copyright">2020 ©. All Rights Reserved. Made Berlin</p>
+  </footer>
 
   <script src="/javascripts/script.js"></script>
 </body>
