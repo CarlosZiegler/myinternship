@@ -36,5 +36,4 @@ jobs:
         GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
         ID_GIT: ${{ secrets.ID_GIT }}
         SECRET_GIT: ${{ secrets.SECRET_GIT }}
-        GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
         SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
