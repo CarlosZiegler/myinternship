@@ -28,6 +28,7 @@
     "passport-linkedin": "^1.0.0",
     "passport-linkedin-oauth2": "^2.0.0",
     "passport-local": "^1.0.0",
+    "passport-xing": "^0.1.5",
     "serve-favicon": "^2.5.0",
     "swagger-jsdoc": "^4.0.0",
     "swagger-ui-express": "^4.1.4"
