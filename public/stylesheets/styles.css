@@ -93,6 +93,7 @@ body {
   justify-content: center;
   align-items: center;
   margin:0 auto;
+  min-height: 65vh;
 }
 .form-add-vacancy{
   display: flex;
@@ -135,7 +136,6 @@ body {
   align-items: center;
   width: 100%;
   bottom: 0;
-  padding:10px;
 }
 @media (min-width:1060px){
   /* .footer{
