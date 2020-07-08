@@ -37,3 +37,5 @@ jobs:
         ID_GIT: ${{ secrets.ID_GIT }}
         SECRET_GIT: ${{ secrets.SECRET_GIT }}
         SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
+        XING_API_KEY: ${{ secrets.XING_API_KEY }}
+        XING_SECRET_KEY: ${{ secrets.XING_SECRET_KEY }}
