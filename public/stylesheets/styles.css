@@ -4,15 +4,14 @@ body {
   margin: 0;
   font: 14px "Roboto", Helvetica, Arial, sans-serif;
  }
+ 
  a{
-   text-decoration: none;
+  text-decoration: none;
  }
-
 
  .navbar{
   width:100%;
   background: #6C63FF;
-  
 }
  .container{
   width:100%;
@@ -21,7 +20,6 @@ body {
   align-items: center;
   max-width: 1200px;
   margin: 0 auto;
-  
 }
 
 .navbar-logo{
@@ -82,12 +80,24 @@ body {
   border:none;
 }
 
+.btn-secondary-apply {
+  font-size: 0.65rem;
+  font: 14px "Roboto", Helvetica, Arial, sans-serif;
+  background: #CE5177;
+  color: #fff;
+  margin: 5px 0px 5px 0px;
+  padding: 5px 52px;
+  border-radius: 10px;
+  border: none;
+}
+
 .btn-form {
   font-size: 0.65rem;
+  font: 14px "Roboto", Helvetica, Arial, sans-serif;
   background:#6C63FF;
   color:#fff;
-  margin-top: 3px;
-  padding: 5px 5px;
+  margin: 5px 0px 5px 0px;
+  padding: 5px 21px;
   border-radius:10px;
   border:none;
 }
@@ -182,22 +192,18 @@ select{
   color: #C9C6FF
 }
 .find-form ::placeholder{
-  
   color: #C9C6FF
 }
 
 .btn-reset{
   
-    font-size: 1.1rem;
-    background:#fc0000;
-    color:#fff;
-    padding: 5px 75px;
-    border-radius:10px;
-    border:none
-
+  font-size: 1.1rem;
+  background:#fc0000;
+  color:#fff;
+  padding: 5px 75px;
+  border-radius:10px;
+  border:none
 }
-
-
 
 .footer{
   width:100%;
