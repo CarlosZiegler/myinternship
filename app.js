@@ -181,6 +181,42 @@ passport.use(new GoogleStrategy({
   }
 ));
 
+//Passport Linkedin strategy setup
+
+const LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
+
+passport.use(
+  new LinkedInStrategy(
+  {
+    clientID: process.env.LINKEDIN_API_KEY,
+    clientSecret: process.env.LINKEDIN_SECRET_KEY,
+    callbackURL: "http://127.0.0.1:3000/auth/linkedin/callback"
+},
+(accessToken, refreshToken, profile, done) => {
+  // find a user with profile.id as githubId or create one
+  User.findOne({ linkedinId: profile.id })
+    .then(found => {
+      if (found !== null) {
+        // user with that githubId already exists
+        done(null, found);
+      } else {
+        // no user with that githubId
+        return User.create({ linkedinId: profile.id }).then(dbUser => {
+          done(null, dbUser);
+        });
+      }
+    })
+    .catch(err => {
+      done(err);
+    });
+}
+// function(token, tokenSecret, profile, done) {
+//   User.findOrCreate({ linkedinId: profile.id }, function (err, user) {
+//     return done(err, user);
+//   });
+// }
+));
+
 app.use(passport.initialize());
 app.use(passport.session());
 // End of Passport Setup
