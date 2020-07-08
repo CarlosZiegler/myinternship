@@ -82,6 +82,16 @@ body {
   border:none;
 }
 
+.btn-form {
+  font-size: 0.65rem;
+  background:#6C63FF;
+  color:#fff;
+  margin-top: 3px;
+  padding: 5px 5px;
+  border-radius:10px;
+  border:none;
+}
+
 .btn-linked{
   font-size: 1.1rem;
   color:#6C63FF;  
