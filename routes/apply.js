@@ -20,7 +20,7 @@ router.post('/vacancy/apply', loginCheck(), async (req, res, next) => {
 router.get('/vacancy/apply/:id', loginCheck(), async (req, res, next) => {
   const vacancyId = req.params.id;
 
-  if (req.user.role !== 'company') {
+  if (req.user.role === 'company') {
     return res.redirect("/vacancies");
   }
   // req.query.name => ?name=Leo
