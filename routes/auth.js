@@ -36,11 +36,13 @@ router.get('/auth/signup', (req, res) => {
 
 
 router.post('/auth/login', passport.authenticate('local', {
-    successRedirect: '/vacancies',
-    failureRedirect: '/auth/login',
-    failureFlash: true,
-    passReqToCallback: true
-  })
+
+  successRedirect: '/vacancies',
+  failureRedirect: '/auth/login',
+  failureFlash: true,
+  passReqToCallback: true
+})
+
 )
 
 /**
@@ -69,9 +71,11 @@ router.get('/auth/github', passport.authenticate('github'));
  */
 
 router.get('/auth/github/callback', passport.authenticate('github', {
-    successRedirect: '/vacancies',
-    failureRedirect: '/auth/login',
-  })
+
+  successRedirect: '/vacancies',
+  failureRedirect: '/auth/login',
+})
+
 );
 
 
@@ -101,9 +105,12 @@ router.get('/auth/google', passport.authenticate('google', { scope: ['https://ww
 
 
 router.get('/auth/google/callback', passport.authenticate('google', {
-  failureRedirect: 'auth/login' }),
-  function(req, res) {
+
+  failureRedirect: 'auth/login'
+}),
+  function (req, res) {
     res.redirect('/vacancies');
+
   });
 
 
@@ -119,7 +126,7 @@ router.get('/auth/google/callback', passport.authenticate('google', {
  */
 
 router.get('/auth/linkedin',
-passport.authenticate('linkedin'));
+  passport.authenticate('linkedin'));
 
 /**
  * @swagger
@@ -132,12 +139,12 @@ passport.authenticate('linkedin'));
  *       
  */
 
-router.get('/auth/linkedin/callback', 
-passport.authenticate('linkedin', { failureRedirect: '/auth/login' }),
-function(req, res) {
-  // Successful authentication, redirect home.
-  res.redirect('/vacancies');
-});
+router.get('/auth/linkedin/callback',
+  passport.authenticate('linkedin', { failureRedirect: '/auth/login' }),
+  function (req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/vacancies');
+  });
 
 /**
  * @swagger
@@ -200,7 +207,7 @@ router.post('/auth/signup', (req, res, next) => {
         // we can create a user with the username and password pair
         const salt = bcrypt.genSaltSync();
         const hash = bcrypt.hashSync(password, salt);
-  
+
         User.create({ username: username, password: hash })
           .then(dbUser => {
             // passport - login the user
@@ -208,7 +215,7 @@ router.post('/auth/signup', (req, res, next) => {
               if (err) next(err);
               else res.redirect('/vacancies');
             });
-  
+
             // redirect to login
             res.redirect('/auth/signin');
           })
@@ -218,7 +225,7 @@ router.post('/auth/signup', (req, res, next) => {
       }
     });
   } catch (error) {
-    console.error("Error router signup",error)
+    console.error("Error router signup", error)
   }
 });
 

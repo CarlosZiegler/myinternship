@@ -56,6 +56,12 @@ const dbConnection = require('./configs/db.config');
 const connectToMongo = async () => await dbConnection()
 connectToMongo();
 
+hbs.registerHelper('eachUnique', function (array) {
+  const categories = array.map(vacancy => vacancy.category)
+  const uniqueCategories = [... new Set(categories)]
+  console.log(uniqueCategories)
+  return uniqueCategories
+});
 
 const app_name = require('./package.json').name;
 const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.')[0]}`);

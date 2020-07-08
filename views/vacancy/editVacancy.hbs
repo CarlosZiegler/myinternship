@@ -1,23 +1,23 @@
 <h1>Edit Vacancy</h1>
-<form class="form-add-vacancy" id="form" action="/vacancy/edit/{{_id}}" method="POST">
+<form class="form-add-vacancy" id="form" action="/vacancy/edit/{{vacancy._id}}" method="POST">
 
   <label for="title">Title</label>
-  <input type="text" name="title" value="{{title}}" />
+  <input type="text" name="title" value="{{vacancy.title}}" />
 
   <label for="description">Description</label>
-  <input type="text" name="description" value="{{description}}" />
+  <input type="text" name="description" value="{{vacancy.description}}" />
 
   <label for="category">Category</label>
-  <input type="text" name="category" value="{{category}}" />
+  <input type="text" name="category" value="{{vacancy.category}}" />
 
   <label for="tags">Tags</label>
-  <input type="text" name="tags" value="{{tags}}" />
+  <input type="text" name="tags" value="{{vacancy.tags}}" />
 
   <label for="location">Location</label>
-  <input type="text" name="location" value="{{location}}" />
+  <input type="text" name="location" value="{{vacancy.location}}" />
 
   <label for="contract">Contract</label>
-  <input type="text" name="contract" value="{{contract}}" />
+  <input type="text" name="contract" value="{{vacancy.contract}}" />
 
   {{#if errorMessage}}
   <div class="error-message">{{errorMessage}}</div>
@@ -27,4 +27,4 @@
 </form>
 
 <a href="/">Home</a>
-<a href="/vacancy/list">Back to list</a>
+<a href="/vacancies">Back to list</a>

@@ -1,0 +1,46 @@
+<h1 class="title">Vacancies User</h1>
+<div class="find-bar">
+  <form class="find-form" action="/vacancies/filters" method="GET">
+    <input id="find-input" type="text" class="find-input" placeholder="Search for title" name="title">
+    <select name="category" id="category">
+      <option value="" selected disabled hidden>Category</option>
+      {{#each uniqueCategories}}
+      <option value="{{this}}">{{this}}</option>
+      {{/each}}
+
+    </select>
+    <select name="location" id="location">
+      <option value="" selected disabled hidden>Location</option>
+      {{#each uniqueLocations}}
+      <option value="{{this}}">{{this}}</option>
+      {{/each}}
+    </select>
+    <button class="btn-primary" type="submit">Find</button>
+  </form>
+</div>
+{{#if filters}}
+<ul>Filters:
+  {{#each filters}}
+  {{#if this}}
+  <li>{{this}}</li>
+  {{/if}}
+  {{/each}}
+</ul>
+{{/if}}
+<form class="find-form" action="/vacancies" method="GET">
+  <button class="btn-reset" type="submit">Delete filters</button>
+</form>
+<div class=" container">
+  {{#each vacancies}}
+  <div class="card">
+    <h2 class="card-title">{{title}}</h2>
+    <p class="card-description">Category: {{category}}</p>
+    <p class="card-description">Company: {{companyId.role}}</p>
+    <p class="card-description">Tags: {{category}}</p>
+    {{#each vacancies.tags}}
+    <p class="card-description">{{this}}</p>
+    {{/each}}
+    <a class="btn-primary" href="/vacancy/details/{{_id}}">See more</a>
+  </div>
+  {{/each}}
+</div>

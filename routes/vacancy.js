@@ -3,6 +3,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const DbConnection = require('../configs/db.config');
 const Vacancy = require('../models/Vacancy')
+const { loginCheck } = require('./middlewares')
 
 //Documentation for Swagger https://github.com/fliptoo/swagger-express 
 
@@ -16,8 +17,11 @@ const Vacancy = require('../models/Vacancy')
  *       description: Successfully   
  *       
  */
-router.get('/vacancy/create', async (req, res, next) => {
-  res.render('vacancy/addVacancy');
+router.get('/vacancy/create', loginCheck(), async (req, res, next) => {
+  if (req.user.role !== 'company') {
+    return res.redirect("/vacancies");
+  }
+  res.render('vacancy/addVacancy', { user: req.user });
 });
 
 /**
@@ -30,14 +34,19 @@ router.get('/vacancy/create', async (req, res, next) => {
  *       description: Successfully   
  *       
  */
-router.post('/vacancy/create', async (req, res, next) => {
+router.post('/vacancy/create', loginCheck(), async (req, res, next) => {
+
+  if (req.user.role !== 'company') {
+    return res.redirect("/vacancies");
+  }
+
   const {
     title,
     description,
     category,
     tags,
     location,
-    companyId = mongoose.Types.ObjectId('4edd40c86762e0fb12000003'),
+    companyId = req.user._id,
     contract,
     applications = []
   } = req.body
@@ -53,7 +62,7 @@ router.post('/vacancy/create', async (req, res, next) => {
       contract,
       applications
     })
-    res.redirect("/vacancies");
+    return res.redirect("/vacancies");
   } catch (error) {
     console.log(error)
   }
@@ -69,12 +78,11 @@ router.post('/vacancy/create', async (req, res, next) => {
  *       description: Successfully   
  *       
  */
-router.get('/vacancy/details/:id', async (req, res, next) => {
+router.get('/vacancy/details/:id', loginCheck(), async (req, res, next) => {
   const { id } = req.params
-
   try {
-    const vacancy = await Vacancy.findById(id)
-    res.render("vacancy/detailsVacancy", { vacancy });
+    const vacancy = await Vacancy.findById(id).populate('companyId')
+    return res.render("vacancy/detailsVacancy", { vacancy, user: req.user });
   } catch (error) {
     console.log(error)
   }
@@ -90,12 +98,22 @@ router.get('/vacancy/details/:id', async (req, res, next) => {
  *       description: Successfully   
  *       
  */
-router.get('/vacancies', async (req, res, next) => {
-
+router.get('/vacancies', loginCheck(), async (req, res, next) => {
 
   try {
-    const vacancies = await Vacancy.find()
-    res.render("vacancy/listVacancies", { vacancies });
+
+    if (req.user.role === "company") {
+      const vacancies = await Vacancy.find({ companyId: req.user._id }).populate('companyId')
+      const uniqueCategories = [... new Set(vacancies.map(item => item.category))]
+      const uniqueLocations = [... new Set(vacancies.map(item => item.location))]
+      return res.render("vacancy/listVacancies", { vacancies: vacancies, user: req.user, uniqueCategories, uniqueLocations });
+    } else {
+      const vacancies = await Vacancy.find().populate('companyId')
+      const uniqueCategories = [... new Set(vacancies.map(item => item.category))]
+      const uniqueLocations = [... new Set(vacancies.map(item => item.location))]
+      return res.render("vacancy/listVacanciesPersonal", { vacancies: vacancies, user: req.user, uniqueCategories, uniqueLocations });
+    }
+
   } catch (error) {
     console.log(error)
   }
@@ -111,12 +129,14 @@ router.get('/vacancies', async (req, res, next) => {
  *       description: Successfully   
  *       
  */
-router.post('/vacancy/delete/:id', async (req, res, next) => {
+router.post('/vacancy/delete/:id', loginCheck(), async (req, res, next) => {
+  if (req.user.role !== 'company') {
+    return res.redirect("/vacancies");
+  }
   const { id } = req.params
-  console.log(id)
   try {
     const result = await Vacancy.findByIdAndDelete(id)
-    res.redirect("/vacancies");
+    return res.redirect("/vacancies");
   } catch (error) {
     console.log(error)
   }
@@ -125,14 +145,17 @@ router.post('/vacancy/delete/:id', async (req, res, next) => {
 /**
  * @swagger
  * /vacancy/edit/:id:
- *  path:
- *    description: delete vacancy by ID
+ *  put:
+ *    description: edit vacancy by ID
  *    responses:
  *       '200': 
  *       description: Successfully   
  *       
  */
-router.patch('/vacancy/edit/:id', async (req, res, next) => {
+router.post('/vacancy/edit/:id', loginCheck(), async (req, res, next) => {
+  if (req.user.role !== 'company') {
+    return res.redirect("/vacancies");
+  }
   const { id } = req.params
   const {
     title,
@@ -144,8 +167,69 @@ router.patch('/vacancy/edit/:id', async (req, res, next) => {
   } = req.body
 
   try {
+    const result = await Vacancy.findByIdAndUpdate(id, {
+      title,
+      description,
+      category,
+      tags,
+      location,
+      contract,
+    })
+    console.log(result)
+    return res.redirect("/vacancies");
+  } catch (error) {
+    console.log(error)
+  }
+});
+/**
+ * @swagger
+ * /vacancies/filters:
+ *  get:
+ *    description: render vacancies page with filters
+ *    responses:
+ *       '200': 
+ *       description: Successfully   
+ *       
+ */
+router.get('/vacancies/filters', loginCheck(), async (req, res, next) => {
+
+  const { title = "", category = "", tags = "", location = "" } = req.query
+  const filters = { title, category, location }
+  let query;
+  try {
+    if (req.user.role === "company") {
+      query = { companyId: req.user._id, title: { $regex: `^${title}.*`, $options: 'si' }, category: { $regex: `^${category}.*`, $options: 'si' }, location: { $regex: `^${location}.*`, $options: 'si' } }
+    } else {
+      query = { title: { $regex: `^${title}.*`, $options: 'si' }, category: { $regex: `^${category}.*`, $options: 'si' }, location: { $regex: `^${location}.*`, $options: 'si' } }
+    }
+
+    const vacancies = await Vacancy.find(query)
+    const uniqueCategories = [... new Set(vacancies.map(item => item.category))]
+    const uniqueLocations = [... new Set(vacancies.map(item => item.location))]
+    return res.render("vacancy/listVacanciesPersonal", { vacancies: vacancies, uniqueCategories, uniqueLocations, filters });
+  } catch (error) {
+    console.log(error)
+  }
+});
+/**
+ * @swagger
+ * /vacancy/edit/:id:
+ *  get:
+ *    description: render edit page vacancy by ID
+ *    responses:
+ *       '200': 
+ *       description: Successfully   
+ *       
+ */
+router.get('/vacancy/edit/:id', loginCheck(), async (req, res, next) => {
+  if (req.user.role !== 'company') {
+    return res.redirect("/vacancies");
+  }
+  const { id } = req.params
+
+  try {
     const result = await Vacancy.findByIdAndUpdate(id)
-    res.redirect("/vacancies");
+    return res.render("vacancy/editVacancy", { vacancy: result });
   } catch (error) {
     console.log(error)
   }

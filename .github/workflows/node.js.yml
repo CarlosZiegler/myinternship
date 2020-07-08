@@ -39,3 +39,5 @@ jobs:
         SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
         XING_API_KEY: ${{ secrets.XING_API_KEY }}
         XING_SECRET_KEY: ${{ secrets.XING_SECRET_KEY }}
+        LINKEDIN_API_KEY: ${{ secrets.LINKEDIN_API_KEY }}
+        LINKEDIN_SECRET_KEY: ${{ secrets.LINKEDIN_SECRET_KEY }}
