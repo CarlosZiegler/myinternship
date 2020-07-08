@@ -71,15 +71,11 @@ router.get('/auth/github', passport.authenticate('github'));
  */
 
 router.get('/auth/github/callback', passport.authenticate('github', {
-<<<<<<< HEAD
-  successRedirect: '/',
+
+  successRedirect: '/vacancies',
   failureRedirect: '/auth/login',
 })
-=======
-    successRedirect: '/vacancies',
-    failureRedirect: '/auth/login',
-  })
->>>>>>> development
+
 );
 
 
@@ -119,16 +115,12 @@ router.get('/auth/google', passport.authenticate('google', { scope: ['https://ww
 //   which, in this example, will redirect the user to the home page.
 
 router.get('/auth/google/callback', passport.authenticate('google', {
-<<<<<<< HEAD
+
   failureRedirect: 'auth/login'
 }),
   function (req, res) {
-    res.redirect('/');
-=======
-  failureRedirect: 'auth/login' }),
-  function(req, res) {
     res.redirect('/vacancies');
->>>>>>> development
+
   });
 
 /**

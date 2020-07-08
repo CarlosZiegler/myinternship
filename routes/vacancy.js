@@ -46,7 +46,7 @@ router.post('/vacancy/create', loginCheck(), async (req, res, next) => {
     category,
     tags,
     location,
-    companyId = mongoose.Types.ObjectId('4edd40c86762e0fb12000003'),
+    companyId = req.user._id,
     contract,
     applications = []
   } = req.body
@@ -100,13 +100,15 @@ router.get('/vacancy/details/:id', loginCheck(), async (req, res, next) => {
  */
 router.get('/vacancies', loginCheck(), async (req, res, next) => {
 
-
   try {
-    const vacancies = await Vacancy.find()
+
     if (req.user.role === "company") {
-      console.log("pass")
+      const vacancies = await Vacancy.find({ companyId: req.user._id }).populate('companyId')
+
       return res.render("vacancy/listVacancies", { vacancies: vacancies, user: req.user });
     } else {
+      const vacancies = await Vacancy.find().populate('companyId')
+
       return res.render("vacancy/listVacanciesPersonal", { vacancies: vacancies, user: req.user });
     }
 
@@ -162,8 +164,6 @@ router.post('/vacancy/edit/:id', loginCheck(), async (req, res, next) => {
     contract,
   } = req.body
 
-  console.log()
-
   try {
     const result = await Vacancy.findByIdAndUpdate(id, {
       title,
@@ -175,6 +175,26 @@ router.post('/vacancy/edit/:id', loginCheck(), async (req, res, next) => {
     })
     console.log(result)
     return res.redirect("/vacancies");
+  } catch (error) {
+    console.log(error)
+  }
+});
+/**
+ * @swagger
+ * /vacancy/edit/:id:
+ *  get:
+ *    description: render edit page vacancy by ID
+ *    responses:
+ *       '200': 
+ *       description: Successfully   
+ *       
+ */
+router.get('/vacancies/filters', loginCheck(), async (req, res, next) => {
+  const { title = "", category = "", tags, location = "" } = req.query
+  const query = { title: { $regex: `^${title}.*`, $options: 'si' }, category: { $regex: `^${category}.*`, $options: 'si' }, location: { $regex: `^${location}.*`, $options: 'si' } }
+  try {
+    const result = await Vacancy.find(query)
+    return res.render("vacancy/listVacanciesPersonal", { vacancies: result });
   } catch (error) {
     console.log(error)
   }

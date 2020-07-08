@@ -1,9 +1,38 @@
-<h1 class="title">Vacancies</h1>
+<h1 class="title">Vacancies User</h1>
+<div class="find-bar">
+  <form action="/vacancies/filters" method="GET">
+    <label for="find-input">Title</label>
+    <input id="find-input" type="text" class="find-input" placeholder="Search for title" name="title">
+    <select name="category" id="category">
+      <option value="" selected disabled hidden>Category</option>
+      {{#each vacancies}}
+      <option value="{{category}}">{{category}}</option>
+      {{/each}}
+      {{!-- {{#eachUnique vacancies}}
+      <option value="{{this}}">{{this}}</option>
+      {{/eachUnique}} --}}
+    </select>
+    <select name="location" id="location">
+      <option value="" selected disabled hidden>Location</option>
+      {{#each vacancies}}
+      <option value="{{location}}">{{location}}</option>
+      {{/each}}
+    </select>
+    <button type="submit">Find</button>
+  </form>
+  <form action="/vacancies" method="GET">
+    <button type="submit">Delete filters</button>
+  </form>
+  {{#eachUnique vacancies}}
+  <h1>{{this}}</h1><br>
+  {{/eachUnique}}
+</div>
 <div class="container">
   {{#each vacancies}}
   <div class="card">
     <h2 class="card-title">{{title}}</h2>
     <p class="card-description">Category: {{category}}</p>
+    <p class="card-description">Company: {{companyId.role}}</p>
     <p class="card-description">Tags: {{category}}</p>
     {{#each vacancies.tags}}
     <p class="card-description">{{this}}</p>

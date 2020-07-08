@@ -119,6 +119,22 @@ body {
   margin:10px auto;
   
 } 
+.card-top-btn-group{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width:100%;
+  position: relative;
+  top:0;
+}
+
+.card-btn-icon{
+  background: transparent;
+  border:none;
+}
+.card-btn-icon img{
+  height: 40px;
+}
 .btn-back{ 
   display: flex;
   justify-content: center;
