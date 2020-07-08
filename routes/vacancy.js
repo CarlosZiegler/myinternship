@@ -81,7 +81,7 @@ router.post('/vacancy/create', loginCheck(), async (req, res, next) => {
 router.get('/vacancy/details/:id', loginCheck(), async (req, res, next) => {
   const { id } = req.params
   try {
-    const vacancy = await Vacancy.findById(id)
+    const vacancy = await Vacancy.findById(id).populate('companyId')
     return res.render("vacancy/detailsVacancy", { vacancy, user: req.user });
   } catch (error) {
     console.log(error)
