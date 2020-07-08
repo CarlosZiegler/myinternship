@@ -12,12 +12,12 @@
     <p class="card-title">CompanyID: {{vacancy.companyId.role}}</p>
     <p class="card-title">Contract: {{vacancy.contract}}</p>
     {{#unless isCompany}}
-    <a href="/vacancy/apply/{{vacancy._id}}">Apply</a>
+    <a class="btn-primary" href="/vacancy/apply/{{vacancy._id}}">Apply</a>
     {{/unless}}
 
 
     </br>
-    <a class="btn-primary" href="/vacancies">Back</a>
+    <a class="btn-secondary" href="/vacancies">Back</a>
 
   </div>
 

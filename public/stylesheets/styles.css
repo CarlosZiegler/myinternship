@@ -72,6 +72,16 @@ body {
   border-radius:10px;
   border:none;
 }
+
+.btn-secondary {
+  font-size: 1.1rem;
+  background:#CE5177;
+  color:#fff;
+  padding: 5px 75px;
+  border-radius:10px;
+  border:none;
+}
+
 .btn-linked{
   font-size: 1.1rem;
   color:#6C63FF;  
