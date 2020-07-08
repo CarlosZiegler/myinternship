@@ -73,7 +73,7 @@ body {
 
 .btn-secondary {
   font-size: 1.1rem;
-  background:#CE5177;
+  background:#FC0001;
   color:#fff;
   padding: 5px 75px;
   border-radius:10px;
@@ -83,7 +83,7 @@ body {
 .btn-secondary-apply {
   font-size: 0.65rem;
   font: 14px "Roboto", Helvetica, Arial, sans-serif;
-  background: #CE5177;
+  background: #FC0001;
   color: #fff;
   margin: 5px 0px 5px 0px;
   padding: 5px 52px;
