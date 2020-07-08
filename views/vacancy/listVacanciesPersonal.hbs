@@ -19,10 +19,10 @@
   </form>
 </div>
 {{#if filters}}
-<ul>Filters:
+<ul class="filters-list">Filters:
   {{#each filters}}
   {{#if this}}
-  <li>{{this}}</li>
+  <li class="filters-item">{{this}}</li>
   {{/if}}
   {{/each}}
 </ul>
@@ -34,12 +34,15 @@
   {{#each vacancies}}
   <div class="card">
     <h2 class="card-title">{{title}}</h2>
-    <p class="card-description">Category: {{category}}</p>
-    <p class="card-description">Company: {{companyId.role}}</p>
-    <p class="card-description">Tags: {{category}}</p>
-    {{#each vacancies.tags}}
-    <p class="card-description">{{this}}</p>
-    {{/each}}
+    <div class="card-body">
+      <p class="card-description">Category: {{category}}</p>
+      <p class="card-description">Company: {{companyId.displayName}}</p>
+      <div class="card-tags">
+        {{#each tags}}
+        <span class="card-tags-item">{{this}}</span>
+        {{/each}}
+      </div>
+    </div>
     <a class="btn-primary" href="/vacancy/details/{{_id}}">See more</a>
   </div>
   {{/each}}

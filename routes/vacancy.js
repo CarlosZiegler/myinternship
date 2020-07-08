@@ -56,7 +56,7 @@ router.post('/vacancy/create', loginCheck(), async (req, res, next) => {
       title,
       description,
       category,
-      tags,
+      tags: tags.split(','),
       location,
       companyId,
       contract,
@@ -70,7 +70,7 @@ router.post('/vacancy/create', loginCheck(), async (req, res, next) => {
 
 /**
  * @swagger
- * /vacancy/:id:
+ * /vacancy/details/:id :
  *  get:
  *    description: render details page of Vacancy id
  *    responses:
@@ -99,7 +99,6 @@ router.get('/vacancy/details/:id', loginCheck(), async (req, res, next) => {
  *       
  */
 router.get('/vacancies', loginCheck(), async (req, res, next) => {
-
   try {
 
     if (req.user.role === "company") {
@@ -111,7 +110,7 @@ router.get('/vacancies', loginCheck(), async (req, res, next) => {
       const vacancies = await Vacancy.find().populate('companyId')
       const uniqueCategories = [... new Set(vacancies.map(item => item.category))]
       const uniqueLocations = [... new Set(vacancies.map(item => item.location))]
-      return res.render("vacancy/listVacanciesPersonal", { vacancies: vacancies, user: req.user, uniqueCategories, uniqueLocations });
+      return res.render("vacancy/listVacanciesPersonal", { vacancies: vacancies, uniqueCategories, uniqueLocations, user: req.user });
     }
 
   } catch (error) {
@@ -206,7 +205,12 @@ router.get('/vacancies/filters', loginCheck(), async (req, res, next) => {
     const vacancies = await Vacancy.find(query)
     const uniqueCategories = [... new Set(vacancies.map(item => item.category))]
     const uniqueLocations = [... new Set(vacancies.map(item => item.location))]
-    return res.render("vacancy/listVacanciesPersonal", { vacancies: vacancies, uniqueCategories, uniqueLocations, filters });
+    if (req.user.role !== "company") {
+      return res.render("vacancy/listVacanciesPersonal", { vacancies: vacancies, uniqueCategories, uniqueLocations, filters, user: req.user });
+    } else {
+
+      return res.render("vacancy/listVacancies", { vacancies: vacancies, uniqueCategories, uniqueLocations, filters, user: req.user });
+    }
   } catch (error) {
     console.log(error)
   }
