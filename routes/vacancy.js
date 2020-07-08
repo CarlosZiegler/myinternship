@@ -146,7 +146,7 @@ router.post('/vacancy/delete/:id', loginCheck(), async (req, res, next) => {
  * @swagger
  * /vacancy/edit/:id:
  *  put:
- *    description: delete vacancy by ID
+ *    description: edit vacancy by ID
  *    responses:
  *       '200': 
  *       description: Successfully   
@@ -183,9 +183,9 @@ router.post('/vacancy/edit/:id', loginCheck(), async (req, res, next) => {
 });
 /**
  * @swagger
- * /vacancy/edit/:id:
+ * /vacancies/filters:
  *  get:
- *    description: render edit page vacancy by ID
+ *    description: render vacancies page with filters
  *    responses:
  *       '200': 
  *       description: Successfully   

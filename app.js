@@ -61,7 +61,6 @@ hbs.registerHelper('eachUnique', function (array) {
   const uniqueCategories = [... new Set(categories)]
   console.log(uniqueCategories)
   return uniqueCategories
-
 });
 
 const app_name = require('./package.json').name;
