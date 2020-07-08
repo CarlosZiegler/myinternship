@@ -68,8 +68,9 @@ body {
   font-size: 1.1rem;
   background:#6C63FF;
   color:#fff;
-  padding: 5px 20px;
+  padding: 5px 75px;
   border-radius:10px;
+  border:none;
 }
 .btn-linked{
   font-size: 1.1rem;
@@ -87,6 +88,21 @@ body {
 .btn-icon{
   height: 20px;
 }
+.body-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin:0 auto;
+  min-height: 65vh;
+  padding:10px;
+}
+.form-add-vacancy{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
 .title{ 
   text-align: center;
@@ -98,25 +114,70 @@ body {
   align-items: center;
   align-content: center;
   padding: 30px;
-  border:1px solid rgb(65, 65, 65);
+  border:1px solid #6C63FF;
   border-radius: 10px;
   width:300px;
   margin: 10px;
   margin:10px auto;
   
 } 
+.card-top-btn-group{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width:100%;
+  position: relative;
+  top:0;
+}
+select{
+  text-transform:capitalize;
+}
+
+.card-btn-icon{
+  background: transparent;
+  border:none;
+}
+.card-btn-icon img{
+  height: 40px;
+}
 .btn-back{ 
   display: flex;
   justify-content: center;
   align-self: center;
   align-content: center;
 }
-.form-add-vacancy{
+
+.find-form{
   display: flex;
-  justify-content: center;
-  align-self: flex-start;
   flex-direction: column;
+  min-width:250px;
 }
+.find-form :nth-child(n){
+  margin-top:5px;
+}
+.find-form input,select{
+  border-radius: 5px;
+  font-size: 1.1rem;
+  border: 1px solid #6C63FF;
+  color: #C9C6FF
+}
+.find-form ::placeholder{
+  
+  color: #C9C6FF
+}
+
+.btn-reset{
+  
+    font-size: 1.1rem;
+    background:#fc0000;
+    color:#fff;
+    padding: 5px 75px;
+    border-radius:10px;
+    border:none
+
+}
+
+
 
 .footer{
   width:100%;
@@ -127,13 +188,12 @@ body {
   align-items: center;
   width: 100%;
   bottom: 0;
-  padding:10px;
 }
 @media (min-width:1060px){
-  .footer{
+  /* .footer{
     position: fixed;
     bottom: 0;
-  }
+  } */
 }
 .footer-logo{
   width:60px;

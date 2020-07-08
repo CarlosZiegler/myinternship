@@ -37,3 +37,5 @@ jobs:
         ID_GIT: ${{ secrets.ID_GIT }}
         SECRET_GIT: ${{ secrets.SECRET_GIT }}
         SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
+        LINKEDIN_API_KEY: ${{ secrets.LINKEDIN_API_KEY }}
+        LINKEDIN_SECRET_KEY: ${{ secrets.LINKEDIN_SECRET_KEY }}

@@ -29,13 +29,13 @@ describe("GET / ", () => {
 describe("GET /vacancy/create ", () => {
   test("It should respond with an Ok", async () => {
     const response = await request(app).get("/vacancy/create");
-    expect(response.statusCode).toBe(200);
+    expect(response.statusCode).toBe(302);
   });
 });
 describe("GET /vacancies", () => {
   test("It should respond with an Ok", async () => {
     const response = await request(app).get("/vacancies");
-    expect(response.statusCode).toBe(200);
+    expect(response.statusCode).toBe(302);
   });
 });
 describe("GET /vacancy/details/:id", () => {
@@ -47,9 +47,9 @@ describe("GET /vacancy/details/:id", () => {
 });
 describe("GET /vacancy/details/:id", () => {
   test(`It should respond with found Vacancy status code`, async () => {
-    const unexpectedId = "5f032b806110034680c1f058";
+    const unexpectedId = "5f042ce3595af728203548fc";
     const response = await request(app).get(`/vacancy/details/${unexpectedId}`);
-    expect(response.statusCode).toBe(200);
+    expect(response.statusCode).toBe(302);
   });
 });
 describe('Post and Delete Endpoints', () => {

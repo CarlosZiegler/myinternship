@@ -16,15 +16,23 @@
       <a href="/">
         <img class="navbar-logo" src="/images/logo.png" />
       </a>
-
+      {{#if user}}
+      <div class="menu">
+        <a class="btn" href="/vacancies">Dashboard</a>
+        <a class="btn btn-secundary" href="/auth/logout">Logout</a>
+      </div>
+      {{/if}}
+      {{#unless user}}
       <div class="menu">
         <a class="btn" href="/auth/login">Login</a>
         <a class="btn btn-secundary" href="/auth/signup">Sign Up</a>
       </div>
+      {{/unless}}
     </div>
   </nav>
-
-  {{{body}}}
+  <section class="body-container">
+    {{{body}}}
+  </section>
 
   <footer class="footer">
     <img class="footer-logo" src="/images/logo.png" />
