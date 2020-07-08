@@ -11,7 +11,7 @@ const userSchema = new Schema({
   githubId: String,
   googleId: String,
   linkedinId: String,
-  // xingId: String,
+  xingId: String,
   vacancies: [{
     type: Schema.Types.ObjectId,
     ref: 'Vacancy'
