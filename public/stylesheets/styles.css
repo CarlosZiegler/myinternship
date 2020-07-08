@@ -52,6 +52,7 @@ body {
   justify-content:center;
   align-items: center;
   min-height:50%;
+  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
 }
