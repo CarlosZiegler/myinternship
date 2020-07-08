@@ -174,11 +174,24 @@ passport.use(new GoogleStrategy({
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
   callbackURL: "http://localhost:3000/auth/google/callback"
 },
-  function (accessToken, refreshToken, profile, done) {
-    User.findOrCreate({ googleId: profile.id }, function (err, user) {
-      return done(err, user);
+(accessToken, refreshToken, profile, done) => {
+  // find a user with profile.id as googleId or create one
+  User.findOne({ googleId: profile.id })
+    .then(found => {
+      if (found !== null) {
+        // user with that googleId already exists
+        done(null, found);
+      } else {
+        // no user with that googleId
+        return User.create({ googleId: profile.id }).then(dbUser => {
+          done(null, dbUser);
+        });
+      }
+    })
+    .catch(err => {
+      done(err);
     });
-  }
+}
 ));
 
 //Passport Linkedin strategy setup
@@ -193,14 +206,14 @@ passport.use(
     callbackURL: "http://127.0.0.1:3000/auth/linkedin/callback"
 },
 (accessToken, refreshToken, profile, done) => {
-  // find a user with profile.id as githubId or create one
+  // find a user with profile.id as linkedIn or create one
   User.findOne({ linkedinId: profile.id })
     .then(found => {
       if (found !== null) {
-        // user with that githubId already exists
+        // user with that linkedIn already exists
         done(null, found);
       } else {
-        // no user with that githubId
+        // no user with that linkedIn
         return User.create({ linkedinId: profile.id }).then(dbUser => {
           done(null, dbUser);
         });
