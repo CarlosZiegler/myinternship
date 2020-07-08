@@ -89,14 +89,8 @@ router.get('/auth/github/callback', passport.authenticate('github', {
  *       description: Successfully   
  *       
  */
-// GET /auth/google
-//   Use passport.authenticate() as route middleware to authenticate the
-//   request.  The first step in Google authentication will involve
-//   redirecting the user to google.com.  After authorization, Google
-//   will redirect the user back to this application at /auth/google/callback
+
 router.get('/auth/google', passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] }));
-
-
 
 /**
  * @swagger
@@ -108,11 +102,7 @@ router.get('/auth/google', passport.authenticate('google', { scope: ['https://ww
  *       description: Successfully   
  *       
  */
-// GET /auth/google/callback
-//   Use passport.authenticate() as route middleware to authenticate the
-//   request.  If authentication fails, the user will be redirected back to the
-//   login page.  Otherwise, the primary route function function will be called,
-//   which, in this example, will redirect the user to the home page.
+
 
 router.get('/auth/google/callback', passport.authenticate('google', {
 
@@ -122,6 +112,7 @@ router.get('/auth/google/callback', passport.authenticate('google', {
     res.redirect('/vacancies');
 
   });
+
 
 /**
  * @swagger
@@ -154,6 +145,39 @@ router.get('/auth/linkedin/callback',
     // Successful authentication, redirect home.
     res.redirect('/vacancies');
   });
+
+/**
+ * @swagger
+ * /:
+ *  get:
+ *    description: use to signup to xing's authentication page
+ *    responses:
+ *       '200': 
+ *       description: Successfully   
+ *       
+ */
+
+router.get('/auth/xing',
+passport.authenticate('xing'));
+
+/**
+ * @swagger
+ * /:
+ *  get:
+ *    description: used to sign in to xing's authentication callback
+ *    responses:
+ *       '200': 
+ *       description: Successfully   
+ *       
+ */
+
+router.get('/auth/xing/callback', 
+passport.authenticate('xing', { failureRedirect: '/auth/login' }),
+function(req, res) {
+  // Successful authentication, redirect home.
+  res.redirect('/vacancies');
+});
+
 
 /**
  * @swagger
