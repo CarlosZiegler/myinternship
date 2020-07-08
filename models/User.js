@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 const dbConnection = require("../configs/db.config")
 
 const userSchema = new Schema({
+  displayName: String,
   username: String,
   password: String,
   email: String,
