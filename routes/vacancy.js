@@ -80,9 +80,10 @@ router.post('/vacancy/create', loginCheck(), async (req, res, next) => {
  */
 router.get('/vacancy/details/:id', loginCheck(), async (req, res, next) => {
   const { id } = req.params
+  const isCompany = req.user.role !== "personal";
   try {
     const vacancy = await Vacancy.findById(id).populate('companyId')
-    return res.render("vacancy/detailsVacancy", { vacancy, user: req.user });
+    return res.render("vacancy/detailsVacancy", { vacancy, user: req.user, isCompany });
   } catch (error) {
     console.log(error)
   }

@@ -11,7 +11,14 @@
     <p class="card-title">Location: {{vacancy.location}}</p>
     <p class="card-title">CompanyID: {{vacancy.companyId.role}}</p>
     <p class="card-title">Contract: {{vacancy.contract}}</p>
+    {{#unless isCompany}}
+    <a href="/vacancy/apply/{{vacancy._id}}">Apply</a>
+    {{/unless}}
+
+
+    </br>
     <a class="btn-primary" href="/vacancies">Back</a>
+
   </div>
 
 </div>

@@ -293,5 +293,8 @@ app.use('/', vacancy);
 const authRoutes = require('./routes/auth');
 app.use('/', authRoutes);
 
+const applyRoutes = require('./routes/apply');
+app.use('/', applyRoutes);
+
 
 module.exports = app;
