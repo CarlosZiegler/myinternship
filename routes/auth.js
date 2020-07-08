@@ -124,6 +124,38 @@ passport.authenticate('linkedin'));
  * @swagger
  * /:
  *  get:
+ *    description: used to sign in to Xing's authentication callback
+ *    responses:
+ *       '200': 
+ *       description: Successfully   
+ *       
+ */
+
+router.get('/auth/xing/callback', 
+passport.authenticate('xing', { failureRedirect: '/auth/login' }),
+function(req, res) {
+  // Successful authentication, redirect home.
+  res.redirect('/vacancies');
+});
+
+/**
+ * @swagger
+ * /:
+ *  get:
+ *    description: use to signup to linkedIn's authentication page
+ *    responses:
+ *       '200': 
+ *       description: Successfully   
+ *       
+ */
+
+router.get('/auth/xing',
+passport.authenticate('xing'));
+
+/**
+ * @swagger
+ * /:
+ *  get:
  *    description: used to sign in to linkedIn's authentication callback
  *    responses:
  *       '200': 
