@@ -1,5 +1,37 @@
 <h1 class="title">Vacancies</h1>
 <a class="btn-primary center" href="/vacancy/create">Add new Vacancy</a>
+
+<form class="find-form" action="/vacancies/filters" method="GET">
+  <input id="find-input" type="text" class="find-input" placeholder="Search for title" name="title">
+  <select name="category" id="category">
+    <option value="" selected disabled hidden>Category</option>
+    {{#each uniqueCategories}}
+    <option value="{{this}}">{{this}}</option>
+    {{/each}}
+
+  </select>
+  <select name="location" id="location">
+    <option value="" selected disabled hidden>Location</option>
+    {{#each uniqueLocations}}
+    <option value="{{this}}">{{this}}</option>
+    {{/each}}
+  </select>
+  <button class="btn-primary" type="submit">Find</button>
+</form>
+</div>
+{{#if filters}}
+<ul>Filters:
+  {{#each filters}}
+  {{#if this}}
+  <li>{{this}}</li>
+  {{/if}}
+  {{/each}}
+</ul>
+{{/if}}
+<form class="find-form" action="/vacancies" method="GET">
+  <button class="btn-reset" type="submit">Delete filters</button>
+</form>
+
 <div class="container">
   {{#each vacancies}}
   <div class="card">

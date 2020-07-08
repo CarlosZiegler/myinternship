@@ -59,7 +59,9 @@ connectToMongo();
 hbs.registerHelper('eachUnique', function (array) {
   const categories = array.map(vacancy => vacancy.category)
   const uniqueCategories = [... new Set(categories)]
+  console.log(uniqueCategories)
   return uniqueCategories
+
 });
 
 const app_name = require('./package.json').name;

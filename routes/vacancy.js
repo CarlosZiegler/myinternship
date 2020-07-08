@@ -104,12 +104,14 @@ router.get('/vacancies', loginCheck(), async (req, res, next) => {
 
     if (req.user.role === "company") {
       const vacancies = await Vacancy.find({ companyId: req.user._id }).populate('companyId')
-
-      return res.render("vacancy/listVacancies", { vacancies: vacancies, user: req.user });
+      const uniqueCategories = [... new Set(vacancies.map(item => item.category))]
+      const uniqueLocations = [... new Set(vacancies.map(item => item.location))]
+      return res.render("vacancy/listVacancies", { vacancies: vacancies, user: req.user, uniqueCategories, uniqueLocations });
     } else {
       const vacancies = await Vacancy.find().populate('companyId')
-
-      return res.render("vacancy/listVacanciesPersonal", { vacancies: vacancies, user: req.user });
+      const uniqueCategories = [... new Set(vacancies.map(item => item.category))]
+      const uniqueLocations = [... new Set(vacancies.map(item => item.location))]
+      return res.render("vacancy/listVacanciesPersonal", { vacancies: vacancies, user: req.user, uniqueCategories, uniqueLocations });
     }
 
   } catch (error) {
@@ -190,11 +192,21 @@ router.post('/vacancy/edit/:id', loginCheck(), async (req, res, next) => {
  *       
  */
 router.get('/vacancies/filters', loginCheck(), async (req, res, next) => {
-  const { title = "", category = "", tags, location = "" } = req.query
-  const query = { title: { $regex: `^${title}.*`, $options: 'si' }, category: { $regex: `^${category}.*`, $options: 'si' }, location: { $regex: `^${location}.*`, $options: 'si' } }
+
+  const { title = "", category = "", tags = "", location = "" } = req.query
+  const filters = { title, category, location }
+  let query;
   try {
-    const result = await Vacancy.find(query)
-    return res.render("vacancy/listVacanciesPersonal", { vacancies: result });
+    if (req.user.role === "company") {
+      query = { companyId: req.user._id, title: { $regex: `^${title}.*`, $options: 'si' }, category: { $regex: `^${category}.*`, $options: 'si' }, location: { $regex: `^${location}.*`, $options: 'si' } }
+    } else {
+      query = { title: { $regex: `^${title}.*`, $options: 'si' }, category: { $regex: `^${category}.*`, $options: 'si' }, location: { $regex: `^${location}.*`, $options: 'si' } }
+    }
+
+    const vacancies = await Vacancy.find(query)
+    const uniqueCategories = [... new Set(vacancies.map(item => item.category))]
+    const uniqueLocations = [... new Set(vacancies.map(item => item.location))]
+    return res.render("vacancy/listVacanciesPersonal", { vacancies: vacancies, uniqueCategories, uniqueLocations, filters });
   } catch (error) {
     console.log(error)
   }

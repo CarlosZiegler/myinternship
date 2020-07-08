@@ -70,6 +70,7 @@ body {
   color:#fff;
   padding: 5px 75px;
   border-radius:10px;
+  border:none;
 }
 .btn-linked{
   font-size: 1.1rem;
@@ -94,6 +95,7 @@ body {
   align-items: center;
   margin:0 auto;
   min-height: 65vh;
+  padding:10px;
 }
 .form-add-vacancy{
   display: flex;
@@ -127,6 +129,9 @@ body {
   position: relative;
   top:0;
 }
+select{
+  text-transform:capitalize;
+}
 
 .card-btn-icon{
   background: transparent;
@@ -141,6 +146,37 @@ body {
   align-self: center;
   align-content: center;
 }
+
+.find-form{
+  display: flex;
+  flex-direction: column;
+  min-width:250px;
+}
+.find-form :nth-child(n){
+  margin-top:5px;
+}
+.find-form input,select{
+  border-radius: 5px;
+  font-size: 1.1rem;
+  border: 1px solid #6C63FF;
+  color: #C9C6FF
+}
+.find-form ::placeholder{
+  
+  color: #C9C6FF
+}
+
+.btn-reset{
+  
+    font-size: 1.1rem;
+    background:#fc0000;
+    color:#fff;
+    padding: 5px 75px;
+    border-radius:10px;
+    border:none
+
+}
+
 
 
 .footer{
