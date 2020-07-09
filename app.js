@@ -291,10 +291,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
 // default value for title local
-app.locals.title = 'Express - Generated with IronGenerator';
+app.locals.title = 'My Internship';
 
 // sendEmail function
-async function sendEmail( recipient, subj, body) {
+async function sendEmail(recipient, subj, body) {
   // Generate test SMTP service account from ethereal.email
   // Only needed if you don't have a real mail account for testing
   let testAccount = await nodemailer.createTestAccount();
@@ -318,8 +318,8 @@ async function sendEmail( recipient, subj, body) {
     //html: "<b>Hello world?</b>", // html body
   });
 
-   console.log("Message sent: %s", info.messageId);
-   // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+  console.log("Message sent: %s", info.messageId);
+  // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
 
   // Preview only available when sending through an Ethereal account
   console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
@@ -335,6 +335,7 @@ app.use('/', vacancy);
 const authRoutes = require('./routes/auth');
 app.use('/', authRoutes);
 
+
 const applyRoutes = require('./routes/apply');
 app.use('/', applyRoutes);
 
@@ -342,6 +343,7 @@ const profile = require('./routes/profile');
 app.use('/', profile);
 
 module.exports = app; 
+
 
 //sendEmail('vipavani@hotmail.com', "teste2", 'teste body 2')
 module.exports = app;

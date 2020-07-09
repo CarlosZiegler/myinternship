@@ -84,12 +84,14 @@ router.post('/vacancy/create', loginCheck(), async (req, res, next) => {
     applications = []
   } = req.body
 
+  const tagsWithoutSpace = tags.split(',').map(tag => tag.trim())
+
   try {
     const result = await Vacancy.create({
       title,
       description,
       category,
-      tags: tags.split(','),
+      tags: tagsWithoutSpace,
       location,
       companyId,
       contract,
@@ -317,13 +319,13 @@ router.post('/vacancy/edit/:id', loginCheck(), async (req, res, next) => {
 router.get('/vacancies/filters', loginCheck(), async (req, res, next) => {
 
   const { title = "", category = "", tags = "", location = "" } = req.query
-  const filters = { title, category, location }
+  const filters = { title, category, location, tags }
   let query;
   try {
     if (req.user.role === "company") {
-      query = { companyId: req.user._id, title: { $regex: `^${title}.*`, $options: 'si' }, category: { $regex: `^${category}.*`, $options: 'si' }, location: { $regex: `^${location}.*`, $options: 'si' } }
+      query = { companyId: req.user._id, title: { $regex: `^${title}.*`, $options: 'si' }, category: { $regex: `^${category}.*`, $options: 'si' }, location: { $regex: `^${location}.*`, $options: 'si' }, tags: { $all: tags } }
     } else {
-      query = { title: { $regex: `^${title}.*`, $options: 'si' }, category: { $regex: `^${category}.*`, $options: 'si' }, location: { $regex: `^${location}.*`, $options: 'si' } }
+      query = { title: { $regex: `^${title}.*`, $options: 'si' }, category: { $regex: `^${category}.*`, $options: 'si' }, location: { $regex: `^${location}.*`, $options: 'si' }, tags: { $all: tags } }
     }
 
     const vacancies = await Vacancy.find(query).populate('companyId')

@@ -42,3 +42,5 @@ jobs:
         LINKEDIN_API_KEY: ${{ secrets.LINKEDIN_API_KEY }}
         LINKEDIN_SECRET_KEY: ${{ secrets.LINKEDIN_SECRET_KEY }}
         AUTH_URL: ${{ secrets.AUTH_URL }}
+        email_user: ${{ secrets.email_user }}
+        email_pass: ${{ secrets.email_pass }}
