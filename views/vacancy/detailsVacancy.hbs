@@ -4,14 +4,19 @@
     <h2 class="card-title">{{vacancy.title}}</h2>
     <p class="card-title">Description: {{vacancy.description}}</p>
     <p class="card-title">Category: {{vacancy.category}}</p>
-    <p class="card-title">Tags:</p>
-    {{#each vacancy.tags}}
-    <p class="card-title"><strong>{{this}}</strong></p>
-    {{/each}}
+    <p class="card-title">Tags:
+      {{#each vacancy.tags}}
+      <strong>{{this}} </strong>
+      {{/each}}
+    </p>
     <p class="card-title">Location: {{vacancy.location}}</p>
     <p class="card-title">CompanyID: {{vacancy.companyId.role}}</p>
     <p class="card-title">Contract: {{vacancy.contract}}</p>
+    {{#ifCompany user }}
+
+    {{else}}
+    <a class="btn-apply" href="/vacancy/apply">Apply now!</a>
+    {{/ifCompany}}
     <a class="btn-primary" href="/vacancies">Back</a>
   </div>
-
 </div>

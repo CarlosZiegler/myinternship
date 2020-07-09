@@ -63,6 +63,14 @@ hbs.registerHelper('eachUnique', function (array) {
   return uniqueCategories
 });
 
+//if is user
+hbs.registerHelper('ifCompany', function (user, options) {
+  if (user.role === "company") {
+    return options.fn(this);
+  }
+  return options.inverse(this);
+});
+
 const app_name = require('./package.json').name;
 const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.')[0]}`);
 
@@ -144,7 +152,7 @@ passport.use(
     {
       clientID: process.env.ID_GIT,
       clientSecret: process.env.SECRET_GIT,
-      callbackURL: 'http://127.0.0.1:3000/auth/github/callback'
+      callbackURL: `${process.env.AUTH_URL}/auth/github/callback`
     },
     (accessToken, refreshToken, profile, done) => {
       // find a user with profile.id as githubId or create one
@@ -155,7 +163,7 @@ passport.use(
             done(null, found);
           } else {
             // no user with that githubId
-            return User.create({ githubId: profile.id }).then(dbUser => {
+            return User.create({ githubId: profile.id, displayName: profile.name, avatarUrl: profile.avatar_url }).then(dbUser => {
               done(null, dbUser);
             });
           }
@@ -178,26 +186,27 @@ const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: `/auth/google/callback` //google callback works with only referencial path.
+  callbackURL: `${process.env.AUTH_URL}/auth/google/callback` //google callback works with only referencial path.
 },
-(accessToken, refreshToken, profile, done) => {
-  // find a user with profile.id as googleId or create one
-  User.findOne({ googleId: profile.id })
-    .then(found => {
-      if (found !== null) {
-        // user with that googleId already exists
-        done(null, found);
-      } else {
-        // no user with that googleId
-        return User.create({ googleId: profile.id }).then(dbUser => {
-          done(null, dbUser);
-        });
-      }
-    })
-    .catch(err => {
-      done(err);
-    });
-}
+  (accessToken, refreshToken, profile, done) => {
+    console.log("google profile", profile)
+    // find a user with profile.id as googleId or create one
+    User.findOne({ googleId: profile.id })
+      .then(found => {
+        if (found !== null) {
+          // user with that googleId already exists
+          done(null, found);
+        } else {
+          // no user with that googleId
+          return User.create({ googleId: profile.id }).then(dbUser => {
+            done(null, dbUser);
+          });
+        }
+      })
+      .catch(err => {
+        done(err);
+      });
+  }
 ));
 //Passport Linkedin strategy setup
 
@@ -205,30 +214,30 @@ const LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
 
 passport.use(
   new LinkedInStrategy(
-  {
-    clientID: process.env.LINKEDIN_API_KEY,
-    clientSecret: process.env.LINKEDIN_SECRET_KEY,
-    callbackURL: "http://127.0.0.1:3000/auth/linkedin/callback"
-},
-(accessToken, refreshToken, profile, done) => {
-  // find a user with profile.id as linkedIn or create one
-  User.findOne({ linkedinId: profile.id })
-    .then(found => {
-      if (found !== null) {
-        // user with that linkedIn already exists
-        done(null, found);
-      } else {
-        // no user with that linkedIn
-        return User.create({ linkedinId: profile.id }).then(dbUser => {
-          done(null, dbUser);
+    {
+      clientID: process.env.LINKEDIN_API_KEY,
+      clientSecret: process.env.LINKEDIN_SECRET_KEY,
+      callbackURL: `${process.env.AUTH_URL}/auth/linkedin/callback`
+    },
+    (accessToken, refreshToken, profile, done) => {
+      // find a user with profile.id as linkedIn or create one
+      User.findOne({ linkedinId: profile.id })
+        .then(found => {
+          if (found !== null) {
+            // user with that linkedIn already exists
+            done(null, found);
+          } else {
+            // no user with that linkedIn
+            return User.create({ linkedinId: profile.id, displayName: profile.displayName, avatarUrl: profile.photos[0].value }).then(dbUser => {
+              done(null, dbUser);
+            });
+          }
+        })
+        .catch(err => {
+          done(err);
         });
-      }
-    })
-    .catch(err => {
-      done(err);
-    });
-}
-));
+    }
+  ));
 
 //Passport Xing strategy setup
 
@@ -236,30 +245,30 @@ const XingStrategy = require('passport-xing').Strategy;
 
 passport.use(
   new XingStrategy(
-  {
-    consumerKey: process.env.XING_API_KEY,
-    consumerSecret: process.env.XING_SECRET_KEY,
-    callbackURL: "http://127.0.0.1:3000/auth/xing/callback"
-},
-(accessToken, refreshToken, profile, done) => {
-  // find a user with profile.id as xingId or create one
-  User.findOne({ xingId: profile.id })
-    .then(found => {
-      if (found !== null) {
-        // user with that xingId already exists
-        done(null, found);
-      } else {
-        // no user with that xingId
-        return User.create({ xingId: profile.id }).then(dbUser => {
-          done(null, dbUser);
+    {
+      consumerKey: process.env.XING_API_KEY,
+      consumerSecret: process.env.XING_SECRET_KEY,
+      callbackURL: `${process.env.AUTH_URL}/auth/xing/callback`
+    },
+    (accessToken, refreshToken, profile, done) => {
+      // find a user with profile.id as xingId or create one
+      User.findOne({ xingId: profile.id })
+        .then(found => {
+          if (found !== null) {
+            // user with that xingId already exists
+            done(null, found);
+          } else {
+            // no user with that xingId
+            return User.create({ xingId: profile.id }).then(dbUser => {
+              done(null, dbUser);
+            });
+          }
+        })
+        .catch(err => {
+          done(err);
         });
-      }
-    })
-    .catch(err => {
-      done(err);
-    });
-}
-));
+    }
+  ));
 
 app.use(passport.initialize());
 app.use(passport.session());

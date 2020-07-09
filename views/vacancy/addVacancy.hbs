@@ -1,11 +1,11 @@
-<h1>Add Vacancy</h1>
+<h1>Add a new Vacancy</h1>
 <form class="form-add-vacancy" id="form" action="/vacancy/create" method="POST">
 
   <label for="title">Title</label>
   <input type="text" name="title" required />
 
   <label for="description">Description</label>
-  <input type="text" name="description" required />
+  <textarea name="description" id="description" cols="30" rows="10" required></textarea>
 
   <label for="category">Category</label>
   <input type="text" name="category" required />
@@ -17,14 +17,18 @@
   <input type="text" name="location" required />
 
   <label for="contract">Contract</label>
-  <input type="text" name="contract" required />
+  <select name="contract" id="contract" required>
+    <option value="" selected disabled hidden>Contract</option>
+    <option value="full time">Full time</option>
+    <option value="part time">Part time</option>
+  </select>
+
 
   {{#if errorMessage}}
   <div class="error-message">{{errorMessage}}</div>
   {{/if}}
 
-  <button type="submit">Add Vacancy</button>
+  <button class="btn-primary" type="submit">Add Vacancy</button>
 </form>
 
-<a href="/">Home</a>
-<a href="/vacancies">Back to list</a>
+<a class="btn-linked" href="/vacancies">Back to list</a>

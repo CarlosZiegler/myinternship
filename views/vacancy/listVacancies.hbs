@@ -1,6 +1,25 @@
-<h1 class="title">Vacancies</h1>
+<div class="user-info">
+  <img class="user-avatar" src="{{user.avatarUrl}}" />
+  <h2 class="user-name">{{user.displayName}}</h2>
+  <div class="edit-perfil">
+    <span>
+      <form action="/user/edit/{{_id}}" method="GET">
+        <button class="edit-icon" type="submit"><img src="/images/profile.svg" alt=""></button>
+      </form>
+    </span>
+    <span>
+      <form action="/myvacancies" method="GET">
+        <button class="edit-icon" type="submit"><img src="/images/heart.svg" alt=""></button>
+      </form>
+    </span>
+    <span>
+      <form action="/apply/myapplies/{{_id}}" method="GET">
+        <button class="edit-icon" type="submit"><img src="/images/check.svg" alt=""></button>
+      </form>
+    </span>
+  </div>
+</div>
 <a class="btn-primary center" href="/vacancy/create">Add new Vacancy</a>
-
 <form class="find-form" action="/vacancies/filters" method="GET">
   <input id="find-input" type="text" class="find-input" placeholder="Search for title" name="title">
   <select name="category" id="category">
@@ -8,7 +27,6 @@
     {{#each uniqueCategories}}
     <option value="{{this}}">{{this}}</option>
     {{/each}}
-
   </select>
   <select name="location" id="location">
     <option value="" selected disabled hidden>Location</option>
@@ -35,6 +53,7 @@
 <div class="container">
   {{#each vacancies}}
   <div class="card">
+
     <div class="card-top-btn-group">
       <span>
         <form action="/vacancy/edit/{{_id}}" method="GET">
@@ -47,13 +66,18 @@
         </form>
       </span>
     </div>
-    <h2 class="card-title">{{title}}</h2>
-    <p class="card-description">Company: {{companyId.role}}</p>
-    <p class="card-description">Category: {{category}}</p>
-    <p class="card-description">Tags: {{category}}</p>
-    {{#each vacancies.tags}}
-    <p class="card-description">{{this}}</p>
-    {{/each}}
+
+
+    <h2 class="card-title"><strong>{{title}}</strong></h2>
+    <div class="card-body">
+      <p class="card-description">Company: {{companyId.displayName}}</p>
+      <p class="card-description">Category: {{category}}</p>
+      <div class="card-tags">
+        {{#each tags}}
+        <span class="card-tags-item">{{this}}</span>
+        {{/each}}
+      </div>
+    </div>
     <a class="btn-primary" href="/vacancy/details/{{_id}}">See more</a>
   </div>
   {{/each}}
