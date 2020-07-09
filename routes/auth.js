@@ -137,6 +137,11 @@ router.get('/auth/xing/callback',
 
 router.post('/auth/signup', (req, res, next) => {
   const { username, password, role } = req.body;
+  let avatarUrl;
+
+  if (role === 'company') {
+    avatarUrl = "https://images.unsplash.com/photo-1549399905-5d1bad747576?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=761&q=80"
+  }
 
   if (password.length < 8) {
     res.render('auth/signup', {
@@ -153,7 +158,7 @@ router.post('/auth/signup', (req, res, next) => {
         const salt = bcrypt.genSaltSync();
         const hash = bcrypt.hashSync(password, salt);
 
-        User.create({ username: username, password: hash, role: role, displayName: username })
+        User.create({ username: username, password: hash, role: role, displayName: username, avatarUrl })
           .then(dbUser => {
             // passport - login the user
             req.login(dbUser, err => {

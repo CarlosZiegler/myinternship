@@ -189,27 +189,17 @@ passport.use(new GoogleStrategy({
   callbackURL: `${process.env.AUTH_URL}/auth/google/callback` //google callback works with only referencial path.
 },
   (accessToken, refreshToken, profile, done) => {
-<<<<<<< HEAD
-=======
     console.log("google profile", profile)
->>>>>>> development
     // find a user with profile.id as googleId or create one
     User.findOne({ googleId: profile.id })
       .then(found => {
         if (found !== null) {
-<<<<<<< HEAD
-=======
           console.log(found)
->>>>>>> development
           // user with that googleId already exists
           done(null, found);
         } else {
           // no user with that googleId
-<<<<<<< HEAD
-          return User.create({ googleId: profile.id }).then(dbUser => {
-=======
           return User.create({ googleId: profile.id, avatarUrl: profile.photos[0].value, displayName: profile.displayName }).then(dbUser => {
->>>>>>> development
             done(null, dbUser);
           });
         }
@@ -228,11 +218,7 @@ passport.use(
     {
       clientID: process.env.LINKEDIN_API_KEY,
       clientSecret: process.env.LINKEDIN_SECRET_KEY,
-<<<<<<< HEAD
-      callbackURL: "http://127.0.0.1:3000/auth/linkedin/callback"
-=======
       callbackURL: `${process.env.AUTH_URL}/auth/linkedin/callback`
->>>>>>> development
     },
     (accessToken, refreshToken, profile, done) => {
       // find a user with profile.id as linkedIn or create one
@@ -243,11 +229,7 @@ passport.use(
             done(null, found);
           } else {
             // no user with that linkedIn
-<<<<<<< HEAD
-            return User.create({ linkedinId: profile.id }).then(dbUser => {
-=======
             return User.create({ linkedinId: profile.id, displayName: profile.displayName, avatarUrl: profile.photos[0].value }).then(dbUser => {
->>>>>>> development
               done(null, dbUser);
             });
           }
@@ -267,11 +249,7 @@ passport.use(
     {
       consumerKey: process.env.XING_API_KEY,
       consumerSecret: process.env.XING_SECRET_KEY,
-<<<<<<< HEAD
-      callbackURL: "http://127.0.0.1:3000/auth/xing/callback"
-=======
       callbackURL: `${process.env.AUTH_URL}/auth/xing/callback`
->>>>>>> development
     },
     (accessToken, refreshToken, profile, done) => {
       // find a user with profile.id as xingId or create one
