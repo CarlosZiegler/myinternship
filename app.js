@@ -12,8 +12,6 @@ const path = require('path');
 const bcrypt = require('bcrypt');
 const flash = require('connect-flash');
 
-
-
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUI = require('swagger-ui-express');
 
@@ -293,8 +291,6 @@ app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 // default value for title local
 app.locals.title = 'My Internship';
 
-
-
 const index = require('./routes/index');
 app.use('/', index);
 
@@ -303,7 +299,6 @@ app.use('/', vacancy);
 
 const authRoutes = require('./routes/auth');
 app.use('/', authRoutes);
-
 
 const applyRoutes = require('./routes/apply');
 app.use('/', applyRoutes);
