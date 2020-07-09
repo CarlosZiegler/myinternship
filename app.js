@@ -297,11 +297,15 @@ app.locals.title = 'Express - Generated with IronGenerator';
 
 const index = require('./routes/index');
 app.use('/', index);
+
 const vacancy = require('./routes/vacancy');
 app.use('/', vacancy);
 
 const authRoutes = require('./routes/auth');
 app.use('/', authRoutes);
+
+const profile = require('./routes/profile');
+app.use('/', profile);
 
 
 module.exports = app;
