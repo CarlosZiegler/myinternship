@@ -1,14 +1,20 @@
 <div class="signin-page">
   <form id="signin-form" action="/auth/signup" method="POST">
     <h1>Sign Up</h1>
-    <h2>Create your free account!</h2>
-    <input type="text" name="username" placeholder="Username" required/><br>
-    <input type="text" name="email" placeholder="Email" required/><br>
-    <input type="password" name="password" placeholder="Password" required/><br>
-    <input type="radio" id="professional" name="professional" value="professional">
-      <label for="professional">I'm a Professional</label>
-    <input type="radio" id="company" name="company" value="company">
-      <label for="company">I'm a Company</label><br>
+    <h3>Create your free account!</h3>
+    <input class="input-text" type="text" name="username" placeholder="Username" required/><br>
+    <input class="input-text" type="text" name="email" placeholder="Email" required/><br>
+    <input class="input-text" type="password" name="password" placeholder="Password" required/><br>
+    <div class="radiobox">
+        <div class="role">
+        <input class="radio-input" type="radio" id="professional" name="role" value="professional" checked/>
+        <label for="professional">I'm a Professional</label>
+      </div>
+      <div class="role">
+        <input class="radio-input" type="radio" id="company" name="role" value="company"/>
+        <label for="company">I'm a Company</label>
+      </div>    
+    </div>
     {{#if message}}
     <div class="error-message">{{message}}</div>
     {{/if}}
