@@ -163,7 +163,7 @@ passport.use(
             done(null, found);
           } else {
             // no user with that githubId
-            return User.create({ githubId: profile.id, displayName: profile.name, avatarUrl: profile.avatar_url }).then(dbUser => {
+            return User.create({ githubId: profile.id, displayName: profile.displayName, avatarUrl: profile.photos[0].value }).then(dbUser => {
               done(null, dbUser);
             });
           }
