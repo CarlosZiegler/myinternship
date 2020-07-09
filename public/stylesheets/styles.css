@@ -313,6 +313,45 @@ textarea{
   width: 100%;
   bottom: 0;
 }
+
+.apply-page {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 342px;
+  height: 600px;
+  background: #FFFFFF;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+}
+  
+.apply-page p{
+  color: #6C63FF;
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+}
+  
+.apply-page h2 {
+  color: #6C63FF;
+  display: block;
+  font-size: 1.5em;
+  margin-block-start: 0.83em;
+  margin-block-end: 0.83em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+}
+
+.apply-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;  
+}
+
 @media (min-width:1060px){
   /* .footer{
     position: fixed;

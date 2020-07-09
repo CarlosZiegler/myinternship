@@ -1,36 +1,33 @@
-<h1>Apply</h1>
-<form class="form-add-vacancy" id="form" action="/vacancy/apply" method="POST">
-
-  <label for="title">Title</label>
-  <input type="text" name="title" value="{{vacancy.title}}" />
-  
-  <br>
-  
-  <label for="description">Description</label>
-  <input type="text" name="description" value="{{vacancy.description}}">
+<div class="apply-page">
+  <div>
+    <div class="apply-form">
+      <h2>Apply</h2>
+    </div>
     
-  <br>
-  
-  <label for="description">Category</label>
-  <input type="text" name="description" value="{{vacancy.category}}">
-    
-  <br>
-  
-  <label for="description">Tags</label>
-  <input type="text" name="description" value="{{vacancy.tags}}">
-  
-  <br>
-  
-  <label for="description">Location</label>
-  <input type="text" name="description" value="{{vacancy.location}}">
-  
-  <br>
-  
-  <label for="description">Contract</label>
-  <input type="text" name="description" value="{{vacancy.contract}}">
+    <div class="apply-form">
+      <form class="form-add-vacancy" id="form" action="/vacancy/apply" method="POST">
+        <label for="title">Title</label>
+        <p>{{vacancy.title}}</p>
+        
+        <label for="description">Description</label>
+        <p>{{vacancy.description}}</p>
 
-  <a class="btn-form" href="mailto:test@example.com?subject=Testing out mailto!&body=This is only a test!">E-Mail the Company:</a>
+        <label for="description">Category</label>
+        <p>{{vacancy.category}}</p>
 
-</form>
+        <label for="description">Tags</label>
+        <p>{{vacancy.tags}}</p>
 
-<a class="btn-secondary-apply" href="/vacancies">Back to list</a>
+        <label for="description">Location</label>
+        <p>{{vacancy.location}}</p>
+        
+        <label for="description">Contract</label>
+        <p>{{vacancy.contract}}</p>
+
+        <a class="btn-form" href="mailto:test@example.com?subject=Testing out mailto!&body=This is only a test!">E-Mail the Company:</a>
+
+        <a class="btn-secondary-apply" href="/vacancies">Back to list</a>
+      </form>
+    </div>
+  </div>
+</div>
