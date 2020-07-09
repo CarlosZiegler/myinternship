@@ -1,17 +1,40 @@
 <h1 class="title">Vacancy</h1>
-<div class="container">
-  <div class="card">
-    <h2 class="card-title">{{vacancy.title}}</h2>
-    <p class="card-title">Description: {{vacancy.description}}</p>
-    <p class="card-title">Category: {{vacancy.category}}</p>
-    <p class="card-title">Tags:</p>
-    {{#each vacancy.tags}}
-    <p class="card-title"><strong>{{this}}</strong></p>
-    {{/each}}
-    <p class="card-title">Location: {{vacancy.location}}</p>
-    <p class="card-title">CompanyID: {{vacancy.companyId.role}}</p>
-    <p class="card-title">Contract: {{vacancy.contract}}</p>
-    <a class="btn-primary" href="/vacancies">Back</a>
-  </div>
+<div class="container column">
+  <div class="card-start">
+    {{#ifCompany user }}
 
+    {{else}}
+    <div class="card-top-btn-group-end">
+      <a href="/vacancy/save/{{vacancy._id}}" class="edit-icon edit-item" type="submit">
+        <img src="/images/heart.svg" alt="" />
+      </a>
+    </div>
+    {{/ifCompany}}
+    <h2 class="card-title">{{vacancy.title}}</h2>
+    <p class="card-description">
+      <span class="card-item-name">Description: </span>
+      {{vacancy.description}}
+    </p>
+    <p class="card-description">
+      <span class="card-item-name">Category: </span>
+      {{vacancy.category}}</p>
+    <p class="card-description">
+      <span class="card-item-name">Tags: </span>
+    <div class="card-tags">
+      {{#each vacancy.tags}}
+      <span class="card-tags-item">{{this}}</span>
+      {{/each}}
+    </div>
+    <p class="card-description"><span class="card-item-name">Location: </span> {{vacancy.location}}</p>
+    <p class="card-description"><span class="card-item-name">Company: </span> {{vacancy.companyId.displayName}}</p>
+    <p class="card-description"><span class="card-item-name">Contract: </span> <span
+        class="card-item-captalized">{{vacancy.contract}}</span></p>
+    {{#ifCompany user }}
+    {{else}}
+    <div class="container-btn">
+      <a class="btn-apply" href="/apply/{{vacancy._id}}">Apply now!</a>
+    </div>
+    {{/ifCompany}}
+  </div>
+  <a class="btn-primary" href="/vacancies">Back</a>
 </div>

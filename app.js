@@ -63,6 +63,14 @@ hbs.registerHelper('eachUnique', function (array) {
   return uniqueCategories
 });
 
+//if is user
+hbs.registerHelper('ifCompany', function (user, options) {
+  if (user.role === "company") {
+    return options.fn(this);
+  }
+  return options.inverse(this);
+});
+
 const app_name = require('./package.json').name;
 const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.')[0]}`);
 
@@ -144,7 +152,7 @@ passport.use(
     {
       clientID: process.env.ID_GIT,
       clientSecret: process.env.SECRET_GIT,
-      callbackURL: 'http://127.0.0.1:3000/auth/github/callback'
+      callbackURL: `${process.env.AUTH_URL}/auth/github/callback`
     },
     (accessToken, refreshToken, profile, done) => {
       // find a user with profile.id as githubId or create one
@@ -155,7 +163,7 @@ passport.use(
             done(null, found);
           } else {
             // no user with that githubId
-            return User.create({ githubId: profile.id }).then(dbUser => {
+            return User.create({ githubId: profile.id, displayName: profile.displayName, avatarUrl: profile.photos[0].value }).then(dbUser => {
               done(null, dbUser);
             });
           }
@@ -178,18 +186,30 @@ const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: `/auth/google/callback` //google callback works with only referencial path.
+  callbackURL: `${process.env.AUTH_URL}/auth/google/callback` //google callback works with only referencial path.
 },
   (accessToken, refreshToken, profile, done) => {
+<<<<<<< HEAD
+=======
+    console.log("google profile", profile)
+>>>>>>> development
     // find a user with profile.id as googleId or create one
     User.findOne({ googleId: profile.id })
       .then(found => {
         if (found !== null) {
+<<<<<<< HEAD
+=======
+          console.log(found)
+>>>>>>> development
           // user with that googleId already exists
           done(null, found);
         } else {
           // no user with that googleId
+<<<<<<< HEAD
           return User.create({ googleId: profile.id }).then(dbUser => {
+=======
+          return User.create({ googleId: profile.id, avatarUrl: profile.photos[0].value, displayName: profile.displayName }).then(dbUser => {
+>>>>>>> development
             done(null, dbUser);
           });
         }
@@ -208,7 +228,11 @@ passport.use(
     {
       clientID: process.env.LINKEDIN_API_KEY,
       clientSecret: process.env.LINKEDIN_SECRET_KEY,
+<<<<<<< HEAD
       callbackURL: "http://127.0.0.1:3000/auth/linkedin/callback"
+=======
+      callbackURL: `${process.env.AUTH_URL}/auth/linkedin/callback`
+>>>>>>> development
     },
     (accessToken, refreshToken, profile, done) => {
       // find a user with profile.id as linkedIn or create one
@@ -219,7 +243,11 @@ passport.use(
             done(null, found);
           } else {
             // no user with that linkedIn
+<<<<<<< HEAD
             return User.create({ linkedinId: profile.id }).then(dbUser => {
+=======
+            return User.create({ linkedinId: profile.id, displayName: profile.displayName, avatarUrl: profile.photos[0].value }).then(dbUser => {
+>>>>>>> development
               done(null, dbUser);
             });
           }
@@ -239,7 +267,11 @@ passport.use(
     {
       consumerKey: process.env.XING_API_KEY,
       consumerSecret: process.env.XING_SECRET_KEY,
+<<<<<<< HEAD
       callbackURL: "http://127.0.0.1:3000/auth/xing/callback"
+=======
+      callbackURL: `${process.env.AUTH_URL}/auth/xing/callback`
+>>>>>>> development
     },
     (accessToken, refreshToken, profile, done) => {
       // find a user with profile.id as xingId or create one
@@ -273,25 +305,31 @@ app.use(require('node-sass-middleware')({
   sourceMap: true
 }));
 
-
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
-
-
 // default value for title local
-app.locals.title = 'Express - Generated with IronGenerator';
-
+app.locals.title = 'My Internship';
 
 const index = require('./routes/index');
 app.use('/', index);
+
 const vacancy = require('./routes/vacancy');
 app.use('/', vacancy);
 
 const authRoutes = require('./routes/auth');
 app.use('/', authRoutes);
 
+const applyRoutes = require('./routes/apply');
+app.use('/', applyRoutes);
 
+const profile = require('./routes/profile');
+app.use('/', profile);
+
+module.exports = app;
+
+
+//sendEmail('vipavani@hotmail.com', "teste2", 'teste body 2')
 module.exports = app;

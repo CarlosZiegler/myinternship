@@ -1,4 +1,28 @@
-<h1 class="title">Vacancies User</h1>
+<div class="user-info">
+  <img class="user-avatar" src="{{user.avatarUrl}}" />
+  <h2 class="user-name">{{user.displayName}}</h2>
+  <div class="edit-perfil">
+    <span>
+      <form class="" action="/profile" method="GET">
+        <button class="edit-icon edit-item" type="submit">
+          <img src="/images/profile.svg" alt="">
+          <span>Profile</span>
+        </button>
+      </form>
+    </span>
+    <span>
+      <form action="/myvacancies/{{_id}}" method="GET">
+        <button class="edit-icon edit-item" type="submit">
+          <img src="/images/heart.svg" alt="">
+          <span>Saved</span>
+        </button>
+      </form>
+    </span>
+  </div>
+</div>
+{{#if saved}}
+<h1 class="section-saved">Saved Vacancies</h1>
+{{/if}}
 <div class="find-bar">
   <form class="find-form" action="/vacancies/filters" method="GET">
     <input id="find-input" type="text" class="find-input" placeholder="Search for title" name="title">
@@ -19,10 +43,10 @@
   </form>
 </div>
 {{#if filters}}
-<ul>Filters:
+<ul class="filters-list">Filters:
   {{#each filters}}
   {{#if this}}
-  <li>{{this}}</li>
+  <li class="filters-item">{{this}}</li>
   {{/if}}
   {{/each}}
 </ul>
@@ -31,15 +55,24 @@
   <button class="btn-reset" type="submit">Delete filters</button>
 </form>
 <div class=" container">
+  {{#unless vacancies}}
+  <div class="text-warning">
+    <h2 class="warning">You not found Vacancies</h2>
+  </div>
+  {{/unless}}
   {{#each vacancies}}
   <div class="card">
     <h2 class="card-title">{{title}}</h2>
-    <p class="card-description">Category: {{category}}</p>
-    <p class="card-description">Company: {{companyId.role}}</p>
-    <p class="card-description">Tags: {{category}}</p>
-    {{#each vacancies.tags}}
-    <p class="card-description">{{this}}</p>
-    {{/each}}
+    <div class="card-body">
+      <p class="card-description">Category: {{category}}</p>
+      <p class="card-description">Company: {{companyId.displayName}}</p>
+      <p class="card-description">Location: {{location}}</p>
+      <div class="card-tags">
+        {{#each tags}}
+        <span class="card-tags-item">{{this}}</span>
+        {{/each}}
+      </div>
+    </div>
     <a class="btn-primary" href="/vacancy/details/{{_id}}">See more</a>
   </div>
   {{/each}}

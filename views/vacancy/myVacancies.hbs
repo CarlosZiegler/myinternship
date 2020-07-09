@@ -1,0 +1,55 @@
+<div class="user-info">
+  <img class="user-avatar" src="{{user.avatarUrl}}" />
+  <h2 class="user-name">{{user.displayName}}</h2>
+  <div class="edit-perfil">
+    <span>
+      <form class="" action="/profile" method="GET">
+        <button class="edit-icon edit-item" type="submit">
+          <img src="/images/profile.svg" alt="">
+          <span>Profile</span>
+        </button>
+      </form>
+    </span>
+    <span>
+      <form action="/myvacancies/{{_id}}" method="GET">
+        <button class="edit-icon edit-item" type="submit">
+          <img src="/images/heart.svg" alt="">
+          <span>Saved</span>
+        </button>
+      </form>
+    </span>
+  </div>
+</div>
+{{#if saved}}
+<h1 class="section-saved">Saved Vacancies</h1>
+{{/if}}
+
+<div class=" container">
+  {{#unless vacancies}}
+  <div class="text-warning">
+    <h2 class="warning">You haven't added Vacancies here</h2>
+  </div>
+  {{/unless}}
+  {{#each vacancies}}
+  <div class="card">
+    <h2 class="card-title">{{title}}</h2>
+    <div class="card-body">
+      <p class="card-description">Category: {{category}}</p>
+      <p class="card-description">Location: {{companyId.location}}</p>
+      <div class="card-tags">
+        {{#each tags}}
+        <span class="card-tags-item">{{this}}</span>
+        {{/each}}
+      </div>
+    </div>
+    <div class="card-top-btn-group">
+      <span>
+        <form action="/vacancy/saved/remove/{{_id}}" method="POST">
+          <button class="card-btn-icon" type="submit"><img src="/images/delete-icon.svg" alt=""></button>
+        </form>
+      </span>
+      <a class="btn-primary" href="/vacancy/details/{{_id}}">See more</a>
+    </div>
+  </div>
+  {{/each}}
+</div>

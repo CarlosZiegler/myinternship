@@ -18,7 +18,8 @@ const MOCK_VACANCY = {
   category: "frontend",
   tags: ["Reactjs", "Frontend", "Javascript"],
   location: "Berlin",
-  contract: "full time"
+  contract: "full time",
+  role: "professional"
 }
 describe("GET / ", () => {
   test("It should respond with an Ok", async () => {
