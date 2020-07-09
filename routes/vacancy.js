@@ -143,7 +143,7 @@ router.get('/myvacancies', loginCheck(), async (req, res, next) => {
         uniqueCategories = [... new Set(vacancies.map(item => item.category))]
         uniqueLocations = [... new Set(vacancies.map(item => item.location))]
       }
-      return res.render("vacancy/listVacanciesPersonal", { vacancies: vacancies, uniqueCategories, uniqueLocations, user: req.user });
+      return res.render("vacancy/listVacanciesPersonal", { vacancies: vacancies, uniqueCategories, uniqueLocations, user: req.user, saved: true });
     }
 
   } catch (error) {

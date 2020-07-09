@@ -8,6 +8,21 @@ body {
    text-decoration: none;
  }
 
+ .edit-item{
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   margin:0 10px;
+ }
+ .text-warning{
+  
+
+ }
+ .text-center{
+   text-align: center;
+ }
+
 
  .navbar{
   width:100%;
