@@ -135,7 +135,6 @@ router.get('/myvacancies', loginCheck(), async (req, res, next) => {
       res.redirect('/vacancies')
     } else {
       const [{ vacancies }] = await User.find({ _id: req.user._id }).populate('vacancies')
-      console.log(vacancies)
       let uniqueCategories
       let uniqueLocations
 
@@ -143,7 +142,7 @@ router.get('/myvacancies', loginCheck(), async (req, res, next) => {
         uniqueCategories = [... new Set(vacancies.map(item => item.category))]
         uniqueLocations = [... new Set(vacancies.map(item => item.location))]
       }
-      return res.render("vacancy/listVacanciesPersonal", { vacancies: vacancies, uniqueCategories, uniqueLocations, user: req.user, saved: true });
+      return res.render("vacancy/myVacancies", { vacancies: vacancies, uniqueCategories, uniqueLocations, user: req.user, saved: true });
     }
 
   } catch (error) {
@@ -151,6 +150,49 @@ router.get('/myvacancies', loginCheck(), async (req, res, next) => {
   }
 });
 
+/**
+ * @swagger
+ * /vacancy/save/:id:
+ *  delete:
+ *    description: delete vacancy by ID
+ *    responses:
+ *       '200': 
+ *       description: Successfully   
+ *       
+ */
+router.get('/vacancy/save/:id', loginCheck(), async (req, res, next) => {
+  if (req.user.role === 'company') {
+    return res.redirect("/vacancies");
+  }
+  const { id } = req.params
+  try {
+    const result = await User.findByIdAndUpdate(req.user._id, {
+      $addToSet: {
+        vacancies: id
+      }
+    })
+    console.log(result)
+    return res.redirect("/myvacancies");
+  } catch (error) {
+    console.log(error)
+  }
+});
+router.post('/vacancy/saved/remove/:id', loginCheck(), async (req, res, next) => {
+  if (req.user.role === 'company') {
+    return res.redirect("/vacancies");
+  }
+  const { id } = req.params
+  try {
+    console.log("aqui passou")
+    const result = await User.findByIdAndUpdate(req.user._id, {
+      $pull: { vacancies: id }
+    })
+    console.log(result)
+    return res.redirect("/myvacancies");
+  } catch (error) {
+    console.log(error)
+  }
+});
 /**
  * @swagger
  * /vacancy/delete/:id:
@@ -235,7 +277,7 @@ router.get('/vacancies/filters', loginCheck(), async (req, res, next) => {
       query = { title: { $regex: `^${title}.*`, $options: 'si' }, category: { $regex: `^${category}.*`, $options: 'si' }, location: { $regex: `^${location}.*`, $options: 'si' } }
     }
 
-    const vacancies = await Vacancy.find(query)
+    const vacancies = await Vacancy.find(query).populate('companyId')
     const uniqueCategories = [... new Set(vacancies.map(item => item.category))]
     const uniqueLocations = [... new Set(vacancies.map(item => item.location))]
     if (req.user.role !== "company") {
