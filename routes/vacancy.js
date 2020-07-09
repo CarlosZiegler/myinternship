@@ -3,7 +3,6 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const DbConnection = require('../configs/db.config');
 const Vacancy = require('../models/Vacancy')
-const User = require('../models/User')
 const { loginCheck } = require('./middlewares')
 
 //Documentation for Swagger https://github.com/fliptoo/swagger-express 
@@ -57,7 +56,7 @@ router.post('/vacancy/create', loginCheck(), async (req, res, next) => {
       title,
       description,
       category,
-      tags: tags.split(','),
+      tags,
       location,
       companyId,
       contract,
@@ -71,7 +70,7 @@ router.post('/vacancy/create', loginCheck(), async (req, res, next) => {
 
 /**
  * @swagger
- * /vacancy/details/:id :
+ * /vacancy/:id:
  *  get:
  *    description: render details page of Vacancy id
  *    responses:
@@ -79,6 +78,7 @@ router.post('/vacancy/create', loginCheck(), async (req, res, next) => {
  *       description: Successfully   
  *       
  */
+
 router.get('/vacancy/details/:id', loginCheck(), async (req, res, next) => {
   const { id } = req.params
   const isCompany = req.user.role !== "personal";
@@ -101,6 +101,7 @@ router.get('/vacancy/details/:id', loginCheck(), async (req, res, next) => {
  *       
  */
 router.get('/vacancies', loginCheck(), async (req, res, next) => {
+
   try {
 
     if (req.user.role === "company") {
@@ -112,39 +113,7 @@ router.get('/vacancies', loginCheck(), async (req, res, next) => {
       const vacancies = await Vacancy.find().populate('companyId')
       const uniqueCategories = [... new Set(vacancies.map(item => item.category))]
       const uniqueLocations = [... new Set(vacancies.map(item => item.location))]
-      return res.render("vacancy/listVacanciesPersonal", { vacancies: vacancies, uniqueCategories, uniqueLocations, user: req.user });
-    }
-
-  } catch (error) {
-    console.log(error)
-  }
-});
-/**
- * @swagger
- * /vacancies:
- *  get:
- *    description: render list of Vacancies
- *    responses:
- *       '200': 
- *       description: Successfully   
- *       
- */
-router.get('/myvacancies', loginCheck(), async (req, res, next) => {
-  try {
-
-    if (req.user.role === "company") {
-      res.redirect('/vacancies')
-    } else {
-      const [{ vacancies }] = await User.find({ _id: req.user._id }).populate('vacancies')
-      console.log(vacancies)
-      let uniqueCategories
-      let uniqueLocations
-
-      if (vacancies) {
-        uniqueCategories = [... new Set(vacancies.map(item => item.category))]
-        uniqueLocations = [... new Set(vacancies.map(item => item.location))]
-      }
-      return res.render("vacancy/listVacanciesPersonal", { vacancies: vacancies, uniqueCategories, uniqueLocations, user: req.user });
+      return res.render("vacancy/listVacanciesPersonal", { vacancies: vacancies, user: req.user, uniqueCategories, uniqueLocations });
     }
 
   } catch (error) {
@@ -224,6 +193,7 @@ router.post('/vacancy/edit/:id', loginCheck(), async (req, res, next) => {
  *       description: Successfully   
  *       
  */
+
 router.get('/vacancies/filters', loginCheck(), async (req, res, next) => {
 
   const { title = "", category = "", tags = "", location = "" } = req.query
@@ -239,12 +209,7 @@ router.get('/vacancies/filters', loginCheck(), async (req, res, next) => {
     const vacancies = await Vacancy.find(query)
     const uniqueCategories = [... new Set(vacancies.map(item => item.category))]
     const uniqueLocations = [... new Set(vacancies.map(item => item.location))]
-    if (req.user.role !== "company") {
-      return res.render("vacancy/listVacanciesPersonal", { vacancies: vacancies, uniqueCategories, uniqueLocations, filters, user: req.user });
-    } else {
-
-      return res.render("vacancy/listVacancies", { vacancies: vacancies, uniqueCategories, uniqueLocations, filters, user: req.user });
-    }
+    return res.render("vacancy/listVacanciesPersonal", { vacancies: vacancies, uniqueCategories, uniqueLocations, filters });
   } catch (error) {
     console.log(error)
   }

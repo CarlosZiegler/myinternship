@@ -3,7 +3,7 @@ const router = express.Router();
 const Vacancy = require('../models/Vacancy');
 const { loginCheck } = require('./middlewares');
 
-router.post('/vacancy/apply', loginCheck(), async (req, res, next) => {
+router.post('/apply', loginCheck(), async (req, res, next) => {
   console.log("POST")
 });
 
@@ -23,6 +23,7 @@ router.get('/apply/:id', loginCheck(), async (req, res, next) => {
   if (req.user.role === 'company') {
     return res.redirect("/vacancies");
   }
+  
   console.log(vacancyId, "ID")
   try {
     const vacancy = await Vacancy.findById(vacancyId).populate('companyId')
