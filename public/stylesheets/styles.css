@@ -333,9 +333,23 @@ textarea{
   border: none;
   margin: 5px;
 }
-  
 
+.apply-textarea {
+  border: 1px solid #6C63FF;
+  color: #444083;
+  border-radius: 5px;
+  margin: 5px;
+  padding: 0px;
+}
 
+.apply-input {
+  border-radius: 5px;
+  font-size: 1.1rem;
+  border: 1px solid #6C63FF;
+  color: #444083;
+  margin: 5px;
+  padding: 0px 7px;
+}
 
 .footer{
   width:100%;
