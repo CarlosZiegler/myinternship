@@ -3,6 +3,13 @@ const router = express.Router();
 const Vacancy = require('../models/Vacancy');
 const { loginCheck } = require('./middlewares');
 
+/**
+ * @swagger
+ * /vacancy/:apply:
+ *  post:
+ *    description: render details page of Vacancy id
+ *       
+ */
 router.post('/apply', loginCheck(), async (req, res, next) => {
   const title = req.body.title;
   const email = req.body.userEmail;
@@ -14,10 +21,7 @@ router.post('/apply', loginCheck(), async (req, res, next) => {
  * @swagger
  * /vacancy/:id:
  *  get:
- *    description: render details page of Vacancy id
- *    responses:
- *       '200': 
- *       description: Successfully   
+ *    description: Successfully   
  *       
  */
 router.get('/apply/:id', loginCheck(), async (req, res, next) => {
