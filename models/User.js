@@ -19,7 +19,8 @@ const userSchema = new Schema({
   }],
   role: {
     type: String,
-    enum: ['personal', 'company'],
+    enum: ['professional', 'company'],
+    default:'professional'
   },
   avatarUrl: String
 }, {
