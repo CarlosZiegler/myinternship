@@ -323,11 +323,11 @@ router.get('/vacancies/filters', loginCheck(), async (req, res, next) => {
   let query;
   try {
     if (req.user.role === "company") {
-      query = { companyId: req.user._id, title: { $regex: `^${title}.*`, $options: 'si' }, category: { $regex: `^${category}.*`, $options: 'si' }, location: { $regex: `^${location}.*`, $options: 'si' }, tags: { $all: tags } }
+      query = { companyId: req.user._id, title: { $regex: `^${title}.*`, $options: 'si' }, category: { $regex: `^${category}.*`, $options: 'si' }, location: { $regex: `^${location}.*`, $options: 'si' } }
     } else {
-      query = { title: { $regex: `^${title}.*`, $options: 'si' }, category: { $regex: `^${category}.*`, $options: 'si' }, location: { $regex: `^${location}.*`, $options: 'si' }, tags: { $all: tags } }
+      query = { title: { $regex: `^${title}.*`, $options: 'si' }, category: { $regex: `^${category}.*`, $options: 'si' }, location: { $regex: `^${location}.*`, $options: 'si' } }
     }
-
+    // , tags: { $all: tags }
     const vacancies = await Vacancy.find(query).populate('companyId')
     const uniqueCategories = [... new Set(vacancies.map(item => item.category))]
     const uniqueLocations = [... new Set(vacancies.map(item => item.location))]
