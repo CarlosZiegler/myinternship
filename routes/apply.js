@@ -17,14 +17,12 @@ router.post('/vacancy/apply', loginCheck(), async (req, res, next) => {
  *       description: Successfully   
  *       
  */
-router.get('/vacancy/apply/:id', loginCheck(), async (req, res, next) => {
+router.get('/apply/:id', loginCheck(), async (req, res, next) => {
   const vacancyId = req.params.id;
 
   if (req.user.role === 'company') {
     return res.redirect("/vacancies");
   }
-  // req.query.name => ?name=Leo
-  // req.body => 
   console.log(vacancyId, "ID")
   try {
     const vacancy = await Vacancy.findById(vacancyId).populate('companyId')

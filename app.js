@@ -287,6 +287,7 @@ app.locals.title = 'Express - Generated with IronGenerator';
 
 const index = require('./routes/index');
 app.use('/', index);
+
 const vacancy = require('./routes/vacancy');
 app.use('/', vacancy);
 
