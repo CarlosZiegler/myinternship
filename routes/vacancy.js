@@ -327,7 +327,6 @@ router.get('/vacancies/filters', loginCheck(), async (req, res, next) => {
     } else {
       query = { title: { $regex: `^${title}.*`, $options: 'si' }, category: { $regex: `^${category}.*`, $options: 'si' }, location: { $regex: `^${location}.*`, $options: 'si' } }
     }
-    // , tags: { $all: tags }
     const vacancies = await Vacancy.find(query).populate('companyId')
     const uniqueCategories = [... new Set(vacancies.map(item => item.category))]
     const uniqueLocations = [... new Set(vacancies.map(item => item.location))]
