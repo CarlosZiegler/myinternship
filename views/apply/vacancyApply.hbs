@@ -1,33 +1,22 @@
-<div class="apply-page">
-  <div>
-    <div class="apply-form">
-      <h2>Apply</h2>
-    </div>
-    
-    <div class="apply-form">
-      <form class="form-add-vacancy" id="form" action="/vacancy/apply" method="POST">
-        <label for="title">Title</label>
-        <p>{{vacancy.title}}</p>
-        
-        <label for="description">Description</label>
-        <p>{{vacancy.description}}</p>
+      <h1 class="title">Apply</h1>
+<div class="container">
+  <div class="card">
+  
+     <h2 class="card-title">{{vacancy.title}}</h2>
+    <p class="card-title">Description: {{vacancy.description}}</p>
+    <p class="card-title">Category: {{vacancy.category}}</p>
+    <p class="card-title">Tags:
+      {{#each vacancy.tags}}
+      <strong>{{this}} </strong>
+      {{/each}}
+    </p>
+    <p class="card-title">Location: {{vacancy.location}}</p>
+    <p class="card-title">CompanyID: {{vacancy.companyId.role}}</p>
+    <p class="card-title">Contract: {{vacancy.contract}}</p>
 
-        <label for="description">Category</label>
-        <p>{{vacancy.category}}</p>
+      <a class="btn-contact-company" href="mailto:test@example.com?subject=Testing out mailto!&body=This is only a test!">E-Mail the Company:</a>
 
-        <label for="description">Tags</label>
-        <p>{{vacancy.tags}}</p>
-
-        <label for="description">Location</label>
-        <p>{{vacancy.location}}</p>
-        
-        <label for="description">Contract</label>
-        <p>{{vacancy.contract}}</p>
-
-        <a class="btn-form" href="mailto:test@example.com?subject=Testing out mailto!&body=This is only a test!">E-Mail the Company:</a>
-
-        <a class="btn-secondary-apply" href="/vacancies">Back to list</a>
-      </form>
-    </div>
+      <a class="btn-back-to-list" href="/vacancies">Back to list</a>
+    </form>
   </div>
 </div>

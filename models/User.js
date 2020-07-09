@@ -19,13 +19,8 @@ const userSchema = new Schema({
   }],
   role: {
     type: String,
-<<<<<<< HEAD
-    enum: ['personal', 'company'],
-    default: 'personal'
-=======
     enum: ['professional', 'company'],
     default:'professional'
->>>>>>> development
   },
   avatarUrl: String
 }, {
