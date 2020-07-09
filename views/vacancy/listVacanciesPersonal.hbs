@@ -26,6 +26,7 @@
 <div class="find-bar">
   <form class="find-form" action="/vacancies/filters" method="GET">
     <input id="find-input" type="text" class="find-input" placeholder="Search for title" name="title">
+    <input id="find-input" type="text" class="find-input" placeholder="Search for Tags" name="tags">
     <select name="category" id="category">
       <option value="" selected disabled hidden>Category</option>
       {{#each uniqueCategories}}
@@ -57,7 +58,7 @@
 <div class=" container">
   {{#unless vacancies}}
   <div class="text-warning">
-    <h2 class="warning">You haven't added Vacancies here'</h2>
+    <h2 class="warning">You not found Vacancies</h2>
   </div>
   {{/unless}}
   {{#each vacancies}}

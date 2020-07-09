@@ -6,7 +6,7 @@ const User = require('../models/User');
 const passport = require('passport');
 
 //Documentation for Swagger https://github.com/fliptoo/swagger-express 
-// access -> api-docs/
+// access -> http://localhost:3000/api-docs
 
 /**
  * @swagger
