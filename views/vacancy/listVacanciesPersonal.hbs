@@ -3,22 +3,26 @@
   <h2 class="user-name">{{user.displayName}}</h2>
   <div class="edit-perfil">
     <span>
-      <form action="/profile" method="GET">
-        <button class="edit-icon" type="submit"><img src="/images/profile.svg" alt=""></button>
+      <form class="" action="/profile" method="GET">
+        <button class="edit-icon edit-item" type="submit">
+          <img src="/images/profile.svg" alt="">
+          <span>Profile</span>
+        </button>
       </form>
     </span>
     <span>
       <form action="/myvacancies/{{_id}}" method="GET">
-        <button class="edit-icon" type="submit"><img src="/images/heart.svg" alt=""></button>
+        <button class="edit-icon edit-item" type="submit">
+          <img src="/images/heart.svg" alt="">
+          <span>Saved</span>
+        </button>
       </form>
     </span>
-    {{!-- <span>
-      <form action="/apply/myapplies/{{_id}}" method="GET">
-        <button class="edit-icon" type="submit"><img src="/images/check.svg" alt=""></button>
-      </form>
-    </span> --}}
   </div>
 </div>
+{{#if saved}}
+<h1 class="section-saved">Saved Vacancies</h1>
+{{/if}}
 <div class="find-bar">
   <form class="find-form" action="/vacancies/filters" method="GET">
     <input id="find-input" type="text" class="find-input" placeholder="Search for title" name="title">
@@ -52,7 +56,9 @@
 </form>
 <div class=" container">
   {{#unless vacancies}}
-  <h2>Not Found</h2>
+  <div class="text-warning">
+    <h2 class="warning">Not Found</h2>
+  </div>
   {{/unless}}
   {{#each vacancies}}
   <div class="card">

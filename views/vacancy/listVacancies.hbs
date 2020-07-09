@@ -3,18 +3,11 @@
   <h2 class="user-name">{{user.displayName}}</h2>
   <div class="edit-perfil">
     <span>
-      <form action="/user/edit/{{_id}}" method="GET">
-        <button class="edit-icon" type="submit"><img src="/images/profile.svg" alt=""></button>
-      </form>
-    </span>
-    <span>
-      <form action="/myvacancies" method="GET">
-        <button class="edit-icon" type="submit"><img src="/images/heart.svg" alt=""></button>
-      </form>
-    </span>
-    <span>
-      <form action="/apply/myapplies/{{_id}}" method="GET">
-        <button class="edit-icon" type="submit"><img src="/images/check.svg" alt=""></button>
+      <form class="" action="/profile" method="GET">
+        <button class="edit-icon edit-item" type="submit">
+          <img src="/images/profile.svg" alt="">
+          <span>Profile</span>
+        </button>
       </form>
     </span>
   </div>
