@@ -1,22 +1,13 @@
-      <h1 class="title">Apply</h1>
+<h1 class="title">Apply</h1>
 <div class="container">
   <div class="card">
-  
-     <h2 class="card-title">{{vacancy.title}}</h2>
-    <p class="card-title">Description: {{vacancy.description}}</p>
-    <p class="card-title">Category: {{vacancy.category}}</p>
-    <p class="card-title">Tags:
-      {{#each vacancy.tags}}
-      <strong>{{this}} </strong>
-      {{/each}}
-    </p>
-    <p class="card-title">Location: {{vacancy.location}}</p>
-    <p class="card-title">CompanyID: {{vacancy.companyId.role}}</p>
-    <p class="card-title">Contract: {{vacancy.contract}}</p>
-
-      <a class="btn-contact-company" href="mailto:test@example.com?subject=Testing out mailto!&body=This is only a test!">E-Mail the Company:</a>
-
-      <a class="btn-back-to-list" href="/vacancies">Back to list</a>
+    <h2 class="card-title">{{vacancy.title}}</h2>
+    <form class="login-form" action="" method="post">
+      <input name="title" placeholder="Subject:" required>
+      <input type="email" placeholder="E-Mail:" required>
+      <textarea name="title" id="" cols="30" rows="10"></textarea>
     </form>
+    <a class="btn-contact-company" href="/apply">Send E-Mail</a>
+    <a class="btn-back-to-list" href="/vacancies">Back to list</a>
   </div>
 </div>

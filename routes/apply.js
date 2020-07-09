@@ -4,7 +4,10 @@ const Vacancy = require('../models/Vacancy');
 const { loginCheck } = require('./middlewares');
 
 router.post('/apply', loginCheck(), async (req, res, next) => {
-  console.log("POST")
+  const title = req.body.title;
+  const email = req.body.userEmail;
+  const content = req.body.content;
+  console.log("POST", title, email, content)
 });
 
 /**
@@ -19,12 +22,11 @@ router.post('/apply', loginCheck(), async (req, res, next) => {
  */
 router.get('/apply/:id', loginCheck(), async (req, res, next) => {
   const vacancyId = req.params.id;
-
+  console.log(req.user)
   if (req.user.role === 'company') {
     return res.redirect("/vacancies");
   }
   
-  console.log(vacancyId, "ID")
   try {
     const vacancy = await Vacancy.findById(vacancyId).populate('companyId')
     return res.render("apply/vacancyApply", { vacancy: vacancy, user: req.user });
