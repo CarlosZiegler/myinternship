@@ -8,6 +8,21 @@ body {
    text-decoration: none;
  }
 
+ .edit-item{
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   margin:0 10px;
+ }
+ .text-warning{
+  
+
+ }
+ .text-center{
+   text-align: center;
+ }
+
 
  .navbar{
   width:100%;
@@ -259,6 +274,7 @@ textarea{
 
 }
 
+<<<<<<< HEAD
 .login-page {
 display: flex;
 flex-direction: column;
@@ -409,6 +425,8 @@ margin-top: 30px;
 
 
 
+=======
+>>>>>>> 3cf96c65d23a96481007a342570c37355a7ee8b7
 .footer{
   width:100%;
   background: #4B45B6;
