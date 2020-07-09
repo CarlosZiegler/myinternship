@@ -7,15 +7,14 @@ const User = require('../models/User')
 const { loginCheck } = require('./middlewares')
 
 //Documentation for Swagger https://github.com/fliptoo/swagger-express 
+// access -> http://localhost:3000/api-docs
 
 /**
  * @swagger
  * /vacancy/create:
  *  get:
  *    description: render create page with form to create new Vacancy
- *    responses:
- *       '200': 
- *       description: Successfully   
+ *    responses:  
  *       
  */
 router.get('/vacancy/create', loginCheck(), async (req, res, next) => {
@@ -30,11 +29,44 @@ router.get('/vacancy/create', loginCheck(), async (req, res, next) => {
  * /vacancy/create:
  *  post:
  *    description: use to create new Vacancy
- *    responses:
- *       '200': 
- *       description: Successfully   
- *       
+ *    parameters:
+ *       - name: Title
+ *         description: Title for new Vacancy.
+ *         in: formData
+ *         required: true
+ *         type: string      
+ *       - name: Description
+ *         description: Description of Vacancy.
+ *         in: formData
+ *         required: true
+ *         type: string      
+ *       - name: Category
+ *         description: Category of Vacancy.
+ *         in: formData
+ *         required: true
+ *         type: string      
+ *       - name: Tags
+ *         description: Array of Tags of Vacancy.
+ *         in: formData
+ *         required: true
+ *         type: string      
+ *       - name: Location
+ *         description: Array of Tags of Vacancy.
+ *         in: formData
+ *         required: true
+ *         type: string      
+ *       - name: Contract
+ *         description: Type of contract of Vacancy.
+ *         in: formData
+ *         required: true
+ *         type: string      
+ *       - name: CompanyID
+ *         description: Id of Company's vacancy.
+ *         in: formData
+ *         required: true
+ *         type: ObjectId      
  */
+
 router.post('/vacancy/create', loginCheck(), async (req, res, next) => {
 
   if (req.user.role !== 'company') {
@@ -74,9 +106,12 @@ router.post('/vacancy/create', loginCheck(), async (req, res, next) => {
  * /vacancy/details/:id :
  *  get:
  *    description: render details page of Vacancy id
- *    responses:
- *       '200': 
- *       description: Successfully   
+ *    parameters:
+ *       - name: ID
+ *         description: Id from MongoDB.
+ *         in: formData
+ *         required: true
+ *         type: string
  *       
  */
 router.get('/vacancy/details/:id', loginCheck(), async (req, res, next) => {
@@ -94,9 +129,6 @@ router.get('/vacancy/details/:id', loginCheck(), async (req, res, next) => {
  * /vacancies:
  *  get:
  *    description: render list of Vacancies
- *    responses:
- *       '200': 
- *       description: Successfully   
  *       
  */
 router.get('/vacancies', loginCheck(), async (req, res, next) => {
@@ -123,10 +155,6 @@ router.get('/vacancies', loginCheck(), async (req, res, next) => {
  * /vacancies:
  *  get:
  *    description: render list of Vacancies
- *    responses:
- *       '200': 
- *       description: Successfully   
- *       
  */
 router.get('/myvacancies', loginCheck(), async (req, res, next) => {
   try {
@@ -134,8 +162,7 @@ router.get('/myvacancies', loginCheck(), async (req, res, next) => {
     if (req.user.role === "company") {
       res.redirect('/vacancies')
     } else {
-      const [{ vacancies }] = await User.find({ _id: req.user._id }).populate('vacancies')
-      console.log(vacancies)
+      const [{ vacancies }] = await User.find({ _id: req.user._id }).populate('vacancies').populate('companyId')
       let uniqueCategories
       let uniqueLocations
 
@@ -143,7 +170,8 @@ router.get('/myvacancies', loginCheck(), async (req, res, next) => {
         uniqueCategories = [... new Set(vacancies.map(item => item.category))]
         uniqueLocations = [... new Set(vacancies.map(item => item.location))]
       }
-      return res.render("vacancy/listVacanciesPersonal", { vacancies: vacancies, uniqueCategories, uniqueLocations, user: req.user, saved: true });
+
+      return res.render("vacancy/myVacancies", { vacancies: vacancies, uniqueCategories, uniqueLocations, user: req.user, saved: true });
     }
 
   } catch (error) {
@@ -153,12 +181,60 @@ router.get('/myvacancies', loginCheck(), async (req, res, next) => {
 
 /**
  * @swagger
+ * /vacancy/save/:id:
+ *  delete:
+ *    description: delete vacancy by ID
+ *    parameters:
+ *       - name: ID
+ *         description: Id from Vacancy.
+ *         in: formData
+ *         required: true
+ *         type: ObjectID 
+ *       
+ */
+router.get('/vacancy/save/:id', loginCheck(), async (req, res, next) => {
+  if (req.user.role === 'company') {
+    return res.redirect("/vacancies");
+  }
+  const { id } = req.params
+  try {
+    const result = await User.findByIdAndUpdate(req.user._id, {
+      $addToSet: {
+        vacancies: id
+      }
+    })
+    return res.redirect("/myvacancies");
+  } catch (error) {
+    console.log(error)
+  }
+});
+router.post('/vacancy/saved/remove/:id', loginCheck(), async (req, res, next) => {
+  if (req.user.role === 'company') {
+    return res.redirect("/vacancies");
+  }
+  const { id } = req.params
+  try {
+
+    const result = await User.findByIdAndUpdate(req.user._id, {
+      $pull: { vacancies: id }
+    })
+
+    return res.redirect("/myvacancies");
+  } catch (error) {
+    console.log(error)
+  }
+});
+/**
+ * @swagger
  * /vacancy/delete/:id:
  *  delete:
  *    description: delete vacancy by ID
- *    responses:
- *       '200': 
- *       description: Successfully   
+ *    parameters:
+ *       - name: ID
+ *         description: Id from Vacancy.
+ *         in: formData
+ *         required: true
+ *         type: ObjectID
  *       
  */
 router.post('/vacancy/delete/:id', loginCheck(), async (req, res, next) => {
@@ -179,10 +255,12 @@ router.post('/vacancy/delete/:id', loginCheck(), async (req, res, next) => {
  * /vacancy/edit/:id:
  *  put:
  *    description: edit vacancy by ID
- *    responses:
- *       '200': 
- *       description: Successfully   
- *       
+ *    parameters:
+ *       - name: ID
+ *         description: Id from Vacancy.
+ *         in: formData
+ *         required: true
+ *         type: ObjectID      
  */
 router.post('/vacancy/edit/:id', loginCheck(), async (req, res, next) => {
   if (req.user.role !== 'company') {
@@ -207,7 +285,7 @@ router.post('/vacancy/edit/:id', loginCheck(), async (req, res, next) => {
       location,
       contract,
     })
-    console.log(result)
+
     return res.redirect("/vacancies");
   } catch (error) {
     console.log(error)
@@ -218,11 +296,24 @@ router.post('/vacancy/edit/:id', loginCheck(), async (req, res, next) => {
  * /vacancies/filters:
  *  get:
  *    description: render vacancies page with filters
- *    responses:
- *       '200': 
- *       description: Successfully   
- *       
+ *    parameters:
+ *       - name: Title
+ *         description: Title of Vacancy.
+ *         in: formData
+ *         required: true
+ *         type: string      
+ *       - name: Category
+ *         description: Category of Vacancy.
+ *         in: formData
+ *         required: true
+ *         type: string      
+ *       - name: Location
+ *         description: Location of Vacancy.
+ *         in: formData
+ *         required: true
+ *         type: string      
  */
+
 router.get('/vacancies/filters', loginCheck(), async (req, res, next) => {
 
   const { title = "", category = "", tags = "", location = "" } = req.query
@@ -235,7 +326,7 @@ router.get('/vacancies/filters', loginCheck(), async (req, res, next) => {
       query = { title: { $regex: `^${title}.*`, $options: 'si' }, category: { $regex: `^${category}.*`, $options: 'si' }, location: { $regex: `^${location}.*`, $options: 'si' } }
     }
 
-    const vacancies = await Vacancy.find(query)
+    const vacancies = await Vacancy.find(query).populate('companyId')
     const uniqueCategories = [... new Set(vacancies.map(item => item.category))]
     const uniqueLocations = [... new Set(vacancies.map(item => item.location))]
     if (req.user.role !== "company") {
@@ -252,11 +343,14 @@ router.get('/vacancies/filters', loginCheck(), async (req, res, next) => {
  * /vacancy/edit/:id:
  *  get:
  *    description: render edit page vacancy by ID
- *    responses:
- *       '200': 
- *       description: Successfully   
- *       
+ *    parameters:
+ *       - name: ID
+ *         description: Id from Vacancy.
+ *         in: formData
+ *         required: true
+ *         type: ObjectID      
  */
+
 router.get('/vacancy/edit/:id', loginCheck(), async (req, res, next) => {
   if (req.user.role !== 'company') {
     return res.redirect("/vacancies");

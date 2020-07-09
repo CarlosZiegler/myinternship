@@ -20,7 +20,7 @@ const userSchema = new Schema({
   role: {
     type: String,
     enum: ['professional', 'company'],
-    default:'professional'
+    default: 'professional'
   },
   avatarUrl: String
 }, {

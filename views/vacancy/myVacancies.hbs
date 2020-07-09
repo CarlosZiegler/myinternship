@@ -23,49 +23,19 @@
 {{#if saved}}
 <h1 class="section-saved">Saved Vacancies</h1>
 {{/if}}
-<div class="find-bar">
-  <form class="find-form" action="/vacancies/filters" method="GET">
-    <input id="find-input" type="text" class="find-input" placeholder="Search for title" name="title">
-    <select name="category" id="category">
-      <option value="" selected disabled hidden>Category</option>
-      {{#each uniqueCategories}}
-      <option value="{{this}}">{{this}}</option>
-      {{/each}}
 
-    </select>
-    <select name="location" id="location">
-      <option value="" selected disabled hidden>Location</option>
-      {{#each uniqueLocations}}
-      <option value="{{this}}">{{this}}</option>
-      {{/each}}
-    </select>
-    <button class="btn-primary" type="submit">Find</button>
-  </form>
-</div>
-{{#if filters}}
-<ul class="filters-list">Filters:
-  {{#each filters}}
-  {{#if this}}
-  <li class="filters-item">{{this}}</li>
-  {{/if}}
-  {{/each}}
-</ul>
-{{/if}}
-<form class="find-form" action="/vacancies" method="GET">
-  <button class="btn-reset" type="submit">Delete filters</button>
-</form>
 <div class=" container">
   {{#unless vacancies}}
   <div class="text-warning">
-    <h2 class="warning">You haven't added Vacancies here'</h2>
+    <h2 class="warning">You haven't added Vacancies here</h2>
   </div>
   {{/unless}}
   {{#each vacancies}}
   <div class="card">
+
     <h2 class="card-title">{{title}}</h2>
     <div class="card-body">
       <p class="card-description">Category: {{category}}</p>
-      <p class="card-description">Company: {{companyId.displayName}}</p>
       <p class="card-description">Location: {{location}}</p>
       <div class="card-tags">
         {{#each tags}}
@@ -73,7 +43,14 @@
         {{/each}}
       </div>
     </div>
-    <a class="btn-primary" href="/vacancy/details/{{_id}}">See more</a>
+    <div class="card-top-btn-group">
+      <span>
+        <form action="/vacancy/saved/remove/{{_id}}" method="POST">
+          <button class="card-btn-icon" type="submit"><img src="/images/delete-icon.svg" alt=""></button>
+        </form>
+      </span>
+      <a class="btn-primary" href="/vacancy/details/{{_id}}">See more</a>
+    </div>
   </div>
   {{/each}}
 </div>
