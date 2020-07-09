@@ -264,10 +264,20 @@ display: flex;
 flex-direction: column;
 position: relative;
 width: 342px;
-height: 522px;
+height: 600px;
 background: #FFFFFF;
 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 border-radius: 10px;
+}
+
+.login-page p{
+  color: #6C63FF;
+  font-size: 16px;  
+}
+
+.login-page h2{
+  color: #6C63FF;
+  
 }
 
 .login-form {
@@ -287,7 +297,7 @@ margin-top: 30px;
   padding: 10px;
   box-sizing: border-box;
   font-size: 14px;
-  border-radius: 5px;
+  border-radius: 10px;
 }
 
 .login-form button {
@@ -299,7 +309,7 @@ margin-top: 30px;
   padding: 10px;
   box-sizing: border-box;
   font-size: 14px;
-  border-radius: 5px;
+  border-radius: 10px;
   font-family: Roboto;
   font-style: normal;
   font-weight: normal;
@@ -312,9 +322,11 @@ margin-top: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 30px;  
+  flex-wrap: wrap;
+  justify-content: space-between; 
   border:1px solid #dcdcdc;
 }
+
 .social-signin div{
   display: flex;
   justify-content: flex-start;
@@ -322,12 +334,14 @@ margin-top: 30px;
   align-content: center;
   outline: 0;
   width: 80%;
-  border: 0;
-  margin: 0 0 15px;
-  padding: 10px;
+  border: 2px solid;
+  border-color: #6C63FF ;
+  margin: 0 0 2px;
+  margin-top: 8px;
+  padding: 4px;
   box-sizing: border-box;
   font-size: 14px;
-  border-radius: 5px;
+  border-radius: 10px;
 }
 .social-signin div :nth-child(n){
   margin: 0 10px;

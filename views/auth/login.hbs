@@ -1,30 +1,40 @@
 <div class="login-page">
   <div>
     <form class="login-form" action="/auth/login" method="POST">
+    <h2>Welcome back!</h2>
     <input type="text" name="username" placeholder="Username" required/><br>
     <input type="password" name="password" placeholder="Password" required/><br>
     <button>login</button>
       {{#if errorMessage}}
         <div class="error-message">{{errorMessage}}</div>
       {{/if}}
-    <p class="message">Not registered? <a href="#">Create an account</a></p>
+    <p class="message">Don't have an account? <a href="/auth/signup"><u>Sign up!</u></a></p>
   </form>
   </div>
   <div class="social-signin">
+    <p>or log in with your social account.</p>
     <div>
-      <img src="/images/github_color.png" alt="public/images/github_color.png">
+      <a href="/auth/github">
+        <img src="/images/github_color.png" alt="public/images/github_color.png">
+      </a>
       <a href="/auth/github">Login via Github</a>
     </div>
     <div>
-      <img src="/images/linkedIn_color.png" alt="public/images/linkedIn_color.png">
+      <a href="/auth/linkedin">
+        <img src="/images/linkedIn_color.png" alt="public/images/linkedIn_color.png">
+      </a>      
       <a href="/auth/linkedin">Login via LinkedIn</a>
     </div>
     <div>
-      <img src="/images/google_color.png" alt="public/images/google_color.png">
+      <a href="/auth/google">
+        <img src="/images/google_color.png" alt="public/images/google_color.png">
+      </a>      
       <a href="/auth/google">Login via Google</a>
     </div>
     <div>
-      <img src="/images/xing_color.png" alt="public/images/xing_color.png">
+      <a href="/auth/xing">
+        <img src="/images/xing_color.png" alt="public/images/xing_color.png">
+      </a>      
       <a href="/auth/xing">Login via Xing</a>
     </div>
   </div>
