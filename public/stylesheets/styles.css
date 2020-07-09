@@ -1,3 +1,4 @@
+
 body {
   padding:0;
   box-sizing: border-box;
@@ -302,6 +303,179 @@ textarea{
     margin:10px;
 
 }
+
+.login-page {
+display: flex;
+flex-direction: column;
+position: relative;
+width: 342px;
+height: 600px;
+background: #FFFFFF;
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 10px;
+}
+
+.login-page p{
+  color: #6C63FF;
+  font-size: 16px;  
+}
+
+.login-page h2 {
+  color: #6C63FF;
+  
+}
+
+.login-form {
+display: flex;
+flex-direction: column;
+align-items: center;
+margin-top: 30px;
+
+}
+
+.login-form input {
+  background: #f2f2f2;
+  border-radius: 5px;
+  width: 80%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 10px;
+  box-sizing: border-box;
+  font-size: 14px;
+  border-radius: 10px;
+}
+
+.login-form button {
+  width: 80%;
+  background: #6C63FF;
+  color: white;
+  width: 80%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 10px;
+  box-sizing: border-box;
+  font-size: 14px;
+  border-radius: 10px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 16px;
+  text-align: center;
+}
+
+.social-signin{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between; 
+  border:1px solid #dcdcdc;
+}
+
+.social-signin div{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  align-content: center;
+  outline: 0;
+  width: 80%;
+  border: 2px solid;
+  border-color: #6C63FF ;
+  margin: 0 0 2px;
+  margin-top: 8px;
+  padding: 4px;
+  box-sizing: border-box;
+  font-size: 14px;
+  border-radius: 10px;
+}
+.social-signin div :nth-child(n){
+  margin: 0 10px;
+}
+
+.signin-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 342px;
+  height: 600px;
+  background: #FFFFFF;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  }
+  
+.signin-page p{
+  color: #6C63FF;
+  font-size: 16px;  
+}
+
+.signin-page h3, h1{
+  color: #6C63FF;
+  
+}
+
+.input-text {
+  background: #f2f2f2;
+  border-radius: 5px;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 10px;
+  box-sizing: border-box;
+  font-size: 14px;
+  border-radius: 10px;
+}
+
+#signin-form{
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.radiobox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.role {
+
+  display: flex;
+  align-items: center;
+  align-content: flex-start;
+  width: 80%;  
+  margin: 5px;
+  padding: 10px;
+}
+.radio-input{
+  width: 50px;
+}
+
+
+.signin-page button {
+  width: 80%;
+  background: #6C63FF;
+  color: white;
+  width: 80%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 10px;
+  box-sizing: border-box;
+  font-size: 14px;
+  border-radius: 10px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 16px;
+  text-align: center;
+}
+
+
+
 
 .footer{
   width:100%;
