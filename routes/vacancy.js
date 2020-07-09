@@ -323,7 +323,7 @@ router.get('/vacancies/filters', loginCheck(), async (req, res, next) => {
   let query;
   try {
     if (req.user.role === "company") {
-      query = { companyId: req.user._id, title: { $regex: `^${title}.*`, $options: 'si' }, category: { $regex: `^${category}.*`, $options: 'si' }, location: { $regex: `^${location}.*`, $options: 'si' }, tags: { $all: tags.split('') } }
+      query = { companyId: req.user._id, title: { $regex: `^${title}.*`, $options: 'si' }, category: { $regex: `^${category}.*`, $options: 'si' }, location: { $regex: `^${location}.*`, $options: 'si' }, tags: { $all: tags } }
     } else {
       query = { title: { $regex: `^${title}.*`, $options: 'si' }, category: { $regex: `^${category}.*`, $options: 'si' }, location: { $regex: `^${location}.*`, $options: 'si' }, tags: { $all: tags } }
     }
