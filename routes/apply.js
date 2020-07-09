@@ -14,7 +14,12 @@ router.post('/apply/send', loginCheck(), async (req, res, next) => {
   const subject = req.body.subject;
   const email = req.body.email;
   const content = req.body.content;
-  const response = await sendEmail(email, subject, content)
+  try {
+    const response = await sendEmail(email, subject, content)
+  } catch (error) {
+    console.log(error)
+  }
+
   res.redirect('/vacancies')
 });
 /**
