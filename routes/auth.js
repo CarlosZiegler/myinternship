@@ -6,35 +6,24 @@ const User = require('../models/User');
 const passport = require('passport');
 
 //Documentation for Swagger https://github.com/fliptoo/swagger-express 
+// access -> api-docs/
 
 /**
  * @swagger
- * /:
+ * /auth/signup:
  *  get:
- *    description: use to request authentication signup page
- *    responses:
- *       '200': 
- *       description: Successfully   
- *       
+ *    description: use to request authentication signup page      
  */
-
-
 router.get('/auth/signup', (req, res) => {
   res.render('auth/signup');
 });
 
 /**
  * @swagger
- * /:
+ * /auth/login:
  *  post:
- *    description: use to post authentication login page
- *    responses:
- *       '200': 
- *       description: Successfully   
- *       
+ *    description: use to post authentication login page     
  */
-
-
 router.post('/auth/login', passport.authenticate('local', {
 
   successRedirect: '/vacancies',
@@ -47,29 +36,18 @@ router.post('/auth/login', passport.authenticate('local', {
 
 /**
  * @swagger
- * /:
+ * /auth/github:
  *  get:
- *    description: use to request github authentication page
- *    responses:
- *       '200': 
- *       description: Successfully   
- *       
+ *    description: use to request github authentication page      
  */
-
-// github authentication routing
 router.get('/auth/github', passport.authenticate('github'));
 
 /**
  * @swagger
  * /:
  *  get:
- *    description: use to callback github authentication page
- *    responses:
- *       '200': 
- *       description: Successfully   
- *       
+ *    description: use to callback github authentication page      
  */
-
 router.get('/auth/github/callback', passport.authenticate('github', {
 
   successRedirect: '/vacancies',
@@ -81,29 +59,18 @@ router.get('/auth/github/callback', passport.authenticate('github', {
 
 /**
  * @swagger
- * /:
+ * /auth/google:
  *  get:
- *    description: use to request google authentication page
- *    responses:
- *       '200': 
- *       description: Successfully   
- *       
+ *    description: use to request google authentication page      
  */
-
 router.get('/auth/google', passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] }));
 
 /**
  * @swagger
- * /:
+ * /auth/google/callback:
  *  get:
- *    description: use to callback github authentication page
- *    responses:
- *       '200': 
- *       description: Successfully   
- *       
+ *    description: use to callback github authentication page      
  */
-
-
 router.get('/auth/google/callback', passport.authenticate('google', {
 
   failureRedirect: 'auth/login'
@@ -116,13 +83,9 @@ router.get('/auth/google/callback', passport.authenticate('google', {
 
 /**
  * @swagger
- * /:
+ * /auth/linkedin:
  *  get:
- *    description: use to signup to linkedIn's authentication page
- *    responses:
- *       '200': 
- *       description: Successfully   
- *       
+ *    description: use to signup to linkedIn's authentication page     
  */
 
 router.get('/auth/linkedin',
@@ -130,15 +93,10 @@ router.get('/auth/linkedin',
 
 /**
  * @swagger
- * /:
+ * /auth/linkedin/callback:
  *  get:
- *    description: used to sign in to linkedIn's authentication callback
- *    responses:
- *       '200': 
- *       description: Successfully   
- *       
+ *    description: used to sign in to linkedIn's authentication callback      
  */
-
 router.get('/auth/linkedin/callback',
   passport.authenticate('linkedin', { failureRedirect: '/auth/login' }),
   function (req, res) {
@@ -148,50 +106,37 @@ router.get('/auth/linkedin/callback',
 
 /**
  * @swagger
- * /:
+ * /auth/xing:
  *  get:
- *    description: use to signup to xing's authentication page
- *    responses:
- *       '200': 
- *       description: Successfully   
- *       
+ *    description: use to signup to xing's authentication page      
  */
-
 router.get('/auth/xing',
-passport.authenticate('xing'));
+  passport.authenticate('xing'));
 
 /**
  * @swagger
- * /:
+ * /auth/xing/callback:
  *  get:
- *    description: used to sign in to xing's authentication callback
- *    responses:
- *       '200': 
- *       description: Successfully   
- *       
+ *    description: used to sign in to xing's authentication callback      
  */
 
-router.get('/auth/xing/callback', 
-passport.authenticate('xing', { failureRedirect: '/auth/login' }),
-function(req, res) {
-  // Successful authentication, redirect home.
-  res.redirect('/vacancies');
-});
+router.get('/auth/xing/callback',
+  passport.authenticate('xing', { failureRedirect: '/auth/login' }),
+  function (req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/vacancies');
+  });
 
 
 /**
  * @swagger
- * /:
+ * /auth/signup:
  *  post:
- *    description: use to signup page
- *    responses:
- *       '200': 
- *       description: Successfully   
- *       
+ *    description: use to signup page       
  */
 
 router.post('/auth/signup', (req, res, next) => {
-  const { username, password } = req.body;
+  const { username, password, role } = req.body;
 
   if (password.length < 8) {
     res.render('auth/signup', {
@@ -208,7 +153,7 @@ router.post('/auth/signup', (req, res, next) => {
         const salt = bcrypt.genSaltSync();
         const hash = bcrypt.hashSync(password, salt);
 
-        User.create({ username: username, password: hash })
+        User.create({ username: username, password: hash, role: role, displayName: username })
           .then(dbUser => {
             // passport - login the user
             req.login(dbUser, err => {
@@ -231,13 +176,9 @@ router.post('/auth/signup', (req, res, next) => {
 
 /**
  * @swagger
- * /:
+ * /auth/login:
  *  get:
- *    description: use to login page
- *    responses:
- *       '200': 
- *       description: Successfully   
- *       
+ *    description: use to login page     
  */
 
 router.get('/auth/login', (req, res) => {
@@ -246,13 +187,9 @@ router.get('/auth/login', (req, res) => {
 
 /**
  * @swagger
- * /:
+ * /auth/logout:
  *  get:
- *    description: use to logout page
- *    responses:
- *       '200': 
- *       description: Successfully   
- *       
+ *    description: use to logout page      
  */
 
 router.get('/auth/logout', (req, res, next) => {
