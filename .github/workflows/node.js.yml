@@ -41,3 +41,4 @@ jobs:
         XING_SECRET_KEY: ${{ secrets.XING_SECRET_KEY }}
         LINKEDIN_API_KEY: ${{ secrets.LINKEDIN_API_KEY }}
         LINKEDIN_SECRET_KEY: ${{ secrets.LINKEDIN_SECRET_KEY }}
+        AUTH_URL: ${{ secrets.AUTH_URL }}

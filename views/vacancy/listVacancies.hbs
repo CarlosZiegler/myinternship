@@ -1,4 +1,7 @@
-<h1 class="title">Vacancies</h1>
+<div class="user-info">
+  <img class="avatar" src="{{user.avatarUrl}}" />
+  <h1 class="title">Hello {{user.displayName}}</h1>
+</div>
 <a class="btn-primary center" href="/vacancy/create">Add new Vacancy</a>
 <form class="find-form" action="/vacancies/filters" method="GET">
   <input id="find-input" type="text" class="find-input" placeholder="Search for title" name="title">
