@@ -15,7 +15,6 @@
 <a class="btn-primary center" href="/vacancy/create">Add new Vacancy</a>
 <form class="find-form" action="/vacancies/filters" method="GET">
   <input id="find-input" type="text" class="find-input" placeholder="Search for title" name="title">
-  <input id="find-input" type="text" class="find-input" placeholder="Search for Tags" name="tags">
   <select name="category" id="category">
     <option value="" selected disabled hidden>Category</option>
     {{#each uniqueCategories}}
@@ -32,7 +31,7 @@
 </form>
 </div>
 {{#if filters}}
-<ul>Filters:
+<ul class="filters-list">Filters:
   {{#each filters}}
   {{#if this}}
   <li class="filters-item">{{this}}</li>

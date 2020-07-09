@@ -306,7 +306,7 @@ app.use('/', applyRoutes);
 const profile = require('./routes/profile');
 app.use('/', profile);
 
-module.exports = app; 
+module.exports = app;
 
 
 //sendEmail('vipavani@hotmail.com', "teste2", 'teste body 2')
