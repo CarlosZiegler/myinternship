@@ -1,6 +1,15 @@
 <h1 class="title">Vacancy</h1>
 <div class="container column">
   <div class="card">
+    {{#ifCompany user }}
+
+    {{else}}
+    <div class="card-top-btn-group-end">
+      <a href="/vacancy/save/{{vacancy._id}}" class="edit-icon edit-item" type="submit">
+        <img src="/images/heart.svg" alt="" />
+      </a>
+    </div>
+    {{/ifCompany}}
     <h2 class="card-title">{{vacancy.title}}</h2>
     <p class="card-title">Description: {{vacancy.description}}</p>
     <p class="card-title">Category: {{vacancy.category}}</p>
@@ -17,14 +26,7 @@
     {{else}}
 
 
-    <div class="card-top-btn-group">
-      <a class="btn-apply" href="/apply/{{vacancy._id}}">Apply now!</a>
-      <a href="/vacancy/save/{{vacancy._id}}" class="edit-icon edit-item" type="submit">
-        <img src="/images/heart.svg" alt="" />
-
-      </a>
-    </div>
-
+    <a class="btn-apply" href="/apply/{{vacancy._id}}">Apply now!</a>
 
     {{/ifCompany}}
   </div>

@@ -1,14 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 body {
   padding:0;
   box-sizing: border-box;
   margin: 0;
-  font: 14px "Roboto", Helvetica, Arial, sans-serif;
-  
+  font-family: 'Roboto', sans-serif;  
  }
  a{
    text-decoration: none;
  }
-
+ 
  .edit-item{
    display: flex;
    flex-direction: column;
@@ -180,6 +180,13 @@ body {
 .card-top-btn-group{
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  width:100%;
+  
+}
+.card-top-btn-group-end{
+  display: flex;
+  justify-content: flex-end;
   align-items: center;
   width:100%;
   
