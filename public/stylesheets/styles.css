@@ -52,6 +52,7 @@ body {
   justify-content:center;
   align-items: center;
   min-height:50%;
+  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -71,6 +72,7 @@ body {
   padding: 5px 75px;
   border-radius:10px;
   border:none;
+  margin:5px;
 }
 .btn-linked{
   font-size: 1.1rem;
@@ -97,16 +99,40 @@ body {
   min-height: 65vh;
   padding:10px;
 }
-.form-add-vacancy{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
 
 .title{ 
   text-align: center;
 }
+
+.user-info{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #C9C6FF
+}
+.user-avatar{
+  height: 80px;
+  border-radius: 50%;
+}
+.user-name{
+  margin:5px
+}
+.edit-perfil{
+  display: flex;
+}
+.edit-icon{
+  background: transparent;
+  border:none;
+  
+}
+.edit-icon img{
+ height: 30px;
+}
+
+
 .card{
   display: flex;
   flex-direction: column;
@@ -117,6 +143,7 @@ body {
   border:1px solid #6C63FF;
   border-radius: 10px;
   width:300px;
+  height: auto;
   margin: 10px;
   margin:10px auto;
   
@@ -126,11 +153,11 @@ body {
   justify-content: space-between;
   align-items: center;
   width:100%;
-  position: relative;
-  top:0;
+  
 }
 select{
   text-transform:capitalize;
+  background: transparent;
 }
 
 .card-btn-icon{
@@ -146,8 +173,43 @@ select{
   align-self: center;
   align-content: center;
 }
+.card-tags{
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.card-tags-item{
+  background: rgb(204, 241, 234);
+  padding:5px 15px;
+  margin: 5px;
+  border-radius:15px;
+  color:  rgb(0, 183, 150);
 
-.find-form{
+  
+}
+li{
+  list-style: none;
+}
+.filters-list{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.filters-item{
+  background: rgb(241, 204, 213);
+  padding:5px 15px;
+  margin: 5px;
+  border-radius:15px;
+  color:  rgb(116, 6, 31);
+
+  
+}
+
+
+.find-form ,.form-add-vacancy{ 
   display: flex;
   flex-direction: column;
   min-width:250px;
@@ -155,15 +217,24 @@ select{
 .find-form :nth-child(n){
   margin-top:5px;
 }
-.find-form input,select{
+.form-add-vacancy :nth-child(n){
+  margin-top:5px;
+}
+input,select {
   border-radius: 5px;
   font-size: 1.1rem;
   border: 1px solid #6C63FF;
-  color: #C9C6FF
+  color: #444083;
 }
-.find-form ::placeholder{
+::placeholder{
+  font-size: 1.1rem;
+  color: #444083;
+}
+textarea{
+  border: 1px solid #6C63FF;
+  color: #444083;
+  border-radius: 5px;
   
-  color: #C9C6FF
 }
 
 .btn-reset{
@@ -174,6 +245,17 @@ select{
     padding: 5px 75px;
     border-radius:10px;
     border:none
+
+}
+.btn-apply{
+  
+    font-size: 1.1rem;
+    background:#00a713;
+    color:#fff;
+    padding: 5px 50px;
+    border-radius:10px;
+    border:none;
+    margin:10px;
 
 }
 
