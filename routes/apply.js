@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Vacancy = require('../models/Vacancy');
+const User = require('../models/User')
 const { loginCheck } = require('./middlewares');
 const { sendEmail } = require('./helpers');
 /**
@@ -10,7 +11,7 @@ const { sendEmail } = require('./helpers');
  *    description: render details page of Apply id
  *       
  */
-router.post('/apply/send', loginCheck(), async (req, res, next) => {
+router.post('/apply/send/:id', loginCheck(), async (req, res, next) => {
   const subject = req.body.subject;
   const email = req.body.email;
   const content = req.body.content;
@@ -20,7 +21,19 @@ router.post('/apply/send', loginCheck(), async (req, res, next) => {
     console.log(error)
   }
 
-  res.redirect('/vacancies')
+  const { id } = req.params
+  try {
+    const result = await User.findByIdAndUpdate(req.user._id, {
+      $addToSet: {
+        vacancies: id
+      }
+    })
+    console.log(result)
+    return res.redirect("/myvacancies");
+  } catch (error) {
+    console.log(error)
+  }
+
 });
 /**
  * @swagger
