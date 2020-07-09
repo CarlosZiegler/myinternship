@@ -194,11 +194,12 @@ passport.use(new GoogleStrategy({
     User.findOne({ googleId: profile.id })
       .then(found => {
         if (found !== null) {
+          console.log(found)
           // user with that googleId already exists
           done(null, found);
         } else {
           // no user with that googleId
-          return User.create({ googleId: profile.id }).then(dbUser => {
+          return User.create({ googleId: profile.id, avatarUrl: profile.photos[0].value, displayName: profile.displayName }).then(dbUser => {
             done(null, dbUser);
           });
         }
