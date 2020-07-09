@@ -3,6 +3,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const DbConnection = require('../configs/db.config');
 const Vacancy = require('../models/Vacancy')
+const User = require('../models/User')
 const { loginCheck } = require('./middlewares')
 
 //Documentation for Swagger https://github.com/fliptoo/swagger-express 
@@ -110,6 +111,38 @@ router.get('/vacancies', loginCheck(), async (req, res, next) => {
       const vacancies = await Vacancy.find().populate('companyId')
       const uniqueCategories = [... new Set(vacancies.map(item => item.category))]
       const uniqueLocations = [... new Set(vacancies.map(item => item.location))]
+      return res.render("vacancy/listVacanciesPersonal", { vacancies: vacancies, uniqueCategories, uniqueLocations, user: req.user });
+    }
+
+  } catch (error) {
+    console.log(error)
+  }
+});
+/**
+ * @swagger
+ * /vacancies:
+ *  get:
+ *    description: render list of Vacancies
+ *    responses:
+ *       '200': 
+ *       description: Successfully   
+ *       
+ */
+router.get('/myvacancies', loginCheck(), async (req, res, next) => {
+  try {
+
+    if (req.user.role === "company") {
+      res.redirect('/vacancies')
+    } else {
+      const [{ vacancies }] = await User.find({ _id: req.user._id }).populate('vacancies')
+      console.log(vacancies)
+      let uniqueCategories
+      let uniqueLocations
+
+      if (vacancies) {
+        uniqueCategories = [... new Set(vacancies.map(item => item.category))]
+        uniqueLocations = [... new Set(vacancies.map(item => item.location))]
+      }
       return res.render("vacancy/listVacanciesPersonal", { vacancies: vacancies, uniqueCategories, uniqueLocations, user: req.user });
     }
 

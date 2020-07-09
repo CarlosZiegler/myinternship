@@ -186,7 +186,7 @@ const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: `/auth/google/callback` //google callback works with only referencial path.
+  callbackURL: `${process.env.AUTH_URL}/auth/google/callback` //google callback works with only referencial path.
 },
   (accessToken, refreshToken, profile, done) => {
     console.log("google profile", profile)

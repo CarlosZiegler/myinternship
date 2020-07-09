@@ -3,7 +3,7 @@
   <h2 class="user-name">{{user.displayName}}</h2>
   <div class="edit-perfil">
     <span>
-      <form action="/user/edit/{{_id}}" method="GET">
+      <form action="/profile" method="GET">
         <button class="edit-icon" type="submit"><img src="/images/profile.svg" alt=""></button>
       </form>
     </span>
@@ -12,11 +12,11 @@
         <button class="edit-icon" type="submit"><img src="/images/heart.svg" alt=""></button>
       </form>
     </span>
-    <span>
+    {{!-- <span>
       <form action="/apply/myapplies/{{_id}}" method="GET">
         <button class="edit-icon" type="submit"><img src="/images/check.svg" alt=""></button>
       </form>
-    </span>
+    </span> --}}
   </div>
 </div>
 <div class="find-bar">
@@ -51,6 +51,9 @@
   <button class="btn-reset" type="submit">Delete filters</button>
 </form>
 <div class=" container">
+  {{#unless vacancies}}
+  <h2>Not Found</h2>
+  {{/unless}}
   {{#each vacancies}}
   <div class="card">
     <h2 class="card-title">{{title}}</h2>
