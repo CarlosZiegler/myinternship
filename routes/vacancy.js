@@ -134,7 +134,7 @@ router.get('/myvacancies', loginCheck(), async (req, res, next) => {
     if (req.user.role === "company") {
       res.redirect('/vacancies')
     } else {
-      const [{ vacancies }] = await User.find({ _id: req.user._id }).populate('vacancies')
+      const [{ vacancies }] = await User.find({ _id: req.user._id }).populate('vacancies').populate('companyId')
       let uniqueCategories
       let uniqueLocations
 
@@ -142,6 +142,7 @@ router.get('/myvacancies', loginCheck(), async (req, res, next) => {
         uniqueCategories = [... new Set(vacancies.map(item => item.category))]
         uniqueLocations = [... new Set(vacancies.map(item => item.location))]
       }
+
       return res.render("vacancy/myVacancies", { vacancies: vacancies, uniqueCategories, uniqueLocations, user: req.user, saved: true });
     }
 

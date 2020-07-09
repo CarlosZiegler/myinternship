@@ -158,7 +158,7 @@ router.get('/auth/linkedin/callback',
  */
 
 router.get('/auth/xing',
-passport.authenticate('xing'));
+  passport.authenticate('xing'));
 
 /**
  * @swagger
@@ -171,12 +171,12 @@ passport.authenticate('xing'));
  *       
  */
 
-router.get('/auth/xing/callback', 
-passport.authenticate('xing', { failureRedirect: '/auth/login' }),
-function(req, res) {
-  // Successful authentication, redirect home.
-  res.redirect('/vacancies');
-});
+router.get('/auth/xing/callback',
+  passport.authenticate('xing', { failureRedirect: '/auth/login' }),
+  function (req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/vacancies');
+  });
 
 
 /**
@@ -191,7 +191,7 @@ function(req, res) {
  */
 
 router.post('/auth/signup', (req, res, next) => {
-  const { username, password } = req.body;
+  const { username, password, role } = req.body;
 
   if (password.length < 8) {
     res.render('auth/signup', {
@@ -208,7 +208,7 @@ router.post('/auth/signup', (req, res, next) => {
         const salt = bcrypt.genSaltSync();
         const hash = bcrypt.hashSync(password, salt);
 
-        User.create({ username: username, password: hash })
+        User.create({ username: username, password: hash, role: role, displayName: username })
           .then(dbUser => {
             // passport - login the user
             req.login(dbUser, err => {
