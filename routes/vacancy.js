@@ -106,14 +106,46 @@ router.get('/vacancies', loginCheck(), async (req, res, next) => {
 
     if (req.user.role === "company") {
       const vacancies = await Vacancy.find({ companyId: req.user._id }).populate('companyId')
-      const uniqueCategories = [... new Set(vacancies.map(item => item.category))]
-      const uniqueLocations = [... new Set(vacancies.map(item => item.location))]
+      const uniqueCategories = [... new Set(vacancies.map(item => item.category.toLowerCase()))]
+      const uniqueLocations = [... new Set(vacancies.map(item => item.location.toLowerCase()))]
       return res.render("vacancy/listVacancies", { vacancies: vacancies, user: req.user, uniqueCategories, uniqueLocations });
     } else {
       const vacancies = await Vacancy.find().populate('companyId')
-      const uniqueCategories = [... new Set(vacancies.map(item => item.category))]
-      const uniqueLocations = [... new Set(vacancies.map(item => item.location))]
-      return res.render("vacancy/listVacanciesPersonal", { vacancies: vacancies, user: req.user, uniqueCategories, uniqueLocations });
+      const uniqueCategories = [... new Set(vacancies.map(item => item.category.toLowerCase()))]
+      const uniqueLocations = [... new Set(vacancies.map(item => item.location.toLowerCase()))]
+      return res.render("vacancy/listVacanciesPersonal", { vacancies: vacancies, uniqueCategories, uniqueLocations, user: req.user });
+    }
+
+  } catch (error) {
+    console.log(error)
+  }
+});
+/**
+ * @swagger
+ * /vacancies:
+ *  get:
+ *    description: render list of Vacancies
+ *    responses:
+ *       '200': 
+ *       description: Successfully   
+ *       
+ */
+router.get('/myvacancies', loginCheck(), async (req, res, next) => {
+  try {
+
+    if (req.user.role === "company") {
+      res.redirect('/vacancies')
+    } else {
+      const [{ vacancies }] = await User.find({ _id: req.user._id }).populate('vacancies')
+      console.log(vacancies)
+      let uniqueCategories
+      let uniqueLocations
+
+      if (vacancies) {
+        uniqueCategories = [... new Set(vacancies.map(item => item.category))]
+        uniqueLocations = [... new Set(vacancies.map(item => item.location))]
+      }
+      return res.render("vacancy/listVacanciesPersonal", { vacancies: vacancies, uniqueCategories, uniqueLocations, user: req.user, saved: true });
     }
 
   } catch (error) {
@@ -209,7 +241,11 @@ router.get('/vacancies/filters', loginCheck(), async (req, res, next) => {
     const vacancies = await Vacancy.find(query)
     const uniqueCategories = [... new Set(vacancies.map(item => item.category))]
     const uniqueLocations = [... new Set(vacancies.map(item => item.location))]
-    return res.render("vacancy/listVacanciesPersonal", { vacancies: vacancies, uniqueCategories, uniqueLocations, filters });
+    if (req.user.role !== "company") {
+      return res.render("vacancy/listVacanciesPersonal", { vacancies: vacancies, uniqueCategories, uniqueLocations, filters, user: req.user });
+    } else {
+      return res.render("vacancy/listVacancies", { vacancies: vacancies, uniqueCategories, uniqueLocations, filters, user: req.user });
+    }
   } catch (error) {
     console.log(error)
   }
