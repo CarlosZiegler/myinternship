@@ -1,6 +1,23 @@
 <div class="user-info">
-  <img class="avatar" src="{{user.avatarUrl}}" />
-  <h1 class="title">Hello {{user.displayName}}</h1>
+  <img class="user-avatar" src="{{user.avatarUrl}}" />
+  <h2 class="user-name">{{user.displayName}}</h2>
+  <div class="edit-perfil">
+    <span>
+      <form action="/user/edit/{{_id}}" method="GET">
+        <button class="edit-icon" type="submit"><img src="/images/profile.svg" alt=""></button>
+      </form>
+    </span>
+    <span>
+      <form action="/myvacancies/{{_id}}" method="GET">
+        <button class="edit-icon" type="submit"><img src="/images/heart.svg" alt=""></button>
+      </form>
+    </span>
+    <span>
+      <form action="/apply/myapplies/{{_id}}" method="GET">
+        <button class="edit-icon" type="submit"><img src="/images/check.svg" alt=""></button>
+      </form>
+    </span>
+  </div>
 </div>
 <a class="btn-primary center" href="/vacancy/create">Add new Vacancy</a>
 <form class="find-form" action="/vacancies/filters" method="GET">
