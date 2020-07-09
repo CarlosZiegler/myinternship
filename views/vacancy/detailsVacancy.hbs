@@ -1,5 +1,5 @@
 <h1 class="title">Vacancy</h1>
-<div class="container">
+<div class="container column">
   <div class="card">
     <h2 class="card-title">{{vacancy.title}}</h2>
     <p class="card-title">Description: {{vacancy.description}}</p>
@@ -10,15 +10,24 @@
       {{/each}}
     </p>
     <p class="card-title">Location: {{vacancy.location}}</p>
-    <p class="card-title">CompanyID: {{vacancy.companyId.role}}</p>
+    <p class="card-title">Company: {{vacancy.companyId.displayName}}</p>
     <p class="card-title">Contract: {{vacancy.contract}}</p>
 
     {{#ifCompany user }}
 
     {{else}}
-    <a class="btn-apply" href="/apply/{{vacancy._id}}">Apply now!</a>
-    {{/ifCompany}}
-    <a class="btn-primary" href="/vacancies">Back</a>
 
+
+    <div class="card-top-btn-group">
+      <a class="btn-apply" href="/apply/{{vacancy._id}}">Apply now!</a>
+      <a href="/vacancy/save/{{vacancy._id}}" class="edit-icon edit-item" type="submit">
+        <img src="/images/heart.svg" alt="" />
+
+      </a>
+    </div>
+
+
+    {{/ifCompany}}
   </div>
+  <a class="btn-primary" href="/vacancies">Back</a>
 </div>

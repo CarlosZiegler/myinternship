@@ -22,7 +22,7 @@ describe('Testing Model User', () => {
       email: "car@example",
       githubId: "1233ewwe11212",
       googleId: "fgfgfgffgssd",
-      role: "personal",
+      role: "professional",
       avatarUrl: "https://localhost/images/",
       vacancies: [new mongoose.Types.ObjectId(), new mongoose.Types.ObjectId()]
     }

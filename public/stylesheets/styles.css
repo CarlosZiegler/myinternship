@@ -3,6 +3,7 @@ body {
   box-sizing: border-box;
   margin: 0;
   font: 14px "Roboto", Helvetica, Arial, sans-serif;
+  
  }
  
  a{
@@ -17,8 +18,14 @@ body {
    margin:0 10px;
  }
  .text-warning{
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 
+ }
+ .warning{
+  color: rgb(242, 0, 0);
  }
  .text-center{
    text-align: center;
@@ -36,6 +43,10 @@ body {
   align-items: center;
   max-width: 1200px;
   margin: 0 auto;
+}
+.column{
+  display: flex;
+  flex-direction: column;
 }
 
 .navbar-logo{
@@ -142,11 +153,14 @@ body {
   align-items: center;
   margin:0 auto;
   min-height: 65vh;
-  padding:10px;
 }
 
 .title{ 
   text-align: center;
+}
+.card-title{
+  font-weight: bold;
+  color: #6C63FF
 }
 
 .user-info{
@@ -154,7 +168,7 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-bottom: 20px;
+  margin: 20px auto;
   padding-bottom: 10px;
   border-bottom: 1px solid #C9C6FF
 }
