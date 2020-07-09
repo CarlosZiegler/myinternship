@@ -2,15 +2,12 @@ const express = require('express');
 const router = express.Router();
 
 //Documentation for Swagger https://github.com/fliptoo/swagger-express 
-
+// access -> http://localhost:3000/api-docs
 /**
  * @swagger
  * /:
  *  get:
- *    description: use to request home page
- *    responses:
- *       '200': 
- *       description: Successfully   
+ *    description: use to request home page  
  *       
  */
 
@@ -19,23 +16,5 @@ router.get('/', (req, res, next) => {
   res.render('index', { user: req.user });
 });
 
-/**
- * @swagger
- * /test/:id:
- *   post:
- *    description: use to request id
- *    parameters:
- *        - name: id
- *          description: Your id
- *          paramType: query
- *          required: true
- *          dataType: string
- *         
- */
-
-router.post('/test/:id', (req, res, next) => {
-  const id = req.params.id
-  res.send({ id });
-});
 
 module.exports = router;
