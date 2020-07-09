@@ -32,5 +32,4 @@ router.get('/apply/:id', loginCheck(), async (req, res, next) => {
   }
 });
 
-
 module.exports = router;
