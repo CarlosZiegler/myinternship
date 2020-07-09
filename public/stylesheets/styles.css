@@ -1,4 +1,6 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
 
 body {
   padding:0;
@@ -481,7 +483,6 @@ margin-top: 30px;
   width: 50px;
 }
 
-
 .signin-page button {
   width: 80%;
   background: #6C63FF;
@@ -501,8 +502,25 @@ margin-top: 30px;
   text-align: center;
 }
 
+.btn-contact-company {
+  font-size: 1.1rem;
+  background: #00a713;
+  color: #fff;
+  padding: 5px 50px;
+  border-radius: 10px;
+  border: none;
+  margin: 10px;
+}
 
-
+.btn-back-to-list {
+  font-size: 1.1rem;
+  background: #6C63FF;
+  color: #fff;
+  padding: 5px 52px;
+  border-radius: 10px;
+  border: none;
+  margin: 5px;
+}
 
 .footer{
   width:100%;
@@ -525,10 +543,12 @@ margin-top: 30px;
 .footer-logo{
   width:60px;
 }
+
 .footer-social{
   color: #fff;
   font-size: 1.2rem;
 }
+
 .footer-copyright{
   color: #fff;
 }
