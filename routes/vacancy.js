@@ -165,7 +165,8 @@ router.get('/myvacancies', loginCheck(), async (req, res, next) => {
       res.redirect('/vacancies')
     } else {
 
-      const [{ vacancies }] = await User.find({ _id: req.user._id }).populate('vacancies').populate('companyId')
+      const [{ vacancies }] = await User.find({ _id: req.user._id }).populate('vacancies')
+      console.log(vacancies)
       let uniqueCategories
       let uniqueLocations
 
@@ -278,12 +279,14 @@ router.post('/vacancy/edit/:id', loginCheck(), async (req, res, next) => {
     contract,
   } = req.body
 
+  const tagsWithoutSpace = tags.split(',').map(tag => tag.trim())
+
   try {
     const result = await Vacancy.findByIdAndUpdate(id, {
       title,
       description,
       category,
-      tags,
+      tags: tagsWithoutSpace,
       location,
       contract,
     })

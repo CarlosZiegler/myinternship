@@ -2,29 +2,33 @@
 <form class="form-add-vacancy" id="form" action="/vacancy/edit/{{vacancy._id}}" method="POST">
 
   <label for="title">Title</label>
-  <input type="text" name="title" value="{{vacancy.title}}" />
+  <input type="text" name="title" class="input-text" value="{{vacancy.title}}" />
 
   <label for="description">Description</label>
-  <input type="text" name="description" value="{{vacancy.description}}" />
+  <textarea name="description" class="input-text" id="description" cols="30" rows="10"
+    required>{{vacancy.description}}</textarea>
 
   <label for="category">Category</label>
-  <input type="text" name="category" value="{{vacancy.category}}" />
+  <input type="text" name="category" class="input-text" value="{{vacancy.category}}" />
 
   <label for="tags">Tags</label>
-  <input type="text" name="tags" value="{{vacancy.tags}}" />
+  <input type="text" name="tags" class="input-text" value="{{vacancy.tags}}" />
 
   <label for="location">Location</label>
-  <input type="text" name="location" value="{{vacancy.location}}" />
+  <input type="text" name="location" class="input-text" value="{{vacancy.location}}" />
 
   <label for="contract">Contract</label>
-  <input type="text" name="contract" value="{{vacancy.contract}}" />
-
+  <select name="contract" class="input-text" id="contract" required>
+    <option value="" selected disabled hidden>Contract</option>
+    <option value="{{vacancy.contract}}" selected>{{vacancy.contract}}</option>
+    <option value="full time">Full time</option>
+    <option value="part time">Part time</option>
+  </select>
   {{#if errorMessage}}
   <div class="error-message">{{errorMessage}}</div>
   {{/if}}
 
-  <button class="btn-primary" type="submit">Edit Vacancy</button>
+  <button class="btn-apply" type="submit">Update</button>
 </form>
 
-<a href="/">Home</a>
 <a href="/vacancies">Back to list</a>

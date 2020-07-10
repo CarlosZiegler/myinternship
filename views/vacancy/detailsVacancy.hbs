@@ -10,7 +10,9 @@
       </a>
     </div>
     {{/ifCompany}}
-    <h2 class="card-title">{{vacancy.title}}</h2>
+    <div class="content-center">
+      <h2 class="card-title">{{vacancy.title}}</h2>
+    </div>
     <p class="card-description">
       <span class="card-item-name">Description: </span>
       {{vacancy.description}}
@@ -20,7 +22,7 @@
       {{vacancy.category}}</p>
     <p class="card-description">
       <span class="card-item-name">Tags: </span>
-    <div class="card-tags">
+    <div class="card-tags-description">
       {{#each vacancy.tags}}
       <span class="card-tags-item">{{this}}</span>
       {{/each}}

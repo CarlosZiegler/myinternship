@@ -137,6 +137,11 @@ router.get('/auth/xing/callback',
 
 router.post('/auth/signup', (req, res, next) => {
   const { username, password, role } = req.body;
+  let avatarUrl;
+
+  if (role === 'company') {
+    avatarUrl = "https://image.freepik.com/vetores-gratis/ilustracao-do-conceito-de-empresa_114360-2581.jpg"
+  }
 
   if (password.length < 8) {
     res.render('auth/signup', {
@@ -153,7 +158,7 @@ router.post('/auth/signup', (req, res, next) => {
         const salt = bcrypt.genSaltSync();
         const hash = bcrypt.hashSync(password, salt);
 
-        User.create({ username: username, password: hash, role: role, displayName: username })
+        User.create({ username: username, password: hash, role: role, displayName: username, avatarUrl })
           .then(dbUser => {
             // passport - login the user
             req.login(dbUser, err => {
