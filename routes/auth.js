@@ -140,7 +140,7 @@ router.post('/auth/signup', (req, res, next) => {
   let avatarUrl;
 
   if (role === 'company') {
-    avatarUrl = "https://images.unsplash.com/photo-1549399905-5d1bad747576?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=761&q=80"
+    avatarUrl = "https://image.freepik.com/vetores-gratis/ilustracao-do-conceito-de-empresa_114360-2581.jpg"
   }
 
   if (password.length < 8) {
