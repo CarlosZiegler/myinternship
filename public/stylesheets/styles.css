@@ -76,7 +76,7 @@ body {
 }
 .hero-title{
   font-size: 2rem;
-  margin:0px;
+  margin:px;
 }
 
 .container{
@@ -197,16 +197,17 @@ body {
 .card{
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   align-content: center;
   padding: 30px;
-  border:1px solid #6C63FF;
+  border: 1px solid #6C63FF;
   border-radius: 10px;
-  width:300px;
+  width: 300px;
   height: auto;
   margin: 10px;
-  margin:10px auto;
+  margin: 10px auto;
+  height: 350px;
   
 } 
 .card-start{
@@ -293,9 +294,7 @@ li{
   margin: 5px;
   border-radius:15px;
   color:  rgb(116, 6, 31);
-  text-transform: capitalize;
-
-  
+  text-transform: capitalize;  
 }
 
 
@@ -305,8 +304,8 @@ li{
   min-width:250px;
 }
 .find-form :nth-child(n){
-  margin-top:10px;
   height: 40px;
+  margin:5px;
 }
 .form-add-vacancy :nth-child(n){
   margin-top:5px;
@@ -577,11 +576,25 @@ margin-top: 30px;
   position: static;
   bottom: 0;  
 }
-@media (min-width:1060px){
-  /* .footer{
-    position: fixed;
-    bottom: 0;
-  } */
+@media (min-width:700px){
+   .find-form{
+    display: flex;
+  flex-direction: row;
+  min-width: 250px;
+  /* max-width: 300px; */
+  /* flex-wrap: wrap; */
+  margin: 0 auto;
+  align-items: center;
+  justify-content: center;
+  } 
+  .find-input{
+    margin:5px 100px;
+  }
+  .find-form :nth-child(n) {
+    margin-left: 10px;
+    
+  }
+  
 }
 .footer-logo{
   margin-top: 10px;
