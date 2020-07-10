@@ -25,15 +25,15 @@
 {{/if}}
 <div class="find-bar">
   <form class="find-form" action="/vacancies/filters" method="GET">
-    <input id="find-input" type="text" class="find-input" placeholder="Search for title" name="title">
-    <select name="category" id="category">
+    <input id="find-input" type="text" class="input-text" placeholder="Search for title" name="title">
+    <select name="category" class="input-text" id="category">
       <option value="" selected disabled hidden>Category</option>
       {{#each uniqueCategories}}
       <option value="{{this}}">{{this}}</option>
       {{/each}}
 
     </select>
-    <select name="location" id="location">
+    <select name="location" class="input-text" id="location">
       <option value="" selected disabled hidden>Location</option>
       {{#each uniqueLocations}}
       <option value="{{this}}">{{this}}</option>

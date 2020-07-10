@@ -278,12 +278,14 @@ router.post('/vacancy/edit/:id', loginCheck(), async (req, res, next) => {
     contract,
   } = req.body
 
+  const tagsWithoutSpace = tags.split(',').map(tag => tag.trim())
+
   try {
     const result = await Vacancy.findByIdAndUpdate(id, {
       title,
       description,
       category,
-      tags,
+      tags: tagsWithoutSpace,
       location,
       contract,
     })
