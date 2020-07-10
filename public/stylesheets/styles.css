@@ -162,6 +162,7 @@ body {
   font-weight: bold;
   color: #6C63FF;
   text-align: center;
+  font-size: 1.3rem;
 }
 
 
@@ -297,12 +298,14 @@ li{
   text-transform: capitalize;  
 }
 
-
 .find-form ,.form-add-vacancy{ 
   display: flex;
   flex-direction: column;
   min-width:250px;
+  align-content: center;
+  justify-content: center;
 }
+
 .find-form :nth-child(n){
   height: 40px;
   margin:5px;
