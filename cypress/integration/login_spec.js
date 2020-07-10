@@ -1,10 +1,8 @@
-describe('The Signup Page', () => {
+describe('The Login Page', () => {
   it('sets auth cookie when logging in via form submission', function () {
     // destructuring assignment of the this.currentUser object
-    const username = "usertest"
+    const username = "SpaceX"
     const password = "12345678"
-    const email = "test@gmail.com"
-
 
     cy.visit('/auth/login')
 
