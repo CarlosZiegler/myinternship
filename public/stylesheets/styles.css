@@ -294,7 +294,7 @@ textarea{
   border: 1px solid #6C63FF;
   color: #444083;
   border-radius: 5px;
-  
+  resize: none;
 }
 
 .btn-reset{
@@ -314,15 +314,13 @@ textarea{
   width: 100%;
 }
 .btn-apply{
-  
-    font-size: 1.1rem;
-    background:#00a713;
-    color:#fff;
-    padding: 5px 50px;
-    border-radius:10px;
-    border:none;
-    margin:10px;
-
+  font-size: 1.1rem;
+  background:#00a713;
+  color:#fff;
+  padding: 5px 50px;
+  border-radius:10px;
+  border:none;
+  margin:10px;
 }
 
 .login-page {
@@ -503,6 +501,16 @@ margin-top: 30px;
   text-align: center;
 }
 
+#btn-contact-company {
+  font-size: 1.1rem;
+  background:#00a713;
+  color:#fff;
+  padding: 5px 50px;
+  border-radius:10px;
+  border:none;
+  margin:10px;
+}
+
 .btn-contact-company {
   font-size: 1.1rem;
   background: #00a713;
@@ -510,7 +518,6 @@ margin-top: 30px;
   padding: 5px 50px;
   border-radius: 10px;
   border: none;
-  margin: 10px;
 }
 
 .btn-back-to-list {
