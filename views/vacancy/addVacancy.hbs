@@ -2,22 +2,22 @@
 <form class="form-add-vacancy" id="form" action="/vacancy/create" method="POST">
 
   <label for="title">Title</label>
-  <input type="text" name="title" required />
+  <input type="text" name="title" class="input-text" required />
 
   <label for="description">Description</label>
-  <textarea name="description" id="description" cols="30" rows="10" required></textarea>
+  <textarea name="description" class="input-text" id="description" cols="30" rows="10" required></textarea>
 
   <label for="category">Category</label>
-  <input type="text" name="category" required />
+  <input type="text" class="input-text" name="category" required />
 
   <label for="tags">Tags</label>
-  <input type="text" name="tags" required />
+  <input type="text" class="input-text" name="tags" required />
 
   <label for="location">Location</label>
-  <input type="text" name="location" required />
+  <input type="text" class="input-text" name="location" required />
 
   <label for="contract">Contract</label>
-  <select name="contract" id="contract" required>
+  <select name="contract" class="input-text" id="contract" required>
     <option value="" selected disabled hidden>Contract</option>
     <option value="full time">Full time</option>
     <option value="part time">Part time</option>

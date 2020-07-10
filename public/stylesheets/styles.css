@@ -26,12 +26,17 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 80%;
   min-height: 30vh;
+  margin:0 auto;
 
  }
  .warning{
-  color: rgb(242, 0, 0);
+  color: rgb(232, 95, 95);
+  background: rgb(241, 204, 213);
+  padding:15px;
+  border-radius: 10px;
+  text-align: center;
  }
  .text-center{
    text-align: center;
@@ -75,13 +80,23 @@ body {
   border-radius: 15px;
 }
 .hero-title{
-  font-size: 2rem;
-  margin:px;
+  font-size: 1.7rem;
+  margin:5px;
+  text-align: center;
 }
 
 .container{
   display: flex;
   flex-wrap: wrap;
+}
+.apply-container{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  margin: 0 auto;
+
 }
 
 .main-content{
