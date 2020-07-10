@@ -226,6 +226,10 @@ body {
   height: 350px;
   
 } 
+.card-tags-description{
+  display: flex;
+  align-self:flex-start;
+}
 .card-start{
   display: flex;
   flex-direction: column;
@@ -235,7 +239,7 @@ body {
   padding: 30px;
   border:1px solid #6C63FF;
   border-radius: 10px;
-  width:300px;
+  width:70%;
   height: auto;
   margin: 10px;
   margin:10px auto;
@@ -414,7 +418,6 @@ display: flex;
 flex-direction: column;
 align-items: center;
 margin-top: 30px;
-
 
 }
 

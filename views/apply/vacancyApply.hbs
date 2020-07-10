@@ -2,7 +2,7 @@
 <div class="container">
   <div class="apply-container">
     <h2 class="card-title">{{vacancy.title}}</h2>
-    <form class="login-form" action="/apply/send/{{vacancy._id}}" method="post">
+    <form class="login-form form-application" action="/apply/send/{{vacancy._id}}" method="post">
       <input class="input-text" name="subject" placeholder="Subject:" required>
       <input class="input-text" name="email" type="email" placeholder="E-Mail:" required>
       <textarea class="input-text" name="content" id="" cols="30" rows="10" placeholder="Message:"></textarea>
