@@ -74,6 +74,10 @@ body {
   border:1px solid #fff;
   border-radius: 15px;
 }
+.hero-title{
+  font-size: 2rem;
+  margin:0px;
+}
 
 .container{
   display: flex;
@@ -85,7 +89,7 @@ body {
   flex-wrap: wrap;
   justify-content:center;
   align-items: center;
-  min-height:80vh;
+  min-height:70vh;
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
@@ -101,9 +105,18 @@ body {
   max-width: 400px;
   display: flex;
 
-
 }
-.index-ilustration{
+.ndex-ilustration{
+  width: 100%;
+  margin:0 auto;
+  display: flex;
+  align-items: center;
+  justify-content:center
+}
+@media (min-width:825px){
+.img-index{
+  width:500px;
+}
 }
 .text-hero-index{
   text-align: center;
