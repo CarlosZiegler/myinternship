@@ -256,7 +256,7 @@ router.post('/vacancy/delete/:id', loginCheck(), async (req, res, next) => {
 /**
  * @swagger
  * /vacancy/edit/:id:
- *  put:
+ *  get:
  *    description: edit vacancy by ID
  *    parameters:
  *       - name: ID
